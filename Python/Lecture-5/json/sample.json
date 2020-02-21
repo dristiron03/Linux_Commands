@@ -1,0 +1,32 @@
+{
+    "u4" : {
+        "username" : "u4",
+        "name" : "name4",
+        "score" : 63,
+        "age" : 18
+    },
+    "u1" : {
+        "username" : "u1",
+        "name" : "name1",
+        "score" : 78,
+        "age" : 20
+    },
+    "u5" : {
+        "username" : "u5",
+        "name" : "name5",
+        "score" : 92,
+        "age" : 21
+    },
+    "u3" : {
+        "username" : "u3",
+        "name" : "name3",
+        "score" : 60,
+        "age" : 19
+    },
+    "u2" : {
+        "username" : "u2",
+        "name" : "name2",
+        "score" : 89,
+        "age" : 19
+    }
+}

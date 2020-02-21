@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An easy to follow beginners introduction to Regular Expressions. Learn to write powerful yet elegant regular expressions.">
+    <meta name="keywords" content="regular expressions, regular expression, re, regex, regexp, pattern">
+    <meta name="author" content="Ryan Chadwick">
+
+    <title>Regular Expressions Tutorial</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="Regular%20Expressions%20Tutorial_files/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="Regular%20Expressions%20Tutorial_files/bootstrap-theme.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="Regular%20Expressions%20Tutorial_files/style.css" rel="stylesheet">
+    <link href="Regular%20Expressions%20Tutorial_files/style_002.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="https://ryanstutorials.net/favicons/favicon_regular_expressions.png">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script charset="utf-8" src="Regular%20Expressions%20Tutorial_files/button.js"></script></head>
+
+<body role="document" data-spy="scroll" data-target="#sidebox" data-offset="90"> 
+	<header id="ryansheader">
+	<div class="container">
+		<div class="col-sm-12">
+			<a id="ryantitle" href="https://ryanstutorials.net/" title="A collection of Technology Tutorials">Ryans Tutorials</a>
+			
+			<div class="btn-toolbar pull-right">
+				<div class="btn-group mega-dropdown">
+					<button class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">More Tutorials <span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right mega-dropdown-menu row">
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">Linux</li>
+								<li><a href="https://ryanstutorials.net/linuxtutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/tux_48.png" alt="Tux"><p>Linux Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/bash-scripting-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/hammer_48.png" alt="Hammer"><p>Bash Scripting Tutorial</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">Web</li>
+								<li><a href="https://ryanstutorials.net/html-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/html_48.png" alt="HTML"><p>HTML Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/css-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/css_48.png" alt="CSS"><p>CSS Tutorial</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">General</li>
+								<li><a href="https://ryanstutorials.net/binary-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/abacus_48.png" alt="Abacus"><p>Binary Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/search_48.png" alt="Search"><p>Regular Expressions Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/boolean-algebra-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/config_48.png" alt="Switches"><p>Boolean Algebra Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/rubiks-cube-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/cube_48.png" alt="Rubiks Cube"><p>Solve the Cube</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">&nbsp;</li>
+								<li><a href="https://ryanstutorials.net/problem-solving-skills/"><span><img src="Regular%20Expressions%20Tutorial_files/map_48.png" alt="Map"><p>Problem Solving Skills</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/graphic-design-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/brush_48.png" alt="Brush"><p>Basic Graphic Design</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/programming-challenges/"><span><img src="Regular%20Expressions%20Tutorial_files/rocket_48.png" alt="Rocket"><p>Programming Challenges</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/software-design-and-development/"><span><img src="Regular%20Expressions%20Tutorial_files/browser_48.png" alt="Software"><p>Software Design and Development</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/microbit-tutorial/"><span><img src="Regular%20Expressions%20Tutorial_files/microbit_48.png" alt="micro:bit"><p>micro:bit tutorial</p></span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> 
+	
+	<!-- Fixed navbar -->
+	<div id="tutorialheader" class="navbar navbar-inverse navbar-static affix-top" role="navigation" data-spy="affix" data-offset-top="40">
+		<div class="container">
+			<h1 class="introduction">Regular Expressions Tutorial</h1>
+			
+			<div class="btn-toolbar pull-right">
+								<div class="btn-group">
+					<button class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">Tutorial Sections <span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right">
+					<li class="active"><a href="https://ryanstutorials.net/regular-expressions-tutorial/">Introduction</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php">1. Basics</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php">2. Intermediate</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php">3. Advanced</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-examples.php">4. Examples</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-cheat-sheet.php">Cheat Sheet</a></li>					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="jumbotron">
+					<h2>Regular Expressions!</h2>
+					<p>What the ^.{4}$.</p>
+				</div>
+				
+				<h2 id="introduction" class="introduction">Introduction</h2>
+				
+				<p>The following pages are intended to give you a solid foundation 
+in how to write regular expressions (Also referred to as regex or RE's).
+  A regular expression is a means for describing a particular pattern of
+ characters of text.</p>
+				
+				<p>That's kinda a bit abstract so let's try to put it into perspective.  With regular expressions you can:</p>
+				
+				<ul>
+					<li><b>Search</b> for particular items within a large body of text.
+ eg. You may wish to identify all email addresses in some content using a
+ text editor.</li>
+					<li><b>Replace</b> particular items. eg. You may wish to clean up 
+some poorly formatted HTML by replacing all uppercase tags with 
+lowercase equivalents in a text editor.</li>
+					<li><b>Validate</b> input. eg. You may want to check that a 
+password meets certain criteria such as, a mix of uppercase and 
+lowercase, digits and punctuation etc in a program you are writing.</li>
+					<li><b>Coordinate</b> actions. eg. You may wish to process certain 
+files in a directory, but only if they meet particular conditions, in 
+work you are doing on the command line.</li>
+					<li><b>Reformat</b> text. eg. You may export data from one program 
+as a text file then modify its layout so you may import it into another 
+program using a text editor.</li>
+					<li>and more...</li>
+				</ul>
+				
+				<p>with little effort.</p>
+				
+				<p>Let's look at a very simple example.  The following regular expression:</p>
+				
+				<p class="regex">b[ia]</p>
+				
+				<p>Will match every instance of the character <b>b</b> followed by either the character <b>i</b> or <b>a</b>  So if we ran that regular expression over the following text it would match as follows:</p>
+				
+				<div class="regtext">
+					<div>b[ia]</div>
+					The <span>ba</span>t took a <span>bi</span>te out of the <span>bi</span>g boring apple.
+				</div>
+				
+				<p>That's not very useful, or exciting, but as we delve further into
+ regular expressions the examples will start to become more practical 
+and powerful.</p>
+				
+				<p>From here onwards I will illustrate regular expressions as above.
+  The blue text is the regular expression and the text below it is what 
+we are testing it on.  Anything highlighted in blue is text which the 
+regular expression has matched.</p>
+				
+				
+				<h2 id="outline">Outline</h2>
+				
+				<p>This Regular Expressions tutorial is divided into 3 sections. In 
+general I recommend you work through them in order but if you've come 
+here just to learn about a specific topic then who am I to slow you 
+down, just head straight on over.</p>
+				
+				<p>Keep reading below to get started with regular expressions or skip to one of the following sections.</p>
+				
+				<ol>
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php">Regular expressions basics</a> - the basic building blocks of regular expressions.</li>
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php">Regular expressions intermediate</a> - slightly harder regular expression features.</li>
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php">Advanced regular expressions</a> - features which are a little harder to get your head around.</li>
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-examples.php">Examples</a> - Some examples to give you a taste of what Regular Expressions can do.</li>
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-cheat-sheet.php">Cheat Sheet</a> - Because remembering all those different meta characters can be difficult.</li>
+				</ol>
+				
+				
+				<h2 id="where">So Where and How do I use Regular Expressions?</h2>
+				
+				<p>Regular expressions are a feature of many pieces of software and 
+nearly all programming languages.  Probably you are using tools right 
+now which can take advantage of regular expressions, and once you master
+ them you'll be able to do even more with them.</p>
+				
+				<p>Regular expressions aren't a specific feature, so you won't find 
+an entry in a menu which says 'Regular Expression'.  Instead they are 
+typically used where you may provide input.  A good example of this is 
+the <b>search</b> function in text editors.</p>
+				
+				<p>For the purposes of experimenting with regular expressions, the 
+search function in text editors is a good way to practice.  A text 
+editor which is available for Windows, Linux and OSX is:</p>
+				
+				<p><a href="https://www.activestate.com/komodo-ide/downloads/edit">Komodo Edit</a></p>
+				
+				<p>It's quite a nice editor which also does syntax highlighting and has a built in FTP client.</p>
+				
+				<p><b>Note:</b> by default it's search functionality is basic but you can enable regular expressions. To do this, go into:</p>
+				
+				<p>Preferences/ Settings -&gt; Find -&gt; Incremental Search -&gt; Uses</p>
+				
+				<p>And change the value from <b>Plain text</b> to <b>Regular Expressions</b>
+				
+				</p><p>This is not the only editor so if you prefer another editor 
+then you should see if it supports regular expressions,  there is a good
+ chance that it does.</p>
+				
+				
+				<h2 id="learning">Learning Regular Expressions</h2>
+				
+				<p>When you first start learning and playing about with regular 
+expressions you will regularly create expressions which do not work 
+properly.  Either they will match many things they shouldn't, or they 
+will match nothing.  When this happens don't worry.  It's part of 
+learning and it's generally easy to get yourself out of trouble.  I find
+ the following approach to be effective for fixing oddly behaving 
+regular expressions.</p>
+				
+				<ul>
+					<li><b>Break</b> the regular expression down into it's individual 
+components (So for instance, in the regular expression example above it 
+would become <b>b</b> and <b>[ia]</b>).</li>
+					<li><b>Speak</b> out aloud the steps of the expression.  So for the above expression I might say: "First it matches a <b>b</b>, followed by either an <b>i</b> or an <b>a</b>"
+ (This step may sound silly but trust me it works.  You use different 
+parts of your brain when you speak as opposed to think internally.)</li>
+					<li><b>Build</b> the regular expression incrementally, testing as you go.</li>
+				</ul>
+				
+				<p>If you take this approach then you can easily narrow down exactly
+ where the regular expression is going wrong. You may also find our <a href="https://ryanstutorials.net/problem-solving-skills/">Problem Solving Tutorial</a> to be worth a quick read.</p>
+				
+				
+				<h3>The right test data</h3>
+				
+				<p>Another avenue of attack is creating some test data, then 
+tweaking it to better understand what your regular expression really is 
+matching and not matching.</p>
+				
+				<p>Creating good test data is really important in making sure your 
+regular expressions behave the way they should (especially once you 
+start diving into more complex expressions).  Your regular expression 
+may match some right matches but not all of them.  Alternatively, it may
+ match every correct bit of text but also some that it shouldn't.  With 
+practice you'll get better at creating test data to fully validate your 
+expressions.</p>
+				
+				<p>As an example. the following expression matches a <b>b</b> followed by any character.  If my task was to match a <b>b</b> followed by either an <b>i</b> or <b>a</b> (as above), I might test it with the following data and come to the incorrect conclusion that it works.</p>
+				
+				<div class="regtext">
+					<div>b.</div>
+					The <span>ba</span>t took a <span>bi</span>te out of the <span>bi</span>g apple.
+				</div>
+				
+				<p>The thing is, I gave it data which obviously should match, but I 
+didn't give it data which is close but not quite.  When you create your 
+test data, make sure you also include those edge cases.</p>
+				
+				<div class="regtext">
+					<div>b.</div>
+					The <span>ba</span>t took a <span>bi</span>te out of the <span>bi</span>g <span>bo</span>ring apple.
+				</div>
+				
+				<p>Some of this may not entirely make sense right now but it will as
+ you start to dabble with regular expressions so keep it in mind as you 
+progress through the next few pages.</p>
+				
+				
+				
+				
+				<div id="bottomnavigation">
+					<div class="pull-left"><a href="https://ryanstutorials.net/"><span class="glyphicon glyphicon-chevron-left"></span> Tutorials Home</a></div>
+					<div class="pull-right"><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php">Regular Expressions Basics <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+				</div>
+				
+			</div>
+			<div class="col-md-3" id="sideboxcol">
+				<div class="well sidebar-nav hidden-xs hidden-sm affix-top" id="sidebox" data-spy="affix" data-offset-top="40" style="width: 263px;">
+					<ul class="nav nav-list">
+						<li class="nav-header">Section Breakdown</li>
+						<li class=""><a href="#introduction">Introduction</a></li>
+						<li class=""><a href="#outline">Outline</a></li>
+						<li class=""><a href="#where">Where and How</a></li>
+						<li class=""><a href="#learning">Learning Regular Expressions</a></li>
+						<li class="nav-header">Next Section</li>
+						<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php">Regular Expressions Basics</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid footer-background margin-top">
+	<div class="row-fluid">
+		<div class="col-md-12">
+			<div class="container">
+				<footer>
+					<p>By <a href="https://plus.google.com/105636787773904848687" rel="author">Ryan Chadwick</a> © 2019 <span style="margin-left:30px;"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" style="position: static; visibility: visible; width: 135px; height: 20px;" title="Twitter Follow Button" src="Regular%20Expressions%20Tutorial_files/follow_button.html" data-screen-name="funcreativity" frameborder="0"></iframe></span><script async="" src="Regular%20Expressions%20Tutorial_files/analytics.js"></script><script async="" src="Regular%20Expressions%20Tutorial_files/widgets.js" charset="utf-8"></script></p>
+				</footer>
+					
+				<div id="footerbar"></div> 
+
+				<div class="row">
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/" title="Kindle the flame">
+							<img src="Regular%20Expressions%20Tutorial_files/fire_64.png" alt="Flame">
+							<h4>Home</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/linuxtutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/tux_64.png" alt="Tux">
+							<h4>Linux Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/html-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/html_64.png" alt="HTML">
+							<h4>HTML Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/binary-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/abacus_64.png" alt="Abacus">
+							<h4>Binary Tutorial</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<p>Education is the kindling of a flame, <br>not the filling of a vessel.<br>
+						<i>- Socrates</i></p>
+						
+						<p><a href="https://ryanstutorials.net/contact.php">Contact</a> | <a href="https://ryanstutorials.net/disclaimer.php" title="Privacy Policy, Terms of Use and Disclaimer">Disclaimer</a></p>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/bash-scripting-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/hammer_64.png" alt="Hammer">
+							<h4>Bash Scripting Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/css-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/css_64.png" alt="CSS">
+							<h4>CSS Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/regular-expressions-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/search_64.png" alt="Search">
+							<h4>Regular Expressions</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/programming-challenges/">
+							<img src="Regular%20Expressions%20Tutorial_files/rocket_64.png" alt="Rocket">
+							<h4>Programming Challenges</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/problem-solving-skills/">
+							<img src="Regular%20Expressions%20Tutorial_files/map_64.png" alt="Map">
+							<h4>Problem Solving</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/boolean-algebra-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/config_64.png" alt="Switches">
+							<h4>Boolean Algebra Tutorial</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/graphic-design-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/brush_64.png" alt="Paint Brush">
+							<h4>Basic Design Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/rubiks-cube-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/cube_64.png" alt="Rubiks Cube">
+							<h4>Solve the Cube</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/software-design-and-development/">
+							<img src="Regular%20Expressions%20Tutorial_files/browser_64.png" alt="Software">
+							<h4>Software Design and Development</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-9 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/microbit-tutorial/">
+							<img src="Regular%20Expressions%20Tutorial_files/microbit_64.png" alt="micro:bit">
+							<h4>micro:bit Tutorial</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-20188827-12', 'ryanstutorials.net');
+	ga('send', 'pageview');
+
+</script>
+
+	<!--<div id='rhythm'></div>-->
+	
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	
+	<script src="Regular%20Expressions%20Tutorial_files/jquery.js"></script>
+	<script src="Regular%20Expressions%20Tutorial_files/bootstrap.js"></script>
+	<script src="Regular%20Expressions%20Tutorial_files/base.js"></script>
+
+
+ 
+
+<iframe scrolling="no" allowtransparency="true" src="Regular%20Expressions%20Tutorial_files/widget_iframe.html" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe></body></html>

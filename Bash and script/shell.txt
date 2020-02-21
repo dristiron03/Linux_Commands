@@ -1,0 +1,45 @@
+Bash
+    Bash is a command language interpreter. It is widely available on various operating systems and is a default command interpreter on most GNU/Linux systems. The name is an acronym for the ‘Bourne-Again SHell’.
+Shell
+    Shell is a macro processor which allows for an interactive or non-interactive command execution. 
+Scripting
+    Scripting allows for an automatic commands execution that would otherwise be executed interactively one-by-one.
+
+
+Well, the terminal window in front of you contains shell, and shell allows you by use of commands to interact with your computer, hence retrieve or store data, process information and various other simple or even extremely complex tasks. 
+What you have just done, was that by use of commands and shell you interacted with your computer to retrieve a current date and time (date), looked up a calendar (cal), checked the location of your current working directory (pwd) and retrieved a list of all files and directories located within (ls). 
+
+
+To see what is meant by scripting, use shell in combination with your favorite text editor eg. vi to create a new file called task.sh containing all the above commands, each on a separate line. Once ready, make your new file executable using chmod command with an option +x. Lastly, execute your new script by prefixing its name with ./.
+
+So far we have covered shell and scripting. What about Bash? Where does the bash fit in? As already mentioned, the bash is a default interpreter on many GNU/Linux systems, thus we have been using it even without realising. This is why our previous shell script works even without us defining bash as an interpreter. To see what is your default interpreter execute command echo $SHELL:
+$ echo $SHELL
+/bin/bash
+There are various other shell interpreters available, such as Korn shell, C shell and more. From this reason, it is a good practice to define the shell interpreter to be used explicitly to interpret the script's content.
+To define your script's interpreter as Bash, first locate a full path to its executable binary using which command, prefix it with a shebang #! and insert it as the first line of your script. There are various other techniques how to define shell interpreter, but this is a solid start.
+From now, all our scripts will include shell interpreter definition #!/bin/bash. 
+it is immediately clear that file with extension .sh is plausibly a shell script 
+
+
+On GNU/Linux systems a file command can be used to identify a type of the file.
+In a highly simplistic view, a bash script is nothing else just a text file containing instructions to be executed in order from top to bottom. How the instructions are interpreted depends on defined shebang or the way the script is executed
+
+
+Another way to execute bash scripts is to call bash interpreter explicitly eg. $ bash date.sh, hence executing the script without the need to make the shell script executable and without declaring shebang directly within a shell script. By calling bash executable binary explicitly, the content of our file date.sh is loaded and interpreted as Bash Shell Script. 
+
+
+The following video example offers an alternative way of creating the above hello-world.sh script. It uses which command to print a full path to the bash interpreter. This output is simultaneously redirected using > redirection sign while creating a new file hello-world.sh at the same time.
+
+
+Use man command to display manual page of any desired command. For example to display a manual page for the ls command execute man ls. To quit from manual page press q key.
+
+
+The next example offers more practical application as it can be used to backup our user home directory. To create the backup script, on Line 3we will be using tar command with various options -czf in order to create a compressed tar ball of entire user home directory /home/linuxconfig/. Insert the following code into a new file called backup.sh, make the script executable and run it:
+#!/bin/bash
+tar -czf /tmp/myhome_directory.tar.gz /home/linuxconfig
+
+
+Never name your private variables using UPPERCASE characters. This is because uppercase variable names are reserved for internal shell variables, and you run a risk of overwriting them. This may lead to the dysfunctional or misbehaving script execution. 
+
+
+Every line starting with # sign except shebang will not be interpreted by bash and will only serve as a programmer's internal note. 

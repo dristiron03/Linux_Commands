@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>Linux Tutorial - Grep Cheat Sheet</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A basic Linux grep cheat sheet. Contains links to relevant sections in the tutorial.">
+	<meta name="keywords" content="linux tutorial, tutorial, linux, unix, bash, cheat sheet, grep, egrep">
+	<meta name="author" content="">
+
+	<!-- Le styles -->
+	<link href="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/bootstrap.css" rel="stylesheet">
+	<link href="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/bootstrap-responsive.css" rel="stylesheet">
+	<link href="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/style.css" rel="stylesheet">
+	
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="../assets/js/html5shiv.js"></script>
+	<![endif]-->
+	
+	<style>
+		.sectioncontainer h4 {
+			color: #468847;
+		}
+	</style>
+	
+	<link rel="icon" type="image/png" href="https://ryanstutorials.net/favicon_linux.png">
+</head>
+
+<body data-spy="scroll" data-target="#sidenav" data-offset="90">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<h1>Linux Tutorial - Grep Cheat Sheet</h1>
+				<div class="btn-toolbar pull-right">
+					
+					<div class="btn-group">
+						<button class="btn btn-info dropdown-toggle" data-toggle="dropdown">Tutorial Sections <span class="caret"></span></button>
+						<ul class="dropdown-menu pull-right">
+							<li><a href="https://ryanstutorials.net/linuxtutorial/">Introduction</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/commandline.php">1. The Command Line </a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/navigation.php">2. Basic Navigation</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/aboutfiles.php">3. More About Files</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/manual.php">4. Manual Pages</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/filemanipulation.php">5. File Manipulation</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/vi.php">6. VI - Text Editor</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/wildcards.php">7. Wildcards</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/permissions.php">8. Permissions</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/filters.php">9. Filters</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/grep.php">10. Grep and Regular Expressions</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/piping.php">11. Piping and Redirection</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/processes.php">12. Process Management</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/scripting.php">13. Scripting</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/bonus.php">Bonus Material</a></li>
+							<li class="divider"></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/cheatsheet.php">Cheat Sheet</a></li>
+							<li class="active"><a href="https://ryanstutorials.net/linuxtutorial/cheatsheetgrep.php">Grep Cheat Sheet</a></li>
+							<li><a href="https://ryanstutorials.net/linuxtutorial/cheatsheetvi.php">Vi Cheat Sheet</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span12">
+		<p>This cheat sheet is intended to be a quick reminder for the main concepts involved in using the command line program <b>grep</b>
+ and assumes you already understand its usage. If you are new to the 
+Linux command line we strongly suggest you work through the tutorial.</p>
+		
+		<p>Visit the <a href="https://ryanstutorials.net/linuxtutorial/grep.php">Grep and Regular Expressions</a> page in our tutorial for a more in depth discussion on their usage.</p>
+		
+		<p><a href="https://ryanstutorials.net/linuxtutorial/cheatsheet.php">Main Linux Cheat Sheet page.</a></p>
+		
+		<div id="cheatsheetcolumn0" class="cheatsheetcolumns"><div id="sectionholder0"></div><div class="clearfix"></div></div>
+		<div id="cheatsheetcolumn1" class="cheatsheetcolumns"><div id="sectionholder1"></div><div class="clearfix"></div></div>
+		<div id="cheatsheetcolumn2" class="cheatsheetcolumns"><div id="sectionholder2"></div><div class="clearfix"></div></div>
+		<div id="cheatsheetcolumn3" class="cheatsheetcolumns"><div id="sectionholder3"></div><div class="clearfix"></div></div>
+		
+		<div class="clearfix"></div>
+		<div id="sectionsmain">
+			<div id="basicusage" class="sectioncontainer">
+				<h4>Basic Usage</h4>
+				
+				<dl>
+					<dt>egrep or grep -E</dt>
+					<dd>Run grep with extended regular expressions.</dd>
+					
+					<dt>-i</dt>
+					<dd>Ignore case (ie uppercase, lowercase letters).</dd>
+					
+					<dt>-v</dt>
+					<dd>Return all lines which don't match the pattern.</dd>
+					
+					<dt>-w</dt>
+					<dd>Select only matches that form whole words.</dd>
+					
+					<dt>-c</dt>
+					<dd>Print a count of matching lines.</dd>
+					<dd>Can be combined with the -v option to print a count of non matchine lines.</dd>
+					
+					<dt>-l</dt>
+					<dd>Print the name of each file which contains a match.</dd>
+					<dd>Normally used when grep is invoked with wildcards for the file argument.</dd>
+					
+					<dt>-n</dt><dt>
+					</dt><dd>Print the line number before each line that matches.</dd>
+					
+					<dt>-r</dt>
+					<dd>Recursive, read all files in given directory and subdirectories.</dd>
+					
+				</dl>
+				
+				<i class="icon-chevron-up toggle-section"></i>
+			</div>
+			
+			<div id="regularexpressions" class="sectioncontainer">
+				<h4>Regular Expressions</h4>
+				
+				<dl>
+					<dt>.</dt>
+					<dd>A single character</dd>
+					
+					<dt>[abc]</dt>
+					<dd>Range. ie any one of these characters</dd>
+					
+					<dt>[^abc]</dt>
+					<dd>Not range. A character that is not one of those enclosed.</dd>
+					
+					<dt>(abc)</dt>
+					<dd>Group these characters and remember for later.</dd>
+					
+					<dt>\n</dt>
+					<dd>Replace n with a number.  Recall the charactes matched in that set of brackets.</dd>
+					<dd>May also be used to rename files or directories.</dd>
+					
+					<dt>|</dt>
+					<dd>The logical 'or' operation.</dd>
+					
+					<dt>\</dt>
+					<dd>In front of a character, removes it's special meaning.</dd>
+				</dl>
+				
+				<i class="icon-chevron-up toggle-section"></i>
+			</div>
+			
+			<div id="multipliers" class="sectioncontainer">
+				<h4>RE Multipliers</h4>
+				
+				<dl>
+					<dt>?</dt>
+					<dd>The preceding item is optional, it is matched zero or one times.</dd>
+					
+					<dt>*</dt>
+					<dd>The preceding item will be matched zero or more times.</dd>
+					
+					<dt>+</dt>
+					<dd>The preceding item will be matched one or more times.</dd>
+					
+					<dt>{n}</dt>
+					<dd>The preceding item will be matched exactly n times.</dd>
+					
+					<dt>{n,}</dt>
+					<dd>The preceding item will be matched n or more times.</dd>
+					
+					<dt>{n,m}</dt>
+					<dd>The preceding item will be matched between n and m times.</dd>
+				</dl>
+				
+				<i class="icon-chevron-up toggle-section"></i>
+			</div>
+			
+			<div id="anchors" class="sectioncontainer">
+				<h4>RE Anchors</h4>
+				
+				<dl>
+					<dt>^</dt>
+					<dd>From the beginning of the line.</dd>
+					
+					<dt>$</dt>
+					<dd>To the end of the line.</dd>
+					
+					<dt>\&lt;</dt>
+					<dd>At the beginning of a word.</dd>
+					
+					<dt>\&gt;</dt>
+					<dd>At the end of a word.</dd>
+					
+					<dt>\b</dt>
+					<dd>Match either the beginning or end of a word.</dd>
+				</dl>
+				
+				<i class="icon-chevron-up toggle-section"></i>
+			</div>
+			
+			<div id="examples" class="sectioncontainer">
+				<h4>Some Examples</h4>
+				
+				<dl>
+					<dt>egrep 'mellon' myfile.txt</dt>
+					<dd>Print every line in myfile.txt containing the string 'mellon'.</dd>
+					
+					<dt>egrep -n 'mellon' myfile.txt</dt>
+					<dd>Same as above but print a line number before each line.</dd>
+					
+					<dt>egrep '(.)bb\1' myfile.txt</dt>
+					<dd>Find every line with 2 b's and the same character both before and after those b's.</dd>
+					
+					<dt>egrep -l '[0-9]{8,}' /files/projectx/*</dt>
+					<dd>Print each file in the directory projectx which contains a number of 8 digits or more.</dd>
+					
+					<dt>egrep '\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b' myfile.txt</dt>
+					<dd>Print every line of myfiles.txt containing an email address.</dd>
+					<dd>Note: this is just a simple email matching pattern.  There is a miniscule number of email addresses it will not match.</dd>
+				</dl>
+				
+				<i class="icon-chevron-up toggle-section"></i>
+			</div>
+		</div>
+		
+        </div><!--/span-->
+        
+      </div><!--/row-->
+
+      <!--<hr>-->
+
+    </div><!--/.fluid-container-->
+    
+    <div class="container-fluid footer-background margin-top">
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="container">
+				<footer>
+					<p>By <a href="https://plus.google.com/105636787773904848687" rel="author">Ryan Chadwick</a> © 2019</p>
+					<p>Education is the kindling of a flame, not the filling of a vessel.</p>
+					<p>- Socrates</p>
+				</footer>
+					
+				<div id="footerbar"></div> 
+
+				<div class="row">
+					<div class="span3 tutorial-outline">
+						<a href="https://ryanstutorials.net/" title="Kindle the flame">
+							<img src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/fire_64.png" alt="Home">
+							<h4>Home</h4>
+						</a>
+					</div>
+					<div class="span3 tutorial-outline">
+						<a href="https://ryanstutorials.net/linuxtutorial/">
+							<img src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/tux_64.png" alt="Tux">
+							<h4>Linux Tutorial</h4>
+						</a>
+					</div>
+					<div class="span3 tutorial-outline">
+						<a href="https://ryanstutorials.net/bash-scripting-tutorial/">
+							<img src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/hammer_64.png" alt="Hammer">
+							<h4>Bash Scripting Tutorial</h4>
+						</a>
+					</div>
+					<div class="span3 tutorial-outline">
+						<a href="https://ryanstutorials.net/problem-solving-skills/">
+							<img src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/map_64.png" alt="Map">
+							<h4>Problem Solving</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span3 offset3 tutorial-outline">
+						<a href="https://ryanstutorials.net/graphic-design-tutorial/">
+							<img src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/brush_64.png" alt="Paint Brush">
+							<h4>Basic Design Tutorial</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<script async="" src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/analytics.js"></script><script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-20188827-12', 'ryanstutorials.net');
+	ga('send', 'pageview');
+
+</script>
+ 
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    
+    <!--[if lt IE 9]>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<![endif]-->
+	<!--[if gte IE 9]><!-->
+	<script src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+	<!--<![endif]-->
+	
+	<script src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/bootstrap.js"></script>
+	<script src="Linux%20Tutorial%20-%20Grep%20Cheat%20Sheet_files/javascript.js"></script>
+	
+	<script>
+		var columns = 1;
+		var sections = ['basicusage', 'regularexpressions', 'multipliers', 'anchors', 'examples'];
+		$(document).ready( function() {organise_sections(); activate_sections(); setTimeout(organise_sections, 1500)} );
+		$(window).resize(organise_sections);
+	</script>
+
+
+
+</body></html>

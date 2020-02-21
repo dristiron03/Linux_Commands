@@ -1,0 +1,205 @@
+ * {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a img {
+	border: none;
+}
+
+@font-face {
+	font-family: "Open-Sans";
+	src: url("https://ads.mediaforge.com/fonts/OpenSans-Regular.ttf") format("truetype");
+}
+
+#ad { 
+	background-image: url("images/300x250.jpg"); 
+	opacity: 0;
+	-webkit-animation: fadeIn 0s linear .35s 1 forwards;
+	-moz-animation: fadeIn 0s linear .35s 1 forwards;
+	-o-animation: fadeIn 0s linear .35s 1 forwards;
+	animation: fadeIn 0s linear .35s 1 forwards;
+}
+
+/*<----------feed items---------->*/
+
+
+#main_feed {
+  position: absolute;
+  top: 0px;
+  height: 300px;
+  width: 450px;
+  margin-left: -70px;
+}
+
+.viewport {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+table {
+	height: 95px;
+	width: 100%;
+	margin-top:68px;
+}
+
+.item {
+    float: left;
+    position: relative;
+    width: 125px;
+    height: 100%;
+}
+
+.item_info {
+	position: absolute;
+	text-align: center;
+  	color: #fff;
+  	font-family: Open Sans, "Open-Sans", sans-serif;
+  	line-height: 18px;
+  	top:3px;
+	width: 280px;
+	height: 60px;
+	opacity: 0;
+	margin-left:-83px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+	-webkit-animation:fadeOut .25s linear 0s 1 forwards;
+	-moz-animation:fadeOut .25s linear 0s 1 forwards;
+	-o-animation:fadeOut .25s linear 0s 1 forwards;
+	animation:fadeOut .25s linear 0s 1 forwards;
+}
+
+.item_name {
+    position: relative;
+    font-size:16px;
+}
+
+.item_brand {
+    position: relative;
+    font-size: 10px;
+}
+
+.item_image {
+	float: left;
+	text-align: center;
+	width: 98px;
+	height: 98px;
+	overflow: hidden;
+	line-height: 95px;
+	border:solid 3px white;
+	-webkit-animation: shrink .25s linear 0s 1 forwards;
+	-moz-animation: shrink .25s linear 0s 1 forwards;
+	-o-animation: shrink .25s linear 0s 1 forwards;
+	animation: shrink .25s linear 0s 1 forwards;
+}
+
+.item_image img{
+	height: 100px;
+	width: auto;
+	background-color:white;
+}
+
+.items_viewport.active .item_info {
+	opacity:0;
+	-webkit-animation: fadeIn .25s linear .25s 1 forwards;
+	-moz-animation: fadeIn .25s linear .25s 1 forwards;
+	-o-animation: fadeIn .25s linear .25s 1 forwards;
+	animation: fadeIn .25s linear .25s 1 forwards;
+}
+
+.items_viewport.active .item_image {
+	-webkit-animation: grow .25s linear .25s 1 forwards;
+	-moz-animation: grow .25s linear .25s 1 forwards;
+	-o-animation: grow .25s linear .25s 1 forwards;
+	animation: grow .25s linear .25s 1 forwards;
+}
+
+@-webkit-keyframes grow {0% {transform:scale(1);} 100% {transform:scale(1.1);}}
+@-moz-keyframes grow {0% {transform:scale(1);} 100% {transform:scale(1.1);}}
+@-o-keyframes grow {0% {transform:scale(1);} 100% {transform:scale(1.1);}}
+@keyframes grow {0% {transform:scale(1);} 100% {transform:scale(1.1);}}
+
+@-webkit-keyframes shrink {0% {transform:scale(1.1);} 100% {transform:scale(1);}}
+@-moz-keyframes shrink {0% {transform:scale(1.1);} 100% {transform:scale(1);}}
+@-o-keyframes shrink {0% {transform:scale(1.1);} 100% {transform:scale(1);}}
+@keyframes shrink {0% {transform:scale(1.1);} 100% {transform:scale(1);}}
+
+@-webkit-keyframes fadeOut { 0% {opacity: 1;} 100% {opacity: 0;}}
+@-moz-keyframes fadeOut { 0% {opacity: 1;} 100% {opacity: 0;}}
+@-o-keyframes fadeOut { 0% {opacity: 1;} 100% {opacity: 0;}}
+@keyframes fadeOut { 0% {opacity: 1;} 100% {opacity: 0;}}
+
+@-webkit-keyframes fadeIn { 0% {opacity: 0;} 100% {opacity: 1;}}
+@-moz-keyframes fadeIn { 0% {opacity: 0;} 100% {opacity: 1;}}
+@-o-keyframes fadeIn { 0% {opacity: 0;} 100% {opacity: 1;}}
+@keyframes fadeIn { 0% {opacity: 0;} 100% {opacity: 1;}}
+
+
+/*<----------Nav Arrows---------->*/
+
+.nav_arrows {
+	position: absolute;
+	top: 108px;
+	left: 68px;	
+}
+
+.nav_arrows li {
+	position: absolute;
+	top: 0px;
+}
+
+.nav_arrows li.nav_previous {
+	left: 0px;
+	background:url('images/arrows.png') 0 0;
+}
+
+.nav_arrows li.nav_next {
+	left: 267px;
+	background:url('images/arrows.png') 32px 0;
+}
+
+.nav_arrows li a {
+	overflow: hidden;
+	border-style: dashed;
+	border-color: transparent;
+	border-width: 0.53em;
+	display: -moz-inline-box;
+	display: inline-block;
+	/* Use font-size to control the size of the arrow. */
+	font-size: 0px;
+	height:28px;
+	line-height: 0;
+	position: relative;
+	vertical-align: middle;
+	width: 35px;
+}
+
+.nav_arrows li.nav_previous a {
+	border-right-width: 0.6em;
+  	border-right-style: solid;
+  	border-right-color: #be1e2d;
+  	right: 0.25em;
+}
+
+.nav_arrows li.nav_next a {
+	background-position: -30px -50px; 
+	border-left-width: 0.6em;
+ 	border-left-style: solid;
+  	border-left-color: #be1e2d;
+  	left: 0.25em;
+}
+
+.nav_arrows li.nav_previous a:hover {
+	border-left-color: #000000;
+}
+
+.nav_arrows li.nav_next a:hover {
+	border-left-color: #000000;	
+}

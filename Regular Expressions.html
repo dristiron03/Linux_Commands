@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 3.0//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<title>Regular Expressions</title>
+
+
+</head>
+<body bgcolor="#FFFFFF">
+
+
+
+<table cellspacing="5" cellpadding="10">
+<tbody><tr>
+	<td width="115">
+	<img src="Regular%20Expressions_files/nwlogo.gif" width="95" height="80" align="LEFT">
+	</td>
+	
+	<td>
+	<font size="6">R</font><font size="5">EGULAR</font> <font size="6">E</font><font size="5">XPRESSIONS</font><br>
+	<i><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/mtnewswatcher.html">Multi-threaded NewsWatcher</a></i>
+	</td>
+</tr>
+</tbody></table>
+
+<hr>
+<table cellspacing="5" cellpadding="10">
+<tbody><tr>
+	<td width="115" valign="TOP" align="RIGHT">
+	<h3>Contents</h3>
+	</td>
+	
+	<td>
+	<ul>
+		<li><a href="#intro">Regular Expressions</a>
+		<ul>
+			<li><a href="#what">What are they?</a>
+			</li><li><a href="#info">More information</a>
+		</li></ul>
+		</li><li><a href="#basics">Regexp basics</a>
+		<ul>
+			<li><a href="#simple">Matching simple expressions</a>
+			</li><li><a href="#any">Matching any character</a>
+			</li><li><a href="#repeat">Repeating expressions</a>
+			</li><li><a href="#group">Grouping expressions</a>
+			</li><li><a href="#choose">Choosing one character from many</a>
+			</li><li><a href="#begin">Matching the beginning or end of a line</a>
+		</li></ul>
+		</li><li><a href="#extensions">Regexp extensions</a>
+		<ul>
+			<li><a href="#words">Matching words</a>
+			</li><li><a href="#alt">Alternatives</a>
+		</li></ul>
+		</li><li><a href="#examples">Some useful examples</a>
+	</li></ul>
+	<a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/filtering.html">Go back to the page on filtering</a>.<br>
+	<a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/filteredit.html">See the page on creating and editing filters</a>.
+	</td>
+	</tr>
+</tbody></table>
+<hr>
+
+<table cellspacing="5" cellpadding="10">
+
+<tbody><tr>
+	<td width="115">
+	</td>
+	<td>
+	<h2>R<font size="4"><a name="intro">EGULAR</a></font> E<font size="4">XPRESSIONS</font><hr></h2>
+	</td>
+</tr>
+
+<tr>
+	<td width="115" valign="TOP" align="RIGHT">
+	<h3><a name="what">What are<br>regular expressions?</a></h3>
+	</td>
+	
+	<td>
+	Regular expressions are a system for matching patterns in text data, which
+	are widely used in UNIX systems, and occasionally on personal computers
+	as well. They provide a very powerful, but also rather obtuse, set of tools
+	for finding particular words or combinations of characters in strings.
+	<p>
+	On first reading, this all seems particularly complicated and not of much
+	use over and above the standard string matching provided in the Edit
+	Filters dialog (Word matching, for example). In actual fact, in these
+	cases NewsWatcher converts your string matching criteria into a regular
+	expression when applying filters to articles.
+	</p><p>
+	However, you can use some of the simpler matching criteria with ease
+	(some examples are suggested below), and gradually build up the complexity
+	of the regular expressions that you use.
+	</p><p>
+	One point to note is that regular expressions are <i>not</i> wildcards. The
+	regular expression '<code>c*t</code>' does not mean 'match "cat", "cot"' etc.
+	In this case, it means 'match zero or more 'c' characters followed by
+	a t', so it would match 't', 'ct', 'cccct' etc.
+	</p></td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="info">Information sources</a></i>
+	</td>
+	
+	<td>
+	The information here is an amalgamation of the documentation of regular
+	expressions in the Metrowerks CodeWarrior IDE, and of a chapter in the
+	book UNIX Power Tools (Peek, O'Reilly &amp; Loukides). Online information
+	(often the man pages for UNIX utilities) is available by using one
+	of the search engines (e.g. <a href="http://www.infoseek.com/">InfoSeek</a>) to
+	search for 'regular expressions'.
+	</td>
+</tr>
+
+
+<tr>
+	<td width="115">
+	</td>
+	<td>
+	<h2>R<font size="4"><a name="basics">EGEX</a></font> B<font size="4">ASICS</font><hr></h2>
+	</td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="simple">Matching simple<br>expressions</a></i>
+	</td>
+	
+	<td>
+	Most characters match themselves. The only exceptions are called
+	<i>special characters</i>:
+	<ul>
+		<li>asterisk (<code>*</code>),
+		</li><li>plus sign (<code>+</code>),
+		</li><li>question mark (<code>?</code>),
+		</li><li>backslash (<code>\</code>),
+		</li><li>period (<code>.</code>),
+		</li><li>caret (<code>^</code>),
+		</li><li>square brackets (<code>[</code> and <code>]</code>),
+		</li><li>dollar sign (<code>$</code>),
+		</li><li>ampersand (<code>&amp;</code>).
+		</li><li>or sign (<code>|</code>).
+	</li></ul>
+	To match a special character, precede it with a backslash, like this <code>\*</code>. 
+	<p>
+	
+	For example,
+	<table cellpadding="3">
+	<tbody><tr>
+		<th width="150">This expression...</th><td>matches this...</td><td>but not this...</td>
+	</tr>
+	<tr>
+		<th><code>a</code></th><td>a</td><td>b</td>
+	</tr>
+	<tr>
+		<th><code>\.\*</code></th><td>.*</td><td>dog</td>
+	</tr>
+	<tr>
+		<th><code>100</code></th><td>100</td><td>ABCDEFG</td>
+	</tr>
+	</tbody></table>
+	</p></td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="any">Matching any character</a></i>
+	</td>
+
+	<td>
+	A period (.) matches any character except a newline character.
+	
+	<table cellpadding="3">
+	<tbody><tr>
+		<th width="150">This expression...</th><td>matches this...</td><td>but not this...</td>
+	</tr>
+	<tr>
+		<th><code>.art</code></th><td>dart</td><td>art</td>
+	</tr>
+	<tr>
+		<td></td><td>cart</td><td>hurt</td>
+	</tr>
+	<tr>
+		<td></td><td>tart</td><td>dark</td>
+	</tr>
+	</tbody></table>
+	</td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="repeat">Repeating expressions</a></i>
+	</td>
+
+	<td>
+	You can repeat expressions with an asterisk or plus sign.
+	<p>
+	A regular expression followed by an asterisk (<code>*</code>) matches <i>zero or more
+	occurrences</i> of the regular expression. If there is any choice, the
+	first matching string in a line is used.
+	</p><p>
+	A regular expression followed by a plus sign (<code>+</code>) matches <i>one or more
+	occurrences</i> of the one-character regular expression. If there is any
+	choice, the first matching string in a line is used.
+	</p><p>
+	A regular expression followed by a question mark (<code>?</code>) matches <i>zero or
+	one occurrence</i> of the one-character regular expression.
+	</p><p>
+	For example:
+
+	<table cellpadding="3">
+	<tbody><tr>
+		<th width="150">This expression...</th>	<td>matches this...</td> <td>but not this...</td>
+	</tr>
+	<tr>
+		<th><code>a+b</code></th>	<td>ab</td>	<td>b</td>
+	</tr>
+	<tr>
+		<td></td>	<td>aaab</td>	<td>baa</td>
+	</tr>
+	<tr>
+		<th><code>a*b</code></th>	<td>b</td>	<td>daa</td>
+	</tr>
+	<tr>
+		<td></td>	<td>ab</td>	<td></td>
+	</tr>
+	<tr>
+		<td></td>	<td>aaab</td>	<td></td>
+	</tr>
+	<tr>
+		<th><code>.*cat</code></th>	<td>cat</td>	<td>dog</td>
+	</tr>
+	<tr>
+		<td></td>	<td>9393cat</td>	<td></td>
+	</tr>
+	<tr>
+		<td></td>	<td>the old cat</td>	<td></td>
+	</tr>
+	<tr>
+		<td></td>	<td>c7sb@#puiercat</td>	<td></td>
+	</tr>
+	<tr>
+		<th><code>a[n]? h</code></th>	<td>a herb</td>	<td>ann hat</td>
+	</tr>
+	<tr>
+		<td></td>	<td>an herb</td>	<td></td>
+	</tr>
+	</tbody></table>
+	</p><p>
+	So to match any series of zero or more characters, use "<code>.*</code>". On
+	its own this isn't much use, but in the middle of a longer regular
+	expression, it can be.
+</p></td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="group">Grouping expressions</a></i>
+	</td>
+
+	<td>
+	If an expression is enclosed in parentheses (<code>(</code> and <code>)</code>), the editor
+	treats it as one expression and applies any asterisk (<code>*</code>) or plus (<code>+</code>)
+	to the whole expression.
+	<p>
+	For example
+	
+	<table cellpadding="3">
+	<tbody><tr>
+		<th width="150">This expression...</th>	<td>matches this...</td> <td>but not this...</td>
+		
+	</tr>
+	<tr>
+		<th><code>(ab)*c</code></th>	<td>abc</td>	<td>ababab</td>
+	</tr>
+	<tr>
+		<td></td>	<td>ababababc</td>	<td>ababd</td>
+	</tr>
+	<tr>
+		<th><code>(.a)+b</code></th>	<td>xab</td>	<td>b</td>
+	</tr>
+	<tr>
+		<td></td>	<td>ra5afab</td>	<td>aagb</td>
+	</tr>
+	</tbody></table>
+	</p></td>
+</tr>
+ 
+ 
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="choose">Choosing one character from many</a></i>
+	</td>
+
+	<td>
+	A string of characters enclosed in square brackets (<code>[]</code>) matches any one character
+	in that string. If the first character in the brackets is a caret (<code>^</code>), it matches
+	any character <i>except</i> those in the string. For example, <code>[abc]</code> matches a, b, or c,
+	but not x, y, or z. However, <code>[^abc]</code> matches x, y, or z, but not a, b, or c.
+	<p>
+	A minus sign (-) within square brackets indicates a range of consecutive ASCII
+	characters. For example, <code>[0-9]</code> is the same as <code>[0123456789]</code>. The minus sign loses
+	its special meaning if it's the first (after an initial ^, if any) or last character
+	in the string.
+	</p><p>
+	If a right square bracket is immediately after a left square bracket, it does
+	not terminate the string but is considered to be one of the characters to match.
+	If any special character, such as backslash (<code>\</code>), asterisk (<code>*</code>), or plus sign (<code>+</code>),
+	is immediately after the left square bracket, it doesn't have its special meaning
+	and is considered to be one of the characters to match. 
+	</p><p>
+
+	<table cellpadding="3">
+	<tbody><tr>
+	<th width="150">This expression...</th>	<td>matches this...</td> <td>but not this...</td>
+		
+	</tr>
+	<tr>
+		<th><code>[aeiou][0-9]</code></th>	<td>a6</td>	<td>ex</td>
+	</tr>
+	<tr>
+		<td></td>	<td>i3</td>	<td>9a</td>
+	</tr>
+	<tr>
+		<td></td>	<td>u2</td>	<td>$6</td>
+	</tr>
+	<tr>
+		<th><code>[^cfl]og</code></th>	<td>dog</td>	<td>cog</td>
+	</tr>
+	<tr>
+		<td></td>	<td>bog</td>	<td>fog</td>
+	</tr>
+	<tr>
+		<th><code>END[.]</code></th>	<td>END.</td>	<td>END;</td>
+	</tr>
+	<tr>
+		<td></td>	<td></td>	<td>END DO</td>
+	</tr>
+	<tr>
+		<td></td>	<td></td>	<td>ENDIAN</td>
+	</tr>
+	</tbody></table>
+	</p></td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="begin">Matching the beginning<br>or end of a line</a></i>
+	</td>
+
+	<td>
+	You can specify that a regular expression match only the beginning or end of the line.
+	In NewsWatcher, a line is the whole field that is being matched, for example the
+	author or subject fields. These are called anchor characters:
+	<p>
+	If a caret (<code>^</code>) is at the beginning of the entire regular expression,
+	it matches the beginning of a line.</p><p>
+	If a dollar sign (<code>$</code>) is at the end of the entire regular expression,
+	it matches the end of a line.</p><p>
+	If an entire regular expression is enclosed by a caret and dollar sign
+	(<code>^like this$</code>), it matches an entire line.
+	</p><p>
+
+	<table cellpadding="3">
+	<tbody><tr>
+		<th width="150">This expression...</th>	<td>matches this...</td> <td>but not this...</td>
+	</tr>
+	<tr>
+		<th><code>^(the cat).+</code></th>	<td>the cat runs</td>	<td>see the cat run</td>
+	</tr>
+	<tr>
+		<th><code>.+(the cat)$</code></th>	<td>watch the cat</td>	<td>the cat eats</td>
+	</tr>
+	</tbody></table>
+	So, to match all strings containing just one characters, use "<code>^.$</code>".
+	</p></td>
+</tr>
+
+
+<tr>
+	<td width="115">
+	</td>
+	<td>
+	<h2>R<font size="4"><a name="extensions">EGEX</a></font> E<font size="4">XTENSIONS</font><hr></h2>
+	</td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="words">Matching words</a></i>
+	</td>
+
+	<td>
+	You can specify that a regular expression match parts of words with <code>\&lt;</code>; 
+	(match the start of a word) and <code>\&gt;</code>; (match the end of a word).
+	An expression like "<code>\&lt;app</code>" will match "apple" and "application", while
+	"<code>ing\&gt;</code>" will match all words ending in -ing. To match a whole word,
+	using an expression like "<code>\&lt;this\&gt;</code>".
+	<p>
+	NewsWatcher provides facilities for doing words matches (which use these
+	expressions internally), but if you want more flexibility, these come in
+	useful. For example, you might want</p><p>
+	<code>M.*\&lt;Excel\&gt;</code>
+	</p><p>
+	to match</p><p>
+	MS Excel, Microsoft Excel, Microsquish Excel etc. To remind you, the <code>.*</code>
+	mean 'zero or more (*) of any character (.)'.
+	</p></td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="alt">Alternatives</a></i>
+	</td>
+
+	<td>
+	You can define an expression like <code>(cash|money)</code> to match
+	strings which contain either the word 'cash', or the word 'money', or both.
+	Note that the parentheses around the expression are required.
+	</td>
+</tr>
+
+
+<tr>
+	<td width="115">
+	</td>
+	<td>
+	<h2>R<font size="4"><a name="examples">EGEX</a></font> E<font size="4">XAMPLES</font><hr></h2>
+	</td>
+</tr>
+
+<tr>
+	<td valign="TOP" align="RIGHT">
+	<i><a name="examp">Examples</a></i>
+	</td>
+
+	<td>
+	Here are some sample regular expressions that I've found useful.
+	
+	<dl>
+		<dt>Kill if 'subject' contains the reg. exp. "<code>(cash|money)</code>"
+		</dt><dd>This kills articles with 'cash' or 'money' in the subject. This should be
+		a case-insensitive match.
+		<p>
+		</p></dd><dt>Kill if 'subject' contains the reg. exp. "<code>^\[?F.?S.?</code>"
+		</dt><dd>This kills 'For Sale' articles, which have a subject line that starts ('<code>^</code>')
+		with either FS, F.S., [FS] or [F.S.]. Here the '<code>[</code>' needs to be escaped to '<code>\[</code>',
+		and the '<code>?</code>' means 'match zero or one instance of'.
+		<p>
+		</p></dd><dt>Kill if 'subject' contains the reg. exp. "<code>[[$%|_\*!][[$%|_\*!][[$%|_\*!]</code>"
+		</dt><dd>This is a nifty one that kills those posts with subjects like "$$$blah blah" or
+		"_______this..." which are almost surely not worth reading. The regular expression
+		reads like this. It repeats the range of characters <code>[[$%|_\*!]</code> three times,
+		meaning that any of the characters in the [] will be matched. ([ is normally
+		interpreted as starting a group like this <i>unless</i> it is the first
+		character after a [, hence its position here.) This grouping is then repeated
+		three times, to match subjects like $_* or *** or !_!. You could prepend a ^ to force the match
+		a the beginning of the line.
+		<p>
+		</p></dd><dt>Kill if 'Xref' contains the reg. exp. "<code>[^ ]+ [^ ]+ [^ ]+ [^ ]+</code>"
+		</dt><dd>This kills articles which have been cross-posted to four or more groups, and
+		works by looking for runs of non-space characters (the <code>[^ ]</code>) separated
+		by spaces.
+		<p>
+		</p></dd><dt><font color="#00FF00">Hilite</font> if 'subject' contains the reg. exp. "<code>News ?Watcher</code> (ignore case)"
+		</dt><dd>This will match "newswatcher", "NewsWatcher", "News Watcher", "news Watcher" and so on.
+		The '?' means match zero or one space.
+		<p>
+		</p></dd><dt><font color="#DD00CC">Hilite</font> if 'subject' contains the reg. exp. "<code>Kaleid[aeio]scope</code>"
+		</dt><dd>This will match "Kaleidoscope", as well as all the misspellings that are
+		common, the <code>[]</code> meaning match any of the alternatives within the square brackets.
+		<p>
+		</p></dd><dt><font color="#FF0000">Hilite</font> if 'subject' contains the reg. exp. "<code>^\[?A[Nn][Nn]</code>"
+		</dt><dd>This is useful for catching announcement posts, where the subject line starts with
+		[ANN] or Ann or [Ann. The first "<code>^</code>" forces a match at the beginning of the line.
+		Then it looks for zero or one (the meaning of the "<code>?</code>") "[" characters, but since
+		this is a reserved character, it has to be escaped to "<code>\[</code>". Then we look for a
+		"A", followed by either "N" or "n" and then one or more "N" or "n" characters.
+	</dd></dl>
+	<p>
+	<a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/filtering.html">Go back to the page on filtering</a>.<br>
+	<a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/filteredit.html">See the page on creating and editing filters</a>.
+	</p></td>
+</tr>
+
+<tr>
+<td>
+	<hr>
+	<table cellspacing="5" cellpadding="5">
+	<tbody><tr>
+	<td><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/mtnewswatcher.html">MT-NewsWatcher</a></td>
+	</tr>
+	</tbody></table>
+	<hr>
+	</td>
+	
+	<td>
+	<hr>
+	<table cellspacing="5" cellpadding="5">
+	<tbody><tr>
+	<td width="100"><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/download.html">Download</a></td>
+	<td width="80"><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/basics.html">Basics</a></td>
+	<td width="150"><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/speech.html">Speech Recognition</a></td>
+	<td width="100"><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/filtering.html">Filtering</a></td>
+	<td width="100"><a href="http://users.cs.cf.ac.uk/Dave.Marshall/Internet/NEWS/misc.html">Cool Features</a></td>
+	</tr>
+	</tbody></table>
+	<hr>
+	</td>
+</tr>
+</tbody></table>
+
+
+
+</body></html>

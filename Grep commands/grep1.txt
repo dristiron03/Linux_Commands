@@ -1,0 +1,130 @@
+You can define an expression like (cash|money) to match strings which contain either the word 'cash', or the word 'money', or both. Note that the parentheses around the expression are required. 
+If a right square bracket is immediately after a left square bracket, it does not terminate the string but is considered to be one of the characters to match. If any special character, such as backslash (\), asterisk (*), or plus sign (+), is immediately after the left square bracket, it doesn't have its special meaning and is considered to be one of the characters to match.
+
+
+ -l   Print the name of each file which contains a match.
+      Normally used when grep is invoked with wildcards for the file argument.
+
+ egrep or grep -E  :  Run grep with extended regular expressions.
+
+[^abc]
+    Not range. A character that is not one of those enclosed.
+(abc)
+    Group these characters and remember for later.
+|
+    The logical 'or' operation.
+\
+    In front of a character, removes it's special meaning.
+{n}
+    The preceding item will be matched exactly n times.
+{n,}
+    The preceding item will be matched n or more times.
+{n,m}
+    The preceding item will be matched between n and m times.
+\<
+    At the beginning of a word.
+\>
+    At the end of a word.
+\b
+    Match either the beginning or end of a word.
+egrep '(.)bb\1' myfile.txt
+    Find every line with 2 b's and the same character both before and after those b's.
+egrep -l '[0-9]{8,}' /files/projectx/*
+    Print each file in the directory projectx which contains a number of 8 digits or more.
+
+
+$ grep "this" demo_*
+demo_file:this line is the 1st lower case line in this file.
+demo_file:Two lines above this line is empty.
+demo_file:And this is the last line.
+demo_file1:this line is the 1st lower case line in this file.
+demo_file1:Two lines above this line is empty.
+demo_file1:And this is the last line.
+
+
+? The preceding item is optional and matched at most once.
+* The preceding item will be matched zero or more times.
++ The preceding item will be matched one or more times.
+
+
+
+10. display the lines which does not matches all the given pattern.
+Syntax:
+grep -v -e "pattern" -e "pattern"
+
+$ cat test-file.txt
+a
+b
+c
+d
+
+$ grep -v -e "a" -e "b" -e "c" test-file.txt
+d
+
+
+grep '^$' files	{search for blank lines} 
+grep '^\^s' files	{lines starting with '^s', "\" escapes the ^} 
+grep '^smug$' files	{lines containing only 'smug'} 
+Back Slash "\" is used to escape the next symbol, for example, turn off the special meaning that it has. 
+grep '^.$'	{lines with exactly one character} 
+grep '[0-9]\{3\}-[0-9]\{4\}'	{999-9999, like phone numbers} 
+The vi editor uses \< \> to match characters at the beginning and/or end of a word boundary. A word boundary is either the edge of the line or any character except a letter, digit or underscore "_". 
+
+
+egrep '\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}\b' myfile.txt
+    Print every line of myfiles.txt containing an email address.
+    Note: this is just a simple email matching pattern. There is a miniscule number of email addresses it will not match.
+
+
+Kill if 'subject' contains the reg. exp. "^\[?F.?S.?"
+    This kills 'For Sale' articles, which have a subject line that starts ('^') with either FS, F.S., [FS] or [F.S.]. Here the '[' needs to be escaped to '\[', and the '?' means 'match zero or one instance of'. 
+
+
+Kill if 'subject' contains the reg. exp. "[[$%|_\*!][[$%|_\*!][[$%|_\*!]"
+    This is a nifty one that kills those posts with subjects like "$$$blah blah" or "_______this..." which are almost surely not worth reading. The regular expression reads like this. It repeats the range of characters [[$%|_\*!] three times, meaning that any of the characters in the [] will be matched. ([ is normally interpreted as starting a group like this unless it is the first character after a [, hence its position here.) This grouping is then repeated three times, to match subjects like $_* or *** or !_!. You could prepend a ^ to force the match a the beginning of the line. 
+
+
+ -f file option Takes patterns from file, one per line.
+$cat pattern.txt
+Agarwal
+Aggarwal
+Agrawal
+
+$grep –f pattern.txt  geekfile.txt
+
+
+
+Options Description
+-c : This prints only a count of the lines that match a pattern
+-h : Display the matched lines, but do not display the filenames.
+-i : Ignores, case for matching
+-l : Displays list of a filenames only.
+-n : Display the matched lines and their line numbers.
+-v : This prints out all the lines that do not matches the pattern
+-e exp : Specifies expression with this option. Can use multiple times.
+-f file : Takes patterns from file, one per line.
+-E : Treats pattern as an extended regular expression (ERE)
+-w : Match whole word
+-o : Print only the matched parts of a matching line,
+ with each such part on a separate output line.
+
+
+And now each line which contains either 'is' or 'go' or 'or'.
+    egrep 'or|is|go' mysampledata.txt
+
+Sometimes we may actually want to search for one of the characters which is a metacharacter. To do this we use a feature called escaping. By placing the backslash ( \ ) in front of a metacharacter we can remove it's special meaning.
+
+
+    \s - matches anything which is considered whitespace. This could be a space, tab, line break etc.
+    \S - matches the opposite of \s, that is anything which is not considered whitespace.
+    \d - matches anything which is considered a digit. ie 0 - 9 (It is effectively a shortcut for [0-9]).
+    \D - matches the opposite of \d, that is anything which is not considered a digit.
+    \w - matches anything which is considered a word character. That is [A-Za-z0-9_]. Note the inclusion of the underscore character '_'. This is because in programming and other areas we regulaly use the underscore as part of, say, a variable or function name.
+    \W - matches the opposite of \w, that is anything which is not considered a word character.
+
+
+For instance, maybe we would like to find instances of IP addresses. An IP address is a set of 4 numbers (between 0 and 255) separated by full stops (eg. 192.168.0.5).
+\b(\d{1,3}\.){3}\d{1,3}\b
+
+Whenever we match something within brackets, that value is actually stored in a variable which we may refer to later on in the regular expression. To access these variables we use the escape character ( \ ) followed by a digit. The first set of brackets is referred to with \1, the second set of brackets with \2 and so on.
+

@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/css.css" media="screen, projection">
+<title>Unix Sed Tutorial: Advanced Sed Substitution Examples</title>
+<meta name="description" content="This article is part of the on-going Unix Sed Tips and Tricks series. In our previous sed articles we learned — sed printing, sed deletion, sed substitute">
+<meta name="robots" content="noodp, noydir">
+<link rel="canonical" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/a_003.html">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff feed" href="https://www.thegeekstuff.com/feed/">
+<link rel="pingback" href="https://www.thegeekstuff.com/xmlrpc.php">
+
+<!-- All in One SEO Pack 2.2.6.2 by Michael Torbert of Semper Fi Web Design[296,356] -->
+<meta name="description" content="This article is part of the on-going Unix Sed Tips and Tricks series. In our previous sed articles we learned -- sed printing, sed deletion, sed substitute">
+
+<link rel="canonical" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/a_003.html">
+<!-- /all in one seo pack -->
+<link rel="dns-prefetch" href="https://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="The Geek Stuff » Unix Sed Tutorial: Advanced Sed Substitution Examples Comments Feed" href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/feed/">
+<link rel="https://api.w.org/" href="https://www.thegeekstuff.com/wp-json/">
+<link rel="alternate" type="application/json+oembed" href="https://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.thegeekstuff.com%2F2009%2F10%2Funix-sed-tutorial-advanced-sed-substitution-examples%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.thegeekstuff.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.thegeekstuff.com%2F2009%2F10%2Funix-sed-tutorial-advanced-sed-substitution-examples%2F&amp;format=xml">
+<link rel="shortcut icon" href="https://static.thegeekstuff.com/wp-content/uploads/2015/05/favicon.ico">
+<script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/osd.js"></script><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/ca-pub-8090601437064582.js"></script><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/show_ads_impl.js" id="google_shimpl"></script><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/cbgapi.loaded_1" async=""></script><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/cbgapi.loaded_0" async=""></script><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/a_002"></script><script charset="utf-8" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/button.js"></script><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/inputtools.js"></script><link rel="preload" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/integrator_002.js" as="script"><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/integrator_002.js"></script><link rel="preload" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/integrator.js" as="script"><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/integrator.js"></script><link rel="preload" href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/show_ads_impl.js" as="script"></head>
+<body class="template-single">
+<script type="text/javascript" async="" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/ga.js"></script><script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-5302569-1']);
+_gaq.push(['_trackPageview']);
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+<div class="container">
+	<div id="header" class="header">
+		<p id="logo"><a href="https://www.thegeekstuff.com/"><img src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/thegeekstuff.gif" alt="The Geek Stuff"></a>
+</p><div id="header_ad"><div id="header_ad1">
+<script async="" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/adsbygoogle.js"></script>
+<!-- TGS Logo Header -->
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-8090601437064582" data-ad-slot="4708993701" data-adsbygoogle-status="done"><ins id="aswift_0_expand" style="display:inline-table;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><ins id="aswift_0_anchor" style="display:block;border:none;height:90px;margin:0;padding:0;position:relative;visibility:visible;width:728px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_0" name="aswift_0" style="left:0;position:absolute;top:0;border:0px;width:728px;height:90px;" width="728" height="90" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div></div>
+	</div>
+	<span class="menu_control">≡ Menu</span>
+<ul id="menu-tgs-menu" class="menu"><li id="menu-item-15798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15798"><a href="https://www.thegeekstuff.com/">Home</a></li>
+<li id="menu-item-15797" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15797"><a href="https://www.thegeekstuff.com/linux-101-hacks-ebook/">Free eBook</a></li>
+<li id="menu-item-15805" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15805"><a href="https://www.thegeekstuff.com/best-of-the-blog/">Start Here</a></li>
+<li id="menu-item-15800" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15800"><a href="https://www.thegeekstuff.com/contact/">Contact</a></li>
+<li id="menu-item-15802" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-15802"><a href="https://www.thegeekstuff.com/about/">About</a></li>
+</ul>
+	<div class="columns">
+		<div class="content">
+			<div id="post-2335" class="post_box grt top" itemscope="" itemtype="http://schema.org/Article">
+				<div class="headline_area">
+					<h1 class="headline" itemprop="name">Unix Sed Tutorial: Advanced Sed Substitution Examples</h1>
+					<div class="byline small">
+						<span class="post_author_intro">by</span> <span class="post_author" itemprop="author">Sasikala</span>
+						<meta itemprop="datePublished" content="2009-10-26">
+						<meta itemprop="dateModified" content="2013-03-18">
+						<span class="post_date_intro">on</span> <span class="post_date" title="2009-10-26">October 26, 2009</span>
+					</div>
+				</div>
+				<div class="post_content" itemprop="articleBody">
+<div style="margin:7px 0px 6px 0px; padding:5px;">
+
+<div style="float:left; width=95px">
+<div style="position: absolute; width: 450px; left: -10000px;" id="___plusone_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" id="I0_1559478736917" name="I0_1559478736917" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/fastbutton.html" data-gapiattached="true" width="100%" frameborder="0"></iframe></div><g:plusone size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:plusone>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/like_002.html" scrolling="no" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true" frameborder="0"></iframe>
+</div>
+
+<div style="width=95px">
+<iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/tweet_button.html" frameborder="0"></iframe><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/widgets.js"></script>
+</div>
+
+</div>
+<p><img class="alignright size-medium wp-image-2617" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/unix-sed-tutorial-advanced-substitute-operation-300x225.png" alt="Linux Sed Examples - Advanced Find and Replace Operation" srcset="https://static.thegeekstuff.com/wp-content/uploads/2009/10/unix-sed-tutorial-advanced-substitute-operation-300x225.png 300w, https://www.thegeekstuff.com/wp-content/uploads/2009/10/unix-sed-tutorial-advanced-substitute-operation.png 400w" sizes="(max-width: 300px) 100vw, 300px" width="300" height="225">This article is part of the on-going <a href="https://www.thegeekstuff.com/tag/sed-tips-and-tricks/">Unix Sed Tips and Tricks</a> series.</p>
+<p>In our previous sed articles we learned  — <a href="https://www.thegeekstuff.com/2009/09/unix-sed-tutorial-printing-file-lines-using-address-and-patterns/"> sed printing</a>, <a href="https://www.thegeekstuff.com/2009/09/unix-sed-tutorial-delete-file-lines-using-address-and-patterns/">sed deletion</a>, <a href="https://www.thegeekstuff.com/2009/09/unix-sed-tutorial-replace-text-inside-a-file-using-substitute-command/">sed substitute </a>, <a href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-how-to-write-to-a-file-using-sed/">sed file write</a>, and <a href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-how-to-execute-multiple-sed-commands/">sed multiple commands</a>.</p>
+<p>In this article, let us review some interesting workarounds with the 
+“s” substitute command in sed with several practical examples.</p>
+<p><span id="more-2335"></span></p>
+<h2>I.  Sed Substitution Delimiter</h2>
+<p>As we discussed in our previous post, we can use the different delimiters such as @ % | ; : in sed substitute command.</p>
+<p>Let us first create path.txt file that will be used in all the examples mentioned below.</p>
+<pre>$ cat path.txt
+/usr/kbos/bin:/usr/local/bin:/usr/jbin:/usr/bin:/usr/sas/bin
+/usr/local/sbin:/sbin:/bin/:/usr/sbin:/usr/bin:/opt/omni/bin:
+/opt/omni/lbin:/opt/omni/sbin:/root/bin</pre>
+<h3>Example 1 – sed @ delimiter: Substitute /opt/omni/lbin to /opt/tools/bin</h3>
+<p>When you substitute a path name which has ‘/’, you can use @ as a 
+delimiter instead of ‘/’. In the sed example below, in the last line of 
+the input file, /opt/omni/lbin was changed to /opt/tools/bin.</p>
+    <center>
+      <div style="margin-left:2px; margin-top:10px; margin-bottom:10px; ">
+
+        <!-- AD BLOCK -->
+		
+<script async="" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/adsbygoogle.js"></script>
+<!-- TGS Inside Content -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-8090601437064582" data-ad-slot="8643685131" data-adsbygoogle-status="done"><ins id="aswift_1_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_1_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_1" name="aswift_1" style="left:0;position:absolute;top:0;border:0px;width:300px;height:250px;" width="300" height="250" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+        <!-- END AD BLOCK -->
+
+	  </div>
+    </center>
+
+
+<pre>$ sed 's@/opt/omni/lbin@/opt/tools/bin@g' path.txt
+/usr/kbos/bin:/usr/local/bin:/usr/jbin/:/usr/bin:/usr/sas/bin
+/usr/local/sbin:/sbin:/bin/:/usr/sbin:/usr/bin:/opt/omni/bin:
+<strong>/opt/tools/bin</strong>:/opt/omni/sbin:/root/bin</pre>
+<h3>Example 2 – sed / delimiter:  Substitute /opt/omni/lbin to /opt/tools/bin</h3>
+<p>When you should use ‘/’ in path name related substitution, you have 
+to escape ‘/’ in the substitution data as shown below. In this sed 
+example, the delimiter ‘/’ was escaped in the REGEXP and REPLACEMENT 
+part.</p>
+<pre>$ sed 's/\/opt\/omni\/lbin/\/opt\/tools\/bin/g' path.txt
+/usr/kbos/bin:/usr/local/bin:/usr/jbin/:/usr/bin:/usr/sas/bin
+/usr/local/sbin:/sbin:/bin/:/usr/sbin:/usr/bin:/opt/omni/bin:
+<strong>/opt/tools/bin</strong>:/opt/omni/sbin:/root/bin</pre>
+<h2>II.  Sed ‘&amp;’ Get Matched String</h2>
+<p>The precise part of an input line on which the Regular Expression 
+matches is represented by &amp;, which can then be used in the 
+replacement part.</p>
+<h3>Example 1 – sed &amp; Usage: Substitute /usr/bin/ to /usr/bin/local</h3>
+<pre>$ sed 's@/usr/bin@&amp;/local@g' path.txt
+/usr/kbos/bin:/usr/local/bin:/usr/jbin/:<strong>/usr/bin/local</strong>:/usr/sas/bin
+/usr/local/sbin:/sbin:/bin/:/usr/sbin:<strong>/usr/bin/local</strong>:/opt/omni/bin:
+/opt/omni/lbin:/opt/omni/sbin:/root/bin</pre>
+<p>In the above example ‘&amp;’ in the replacement part will replace 
+with /usr/bin which is matched pattern and add it with /local. So in the
+ output all the occurrance of /usr/bin will be replaced with 
+/usr/bin/local</p>
+<h3>Example 2 – sed &amp; Usage: Match the whole line</h3>
+<p>&amp; replaces whatever matches with the given REGEXP.</p>
+<pre>$ sed 's@^.*$@&lt;&lt;&lt;&amp;&gt;&gt;&gt;@g' path.txt
+&lt;&lt;&lt;/usr/kbos/bin:/usr/local/bin:/usr/jbin/:/usr/bin:/usr/sas/bin&gt;&gt;&gt;
+&lt;&lt;&lt;/usr/local/sbin:/sbin:/bin/:/usr/sbin:/usr/bin:/opt/omni/bin:&gt;&gt;&gt;
+&lt;&lt;&lt;/opt/omni/lbin:/opt/omni/sbin:/root/bin&gt;&gt;&gt;</pre>
+<p>In the above example regexp has “^.*$” which matches the whole line. 
+Replacement part &lt;&lt;&lt;&amp;&gt;&gt;&gt; writes the whole line 
+with  &lt;&lt;&lt; and &gt;&gt;&gt; in the beginning and end of the line
+ respectively.</p>
+<h2>III.  Grouping and Back-references in Sed</h2>
+<p>Grouping can be used in sed like normal regular expression. A group 
+is opened with “\(” and closed with “\)”.Grouping can be used in 
+combination with back-referencing.</p>
+<p>Back-reference is the re-use of a part of a Regular Expression 
+selected by grouping. Back-references in sed can be used in both a 
+Regular Expression and in the replacement part of the substitute 
+command.</p>
+<h3>Example 1: Get only the first path in each line</h3>
+<pre>$ sed 's/\(\/[^:]*\).*/\1/g' path.txt
+/usr/kbos/bin
+/usr/local/sbin
+/opt/omni/lbin</pre>
+<p>In the above example, \(\/[^:]*\) matches the path available before first : comes. \1 replaces the first matched group.</p>
+<h3>Example 2: Multigrouping</h3>
+<p>In the file path.txt change the order of field in the last line of the file.</p>
+<pre>$ sed '$s@\([^:]*\):\([^:]*\):\([^:]*\)@\3:\2:\1@g' path.txt
+/usr/kbos/bin:/usr/local/bin:/usr/jbin:/usr/bin:/usr/sas/bin
+/usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/omni/bin:
+<strong>/root/bin:/opt/omni/sbin:/opt/omni/lbin</strong></pre>
+<p>In the above command $ specifies substitution to happen only for the 
+last line.Output shows that the order of the path values in the last 
+line has been reversed.</p>
+<h3>Example 3: Get the list of usernames in /etc/passwd file</h3>
+<p>This sed example displays only the first field from the /etc/passwd file.</p>
+<pre>$sed 's/\([^:]*\).*/\1/' /etc/passwd
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown</pre>
+<h3>Example 4: Parenthesize first character of each word</h3>
+<p>This sed example prints the first character of every word in paranthesis.</p>
+<pre>$ echo "Welcome To The Geek Stuff" | sed 's/\(\b[A-Z]\)/\(\1\)/g'
+(W)elcome (T)o (T)he (G)eek (S)tuff</pre>
+<h3>Example 5: Commify the simple number.</h3>
+<p>Let us create file called numbers which has list of numbers. The 
+below sed command example is used to commify the numbers till thousands.</p>
+<pre>$ cat  numbers
+1234
+12121
+3434
+123
+
+$sed 's/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g' numbers
+1,234
+12,121
+3,434
+123</pre>
+<div style="margin:7px 0px 3px 0px; padding:5px; background:#F2F0E8">
+
+<div style="float:left; width=95px">
+<div style="position: absolute; width: 450px; left: -10000px;" id="___plusone_1"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" id="I1_1559478736927" name="I1_1559478736927" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/fastbutton_002.html" data-gapiattached="true" width="100%" frameborder="0"></iframe></div><g:plusone size="medium" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:plusone>
+</div>
+
+<div style="float:left; width=95px">
+<iframe id="twitter-widget-1" scrolling="no" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" style="position: static; visibility: visible; width: 60px; height: 20px;" title="Twitter Tweet Button" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/tweet_button_002.html" frameborder="0"></iframe><script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/widgets.js"></script>
+</div>
+
+<div style="float:left; padding:2px; width:90px"><iframe src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/like_002.html" scrolling="no" style="border:none; overflow:hidden; width:450px; height:21px;" allowtransparency="true" frameborder="0"></iframe>
+</div>
+
+<div style="padding:1px">
+&gt;&nbsp;<a href="#commentform" rel="nofollow">Add your comment</a>
+</div>
+
+</div>
+<h3>If you enjoyed this article, you might also like..</h3>
+<table>
+<tbody><tr>
+<td valign="top">
+<ol>
+<li><a href="https://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 Linux Sysadmin Tutorials</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used Linux Commands (With Examples)</a></li>
+<li><a href="https://www.thegeekstuff.com/2011/12/linux-performance-monitoring-tools/">Top 25 Best Linux Performance Monitoring and Debugging Tools</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! – 15 Practical Linux Find Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a>&nbsp;<img title="Linux 101 Hacks Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/free-small.png" alt="Linux 101 Hacks Book"></li>
+</ol>
+</td>
+<td>
+<ul>
+<li><a href="https://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction – 7 Awk Print Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Advanced Sed Substitution Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/03/8-essential-vim-editor-navigation-fundamentals/">8 Essential Vim Editor Navigation Fundamentals</a></li>
+<li><a href="https://www.thegeekstuff.com/2011/06/iptables-rules-examples/">25 Most Frequently Used Linux IPTables Rules Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul>
+</td>
+</tr>
+</tbody></table>
+<br>
+<center>
+<table id="booktable">
+<tbody><tr>
+<td>
+<a rel="nofollow" href="https://www.thegeekstuff.com/bash-101-hacks-ebook/"><img title="Bash 101 Hacks Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/bash-132.png" alt="Bash 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="https://www.thegeekstuff.com/sed-awk-101-hacks-ebook/"><img title="Sed and Awk 101 Hacks Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/sed-and-awk-132.png" alt="Sed and Awk 101 Hacks Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="https://www.thegeekstuff.com/nagios-core-ebook/"><img title="Nagios Core 3 Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/nagios-core-132.png" alt="Nagios Core 3 Book"></a>
+</td>
+<td>
+<a rel="nofollow" href="https://www.thegeekstuff.com/vim-101-hacks-ebook/"><img title="Vim 101 Hacks Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/vim-101-hacks-132.png" alt="Vim 101 Hacks Book"></a>
+</td>
+</tr>
+</tbody></table>
+</center>
+<br>
+				</div>
+				<p class="post_tags" itemprop="keywords">
+					<span class="post_tags_intro">Tagged as:</span>
+					<a href="https://www.thegeekstuff.com/tag/linux-sed-command/" rel="tag">Linux Sed Command</a>,
+					<a href="https://www.thegeekstuff.com/tag/sed-examples/" rel="tag">Sed Examples</a>,
+					<a href="https://www.thegeekstuff.com/tag/sed-tips-and-tricks/" rel="tag">Sed Tips and Tricks</a>,
+					<a href="https://www.thegeekstuff.com/tag/unix-sed-substitution/" rel="tag">Unix Sed Substitution</a>
+				</p>
+			</div>
+			<div id="comments">
+				<p class="comments_intro"><span class="bracket">{</span> <span class="num_comments">41</span> comments… <a href="#commentform" rel="nofollow">add one</a> <span class="bracket">}</span></p>
+				<ul class="comment_list">
+					<li class="comment even thread-even depth-1" id="comment-21361">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://berryfl.wordpress.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://berryfl.wordpress.com/" rel="external nofollow" class="url">Berry</a></span>
+							<span class="comment_date">November 2, 2009, 11:23 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-21361"><p>Dear author,<br>
+In the example 4, what is the meaning of \b escape character? and why the REGEXP can finish the task?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-21361" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21385">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sasikala</span>
+							<span class="comment_date">November 3, 2009, 5:31 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-21385"><p>@Berry, </p>
+<p>\b matches a word boundary. </p>
+<p>If you omit \b  from example 4, it just parenthesize all the Uppercase letters.</p>
+<p>$ echo “Welcome To The Geek StuffPost” | sed ‘s/\([A-Z]\)/\(\1\)/g’<br>
+(W)elcome (T)o (T)he (G)eek (S)tuff(P)ost</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-21385" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-21755">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://berryfl.wordpress.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://berryfl.wordpress.com/" rel="external nofollow" class="url">Berry</a></span>
+							<span class="comment_date">November 7, 2009, 1:38 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-21755"><p>@Sasikala,</p>
+<p>Oh, I got it. Thank you very much. ^_^</p>
+<p>Following your tips, I found that / can match the right. Thank you again!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-21755" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-21756">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://berryfl.wordpress.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://berryfl.wordpress.com/" rel="external nofollow" class="url">Berry</a></span>
+							<span class="comment_date">November 7, 2009, 1:41 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-21756"><p>@Sasikala,</p>
+<p>Following your tips, I found that / plus “smaller than”  can match 
+the left boundary and / plus “larger than” can match the right. Thank 
+you again!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-21756" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-36813">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Guru Prasad</span>
+							<span class="comment_date">February 27, 2010, 1:37 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-36813"><p>Hi,<br>
+  Regarding the example 4, when i try it in Red Hat linux, it works, but
+ when i try in HP-UX or SunOS it does not.  Any reason why so?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-36813" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-36814">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Guru Prasad</span>
+							<span class="comment_date">February 27, 2010, 1:40 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-36814"><p>Also, same is the case with example 5 as well…please let me know why</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-36814" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-42319">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://twitter.com/mapsiddiqui" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://twitter.com/mapsiddiqui" rel="external nofollow" class="url">Anjum</a></span>
+							<span class="comment_date">April 9, 2010, 11:17 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-42319"><p>Example 5
+ may only work on Linux (I don’t see how) but does not work for other 
+systems. The following snippet does work on Sun OS and am sure will work
+ on most systems out there; including Linux:</p>
+<p>echo ‘1234<br>
+12121<br>
+3434<br>
+123’ | sed ‘s/\([0-9]\{3\}\)$/,\1/g;s/^,//’</p>
+<p>Thanks,<br>
+-Anjum.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-42319" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-42343">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://twitter.com/mapsiddiqui" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://twitter.com/mapsiddiqui" rel="external nofollow" class="url">Anjum</a></span>
+							<span class="comment_date">April 9, 2010, 4:10 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-42343"><p>Example 4 reworked and tested on Solaris 9:</p>
+<p>echo “Welcome To The Geek Stuff” | sed ‘s/\&lt;\([A-Z]\)/\(\1\)/g'</p>
+<p>Thanks,<br>
+-Anjum.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-42343" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-58497">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Logan</span>
+							<span class="comment_date">August 10, 2010, 4:35 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-58497"><p>A complete example of commify (add comma as thousands separator) </p>
+<p>$ cat numbers.txt<br>
+1<br>
+12<br>
+123<br>
+1234<br>
+12345<br>
+123456<br>
+1234567<br>
+12345678<br>
+123456789<br>
+1234567890<br>
+1234567890.1234<br>
++1234567890.1234<br>
+-1234567890.1234</p>
+<p>With the “-r” option, there is no need to escape the paraenthesis and curly brackets.</p>
+<p>The simple code below doesn’t work for numeric strings larger that 6.</p>
+<p>$ sed -r ‘s/(^|[^0-9.])([0-9]+)([0-9]{3})/\1\2,\3/g’ numbers.txt<br>
+1<br>
+12<br>
+123<br>
+1,234<br>
+12,345<br>
+123,456<br>
+1234,567<br>
+12345,678<br>
+123456,789<br>
+1234567,890<br>
+1234567,890.1234<br>
++1234567,890.1234<br>
+-1234567,890.1234</p>
+<p>This one works. (taken from question 4.14 of <a href="http://sed.sourceforge.net/sedfaq.html" rel="nofollow">http://sed.sourceforge.net/sedfaq.html</a>)<br>
+$ sed -r ‘:a;s/(^|[^0-9.])([0-9]+)([0-9]{3})/\1\2,\3/g;ta’ numbers.txt<br>
+1<br>
+12<br>
+123<br>
+1,234<br>
+12,345<br>
+123,456<br>
+1,234,567<br>
+12,345,678<br>
+123,456,789<br>
+1,234,567,890<br>
+1,234,567,890.1234<br>
++1,234,567,890.1234<br>
+-1,234,567,890.1234</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-58497" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-71464">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">December 1, 2010, 7:32 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-71464"><p>Can you please explain this Substitution.<br>
+sed -r ‘s/(^|[^0-9.])([0-9]+)([0-9]{3})/\1\2,\3/g’ numbers.txt</p>
+<p>Thanks,<br>
+Rafi</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-71464" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-140093">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">siva</span>
+							<span class="comment_date">November 14, 2011, 12:59 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-140093"><p>I am not clear about .can you explain this Grouping and Back-references in Sed.</p>
+<p>Thanks in advance.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-140093" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-205474">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">bharathi</span>
+							<span class="comment_date">March 7, 2012, 12:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-205474"><p>HAI<br>
+Can u given one example for replacing current date with * or **  (single
+ digit with * and double digit with **) in calender using sed command.<br>
+thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-205474" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-227893">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">April 28, 2012, 2:32 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-227893"><p>can you tell what is this “^” actually does ??</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-227893" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-231710">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Bobby</span>
+							<span class="comment_date">May 9, 2012, 8:02 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-231710"><p>‘^’ 
+serves two purposes.  When inside of [] it means “not these”, but 
+outside of that it means “the start of input”.  So, for example </p>
+<p>echo “why hello” | sed ‘s/hello/goodbye’<br>
+would replace ‘hello’ with ‘goodbye’, but</p>
+<p>echo “why hello” | sed ‘s/^hello/goodbye’<br>
+would not replace the ‘hello’ with ‘goodbye’ because it is not at the beginning of input. </p>
+<p>echo “why hello” | sed ‘s/[^z]ello/goodbye’<br>
+Would replace hello with goodbye (because ‘hello’ does not start with a ‘z’)</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-231710" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-254578">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">phani</span>
+							<span class="comment_date">June 18, 2012, 4:25 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-254578"><p>hi ,<br>
+Using Sed can we append/remove the new content in crontab file without disturbing old entries .</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-254578" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-267799">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ray</span>
+							<span class="comment_date">July 11, 2012, 7:24 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-267799"><p>I am trying to parse a header file and the array size and paste later.<br>
+I want to change a line like the following :<br>
+bool SetValues(int array1[30], int array2[30, int size)<br>
+I want it to look like<br>
+ SetValues(&amp;array1[0], &amp;array2[0], 30).<br>
+I have got most it, but i cannot figure out how to replace the string :”int size”<br>
+with the string “30”<br>
+I cannot figure out how to hold the pattern I want and use it to substitue later.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-267799" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-290618">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">upalshah</span>
+							<span class="comment_date">August 25, 2012, 5:42 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-290618"><p>name	marks	grade<br>
+abc	            50	CB<br>
+def	            45	CC<br>
+ghhi	            55	CA<br>
+jkl	            85	A<br>
+mno	            75	BA<br>
+pqr	            77	BA<br>
+stu	            89	A</p>
+<p>my question is..<br>
+add .00 after every mark value in mark column…<br>
+how can I do with sed command??????<br>
+is there any another command???</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-290618" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-292499">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Richard M</span>
+							<span class="comment_date">August 29, 2012, 7:07 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-292499"><p>$ cat file.txt<br>
+name marks grade<br>
+abc 50 CB<br>
+def 45 CC<br>
+ghhi 55 CA<br>
+jkl 85 A<br>
+mno 75 BA<br>
+pqr 77 BA<br>
+stu 89 A<br>
+$ cat file.txt|awk ‘{print $1, $2″.00″, $3}’<br>
+name marks.00 grade<br>
+abc 50.00 CB<br>
+def 45.00 CC<br>
+ghhi 55.00 CA<br>
+jkl 85.00 A<br>
+mno 75.00 BA<br>
+pqr 77.00 BA<br>
+stu 89.00 A<br>
+$</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-292499" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-403295">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">John</span>
+							<span class="comment_date">November 28, 2012, 12:31 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-403295"><p>Hi,<br>
+I want to insert null character at particular position in every line of file.<br>
+How can i do that?<br>
+thanks in advance.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-403295" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-530260">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Anonymous</span>
+							<span class="comment_date">February 4, 2013, 7:21 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-530260"><p>Hi..<br>
+How to change the second field of the /etc/shadow file to NP without touching other entries in a line</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-530260" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-548432">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">nadji</span>
+							<span class="comment_date">February 22, 2013, 1:50 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-548432"><p>thank you thegeekstuff.com every time you give us interesting informations</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-548432" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-549820">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">dude4linux</span>
+							<span class="comment_date">February 23, 2013, 11:32 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-549820"><p>I use the following sed command to add some additional aliases to .bashrc<br>
+sed -i -e ‘/ls –color=auto/a \<br>
+    alias ll=”ls –color=auto -lh” \<br>
+    alias la=”ls –color=auto -lAh” \<br>
+    alias l=”ls –color=auto -CF”<br>
+‘ ~/.bashrc<br>
+I would like to use single quotes ‘ in the added lines for cosmetic 
+reasons, but none of the combinations of escape codes will work for me. 
+ I’ve tried \’, ”, ”’, and even tried exchanging ‘ and “.  Any idea how 
+to include a single quote in the added lines?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-549820" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-624441">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">yusuf</span>
+							<span class="comment_date">April 3, 2013, 1:33 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-624441"><p>Hi,<br>
+ Could u pls explain the Example 5, how it works.</p>
+<p>$sed ‘s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g’ numbers</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-624441" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-626415">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">yusuf</span>
+							<span class="comment_date">April 3, 2013, 11:09 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-626415"><p>Boss, pls explain example 5.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-626415" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-665511">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sudershan</span>
+							<span class="comment_date">April 15, 2013, 4:49 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-665511"><p>ANYONE please do let me know , how to add the below information after 10th line in a file in linux using sed command </p>
+<p>===================================================================<br>
+SSLEngine on<br>
+JkMountCopy On<br>
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL</p>
+<p>SSLCertificateFile “/opt/test/sys/Apache/conf/ssl.crt/server.crt”<br>
+SSLCertificateKeyFile “/opt/test/sys/Apache/conf/ssl.key/server.key”</p>
+<p>    SSLOptions +StdEnvVars</p>
+<p>    SSLOptions +StdEnvVars</p>
+<p>CustomLog “/opt/test/sys/Apache/logs/ssl_request.log” “%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \”%r\” %b”</p>
+<p>===================================================================</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-665511" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-666476">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Logan Palanisamy</span>
+							<span class="comment_date">April 15, 2013, 10:21 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-666476"><p>Here is you do it.</p>
+<p>1.Save the contents you want to insert after the 10th line into a separate file.<br>
+2. Use read option (“r”) to read the above file into the original file.</p>
+<p>The original file<br>
+$ cat myfile.txt<br>
+this is line 1<br>
+this is line 2<br>
+this is line 3<br>
+this is line 4<br>
+this is line 5<br>
+this is line 6<br>
+this is line 7<br>
+this is line 8<br>
+this is line 9<br>
+this is line 10<br>
+this is line 11<br>
+this is line 12</p>
+<p>Save the contents to be inserted into new_file.txt<br>
+$ cat new_file.txt<br>
+=======================<br>
+   new line 1<br>
+   new line 2<br>
+   new line 3<br>
+   new line 4<br>
+   new line 5<br>
+=======================</p>
+<p>Read the contents of the new_file into the original file, myfile.txt<br>
+$ sed ’10r new_file.txt’ myfile.txt<br>
+this is line 1<br>
+this is line 2<br>
+this is line 3<br>
+this is line 4<br>
+this is line 5<br>
+this is line 6<br>
+this is line 7<br>
+this is line 8<br>
+this is line 9<br>
+this is line 10<br>
+=======================<br>
+   new line 1<br>
+   new line 2<br>
+   new line 3<br>
+   new line 4<br>
+   new line 5<br>
+=======================<br>
+this is line 11<br>
+this is line 12</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-666476" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-668954">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sudershan</span>
+							<span class="comment_date">April 16, 2013, 12:25 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-668954"><p>Thank 
+you very much Logan Palanisamy ,,,, Thank you very much once again 
+palanisamy…!! it is really working thank you very very much …!!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-668954" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-668980">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Sudershan</span>
+							<span class="comment_date">April 16, 2013, 12:33 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-668980"><p>Logan 
+Palanisamy , but in the text i had to pass variables like $HOSTNAME $PWD
+ when i place in the text issue the command sed -i ’10r text’ httpd.conf
+ , it is saving as it is , but it is not replacing the value of 
+$HOSTNAME and $PWD , please help me in this regard logan palanisamy</p>
+<p>#    ServerAdmin <a href="mailto:webmaster@dummy-host.example.com">webmaster@dummy-host.example.com</a><br>
+#    DocumentRoot /www/docs/dummy-host.example.com<br>
+    ServerName $HOSTNAME<br>
+#    ErrorLog logs/dummy-host.example.com-error_log<br>
+#    CustomLog logs/dummy-host.example.com-access_log common<br>
+SSLEngine on<br>
+JkMountCopy On<br>
+SSLCipherSuite ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP:+eNULL</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-668980" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-805386">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">kushal</span>
+							<span class="comment_date">June 12, 2013, 5:58 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-805386"><p>would anybody explain the meaning of every field of example 1</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-805386" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-928467">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Eason Yi</span>
+							<span class="comment_date">September 11, 2013, 8:32 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-928467"><p>Hi author,</p>
+<p>I have one comment regarding example 1 in section III. Grouping and Back-references in Sed).</p>
+<p>You wrote, “\(\/[^:]*\) matches the path available before first : comes.”, which is not correct.</p>
+<p>Explanation:</p>
+<p>Let’s get rid of “\(” and “\)” in the expression, which are used for grouping.</p>
+<p>For the remaining part, “\/[^:]*”, which means, match the strings 
+that starting with “/”, and followed by any strings other than “:”, for 
+zero or more times.</p>
+<p>So, your explanation should be corrected to, “\(\/[^:]*\) matches any path that does not includes a colon.”</p>
+<p>The first ocurrence of the path in the line is represented by “\1”, not “\(\/[^:]*\)”.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-928467" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1031498">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">prasad</span>
+							<span class="comment_date">November 12, 2013, 6:04 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1031498"><p>please help me<br>
+i have a one text file.<br>
+cat sample.txt<br>
+0<br>
+0<br>
+0<br>
+0<br>
+0<br>
+0<br>
+ i want to replace 0 with name  using sed command</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-1031498" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-1031636">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">prasad</span>
+							<span class="comment_date">November 12, 2013, 7:43 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1031636"><p>please help me …for this also</p>
+<p>i have a file with 500 telephone numbers..and i want to replace number with name=data.<br>
+using sed command .</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-1031636" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-1052320">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">J</span>
+							<span class="comment_date">November 22, 2013, 12:19 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-1052320"><p>@ sasikala<br>
+First, let me say your examples not just on sed are a fantastic starting point for those who are passionate to learn</p>
+<p>My question is example 5</p>
+<p>———————————————————————<br>
+$sed ‘s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g’ numbers<br>
+———————————————————————</p>
+<p>can you tell me what does the dot “.”    after 9 in the pattern    \(^\|[^0-9.]\)    do?<br>
+The pattern should match all chars which are not digits anchored at the beginnng and defines the first group as that.</p>
+<p>But it works even without the dot after 9 . Can you explain what does the dot after 9 do?</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-1052320" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-2452232">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Bhaswar</span>
+							<span class="comment_date">October 13, 2014, 4:34 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-2452232"><p>What is the output if we do this-</p>
+<p>echo “something”  | sed -e ‘s/searched_string_name//’</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-2452232" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-2957047">
+						<div class="comment_head">
+							<span class="avatar"><a href="http://lisakov.com/" rel="nofollow"></a></span>
+							<span class="comment_author"><a href="http://lisakov.com/" rel="external nofollow" class="url">Sergey</a></span>
+							<span class="comment_date">November 19, 2014, 5:54 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-2957047"><p>Very nice way to avoid nice \/\/\/\/\/\/\/\/\/ fence-like constructions: use colon as separator<br>
+sed ‘s:old:new:g’<br>
+This way<br>
+sed ‘s/\/opt\/omni\/lbin/\/opt\/tools\/bin/g’ path.txt<br>
+Turns into<br>
+sed ‘s:/opt/omni/lbin:/opt/tools/bin:g’ path.txt<br>
+which is so much easier to read!</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-2957047" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-3890753">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Serhii</span>
+							<span class="comment_date">March 11, 2015, 8:38 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-3890753"><p>sed ‘s/[:].*/ /g’ /etc/passwd<br>
+best example</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-3890753" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4087112">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Naresh</span>
+							<span class="comment_date">May 5, 2015, 11:04 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4087112"><p>How to escape  ` ( backtick ) character or replace ` with ‘ ( single quotes ) . </p>
+<p>eg : Sampl`e</p>
+<p>Thanks</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-4087112" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4545993">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Steve</span>
+							<span class="comment_date">October 15, 2015, 5:05 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4545993"><p>Example 3 is much simpler as:<br>
+sed ‘s/:.*//’ /etc/passwd</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-4545993" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4545997">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Steve</span>
+							<span class="comment_date">October 15, 2015, 5:08 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4545997"><p>“But it works even without the dot after 9 . Can you explain what does the dot after 9 do?”</p>
+<p>The [ ] enclose all permissible characters for a single character 
+position, so [0-9.] will match a numeric character or a period.  Used 
+outside of [ ] the period matches any character, inside it’s treated 
+literally.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-4545997" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment odd alt thread-odd thread-alt depth-1" id="comment-4710408">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Ramavtar</span>
+							<span class="comment_date">February 24, 2016, 10:22 pm</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4710408"><p>Hello Sir<br>
+Your examples are very good for learning.<br>
+Could you please explain how this works. This is the last example given on this page.<br>
+$sed ‘s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g’ numbers<br>
+1,234<br>
+12,121<br>
+3,434<br>
+123</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-4710408" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+					<li class="comment even thread-even depth-1" id="comment-4823405">
+						<div class="comment_head">
+							<span class="avatar"></span>
+							<span class="comment_author">Rich</span>
+							<span class="comment_date">June 5, 2016, 7:25 am</span>
+						</div>
+						<div class="comment_text grt" id="comment-body-4823405"><p>Ramavtar:</p>
+<p>$sed ‘s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g’ numbers</p>
+<p>(1)   \(^\|[^0-9.]\)  – match any leading(^) Null OR| [^x] non-numeric and not period letter<br>
+(2)  \([0-9]\+\)   – match one or more numbers only<br>
+(3) \([0-9]\{3\}\) – match a group of 3 numbers<br>
+/g globally across the line</p>
+<p>the \1 \2 and \3 correspond to the group #’s above<br>
+as stated above, the :a and ;ta are needed to get all the numbers<br>
+sed ‘:a;s/\(^\|[^0-9.]\)\([0-9]\+\)\([0-9]\{3\}\)/\1\2,\3/g;ta’</p>
+<p>this creates a while not end of line loop<br>
+ :a create a label<br>
+;ta  branch back(t) to label(a) if the subst was successful.</p>
+						</div>
+						<div class="comment_footer">
+							<a class="comment_permalink" href="#comment-4823405" title="permalink to this comment" rel="nofollow">Link</a>
+						</div>
+</li><!-- #comment-## -->
+				</ul>
+				<form id="commentform" method="post" action="https://www.thegeekstuff.com/wp-comments-post.php">
+					<a rel="nofollow" id="cancel-comment-reply-link" href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/#respond" style="display:none;">Cancel reply</a>
+					<p class="comment_form_title">Leave a Comment</p>
+					<p id="comment_form_name">
+						<label for="author">Name</label>
+						<input type="text" id="author" class="input_text" name="author" tabindex="1">
+					</p>
+					<p id="comment_form_email">
+						<label for="email">Email</label>
+						<input type="text" id="email" class="input_text" name="email" tabindex="2">
+					</p>
+					<p id="comment_form_url">
+						<label for="url">Website</label>
+						<input type="text" id="url" class="input_text" name="url" tabindex="3">
+					</p>
+					<p id="comment_form_comment">
+						<label for="comment">Comment</label>
+						<textarea name="comment" id="comment" class="input_text" tabindex="4" rows="6"></textarea>
+					</p>
+					<p id="comment_form_submit">
+						<input type="submit" id="submit" class="input_submit" name="submit" tabindex="5" value="Submit">
+					</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="33e61a93f1"></p>
+
+	<p style="clear: both;" class="subscribe-to-comments">
+	<input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;">
+	<label for="subscribe">Notify me of followup comments via e-mail</label>
+	</p>
+
+
+<p style="display: none;"></p><input type="hidden" name="comment_post_ID" value="2335" id="comment_post_ID">
+<input type="hidden" name="comment_parent" id="comment_parent" value="0">
+				<input type="hidden" id="ak_js" name="ak_js" value="1559478736937"></form>
+			</div>
+			<div class="prev_next">
+				<p class="next_post">Next post: <a href="https://www.thegeekstuff.com/2009/10/how-to-execute-ssh-and-scp-in-batch-mode-only-when-passwordless-login-is-enabled/" rel="next">How To Execute SSH and SCP in Batch Mode (Only when Passwordless login is enabled)</a></p>
+				<p class="previous_post">Previous post: <a href="https://www.thegeekstuff.com/2009/10/how-to-capture-unix-top-command-output-to-a-file-in-readable-format/" rel="prev">How To Capture Unix Top Command Output to a File in Readable Format</a></p>
+			</div>
+		</div>
+		<div class="sidebar">
+<div class="widget widget_text" id="text-21">			<div class="textwidget"><a title="Subscribe via RSS" href="https://www.thegeekstuff.com/feed" rel="nofollow">RSS</a>&nbsp; | &nbsp;<a title="Subscribe via Email" href="https://feedburner.google.com/fb/a/mailverify?uri=TheGeekStuff&amp;loc=en_US" rel="nofollow">Email</a>&nbsp; | &nbsp;<a title="Follow us on Twitter" href="https://twitter.com/thegeekstuff" rel="nofollow">Twitter</a>&nbsp; | &nbsp;<a title="Become a fan" href="https://www.facebook.com/thegeekstuff" rel="nofollow">Facebook</a>&nbsp; | &nbsp;<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Google+</a>
+<br><br>
+<form action="https://www.thegeekstuff.com/search" id="cse-search-box">
+  <div>
+    <input type="hidden" name="cx" value="005666763606120661560:zkmegbt_djm">
+    <input type="hidden" name="cof" value="FORID:10">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input style="background: rgb(255, 255, 255) url(&quot;https://www.google.com/cse/static/images/1x/googlelogo_lightgrey_46x16dp.png&quot;) no-repeat scroll left center; text-indent: 48px;" type="text" name="q" size="30" placeholder="Custom Search">
+    <input style="border-color:#CCCCCC #999999 #999999 #CCCCCC; border-style:double; border-width:1px; overflow:visible;" type="submit" name="sa" value="Search">
+  </div>
+<input name="siteurl" type="hidden" value="www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/"><input name="ref" type="hidden"><input name="ss" type="hidden"></form>
+<script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/jsapi"></script>
+<script type="text/javascript">google.load("elements", "1", {packages: "transliteration"});</script><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/a" type="text/javascript"></script><link href="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/transliteration.css" type="text/css" rel="stylesheet"><script src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/transliteration.js" type="text/javascript"></script>
+<script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/t13n"></script>
+<script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/brand"></script>
+<br></div>
+		</div><div class="widget widget_text" id="text-3">			<div class="textwidget"><script async="" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/adsbygoogle.js"></script>
+<!-- TGS Side Bar -->
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-8090601437064582" data-ad-slot="9054077260" data-adsbygoogle-status="done"><ins id="aswift_2_expand" style="display:inline-table;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><ins id="aswift_2_anchor" style="display:block;border:none;height:250px;margin:0;padding:0;position:relative;visibility:visible;width:300px;background-color:transparent;"><iframe marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){setTimeout(h,0)}else if(h.match){try{h=s.upd(h,i)}catch(e){}w.location.replace(h)}}" id="aswift_2" name="aswift_2" style="left:0;position:absolute;top:0;border:0px;width:300px;height:250px;" width="300" height="250" frameborder="0"></iframe></ins></ins></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<br></div>
+		</div><div class="widget widget_text" id="text-4"><p class="widget_title">EBOOKS</p>			<div class="textwidget"><ul>
+<li><img title="Linux 101 Hacks Book" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/free-small.png" alt="Linux 101 Hacks Book">&nbsp;<a href="https://www.thegeekstuff.com/linux-101-hacks-ebook/">Linux 101 Hacks 2nd Edition eBook</a> - Practical Examples to Build a Strong Foundation in Linux</li>
+<li><a href="https://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a> - Take Control of Your Bash Command Line and Shell Scripting</li>
+<li><a href="https://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a> - Enhance Your UNIX / Linux Life with Sed and Awk</li>
+<li><a href="https://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a> - Practical Examples for Becoming Fast and Productive in Vim Editor</li>
+<li><a href="https://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a> - Monitor Everything, Be Proactive, and Sleep Well</li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-22">			<div class="textwidget"><iframe src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/likebox.html" scrolling="no" style="border:none; overflow:hidden; height:258px;" allowtransparency="true" frameborder="0"></iframe></div>
+		</div><div class="widget widget_text" id="text-17"><p class="widget_title">POPULAR POSTS</p>			<div class="textwidget"><ul>
+<li><a href="https://www.thegeekstuff.com/dslr-accessories/">15 Essential Accessories for Your Nikon or Canon DSLR Camera</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/01/12-amazing-and-essential-linux-books-to-enrich-your-brain-and-library/">12 Amazing and Essential Linux Books To Enrich Your Brain and Library</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/12/50-unix-linux-sysadmin-tutorials/">50 UNIX / Linux Sysadmin Tutorials</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/11/50-linux-commands/">50 Most Frequently Used UNIX / Linux Commands (With Examples)</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/08/gtd-getting-things-done/">How To Be Productive and Get Things Done Using GTD</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/03/30-things-to-do-when-you-are-bored-and-have-a-computer/">30 Things To Do When you are Bored and have a Computer</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/09/linux-file-system-structure/">Linux Directory Structure (File System Structure) Explained with Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/">Linux Crontab: 15 Awesome Cron Job Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/03/15-practical-unix-grep-command-examples/">Get a Grip on the Grep! – 15 Practical Grep Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/07/linux-ls-command-examples/">Unix LS Command: 15 Practical Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/08/15-examples-to-master-linux-command-line-history/">15 Examples To Master Linux Command Line History</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/08/bug-tracking-system/">Top 10 Open Source Bug Tracking System</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/01/vi-and-vim-macro-tutorial-how-to-record-and-play/">Vi and Vim Macro Tutorial: How To Record and Play</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/03/15-practical-linux-find-command-examples/">Mommy, I found it! -- 15 Practical Linux Find Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/07/best-gmail-tips-and-tricks/">15 Awesome Gmail Tips and Tricks</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/06/expertise-in-google-search/">15 Awesome Google Search Tips and Tricks</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/08/raid-levels-tutorial/">RAID 0, RAID 1, RAID 5, RAID 10 Explained with Diagrams</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/01/15-practical-unix-linux-top-command-examples/">Can You Top This? 15 Practical Linux Top Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/09/top-5-best-network-monitoring-tools/">Top 5 Best System Monitoring Tools</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/06/top-5-best-linux-os-distributions/">Top 5 Best Linux OS Distributions</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/06/how-to-monitor-remote-linux-host-using-nagios-30/">How To Monitor Remote Linux Host using Nagios 3.0</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/01/awk-introduction-tutorial-7-awk-print-examples/">Awk Introduction Tutorial – 7 Awk Print Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/09/rsync-command-examples/">How to Backup Linux? 15 rsync Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/09/the-ultimate-wget-download-guide-with-15-awesome-examples/">The Ultimate Wget Download Guide With 15 Awesome Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/07/top-5-best-linux-text-editors/">Top 5 Best Linux Text Editors</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/08/tcpdump-command-examples/">Packet Analyzer: 15 TCPDUMP Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/06/bash-array-tutorial/">The Ultimate Bash Array Tutorial with 15 Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/11/3-steps-to-perform-ssh-login-without-password-using-ssh-keygen-ssh-copy-id/">3 Steps to Perform SSH Login Without Password Using ssh-keygen &amp; ssh-copy-id</a></li>
+<li><a href="https://www.thegeekstuff.com/2009/10/unix-sed-tutorial-advanced-sed-substitution-examples/">Unix Sed Tutorial: Advanced Sed Substitution Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2010/03/netstat-command-examples/">UNIX / Linux: 10 Netstat Command Examples</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/06/the-ultimate-guide-for-creating-strong-passwords/">The Ultimate Guide for Creating Strong Passwords</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/08/6-steps-to-secure-your-home-wireless-network/">6 Steps to Secure Your Home Wireless Network</a></li>
+<li><a href="https://www.thegeekstuff.com/2008/08/turbocharge-putty-with-12-powerful-add-ons-software-for-geeks-3/">Turbocharge PuTTY with 12 Powerful Add-Ons</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-19"><p class="widget_title">CATEGORIES</p>			<div class="textwidget"><ul>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/linux/">Linux Tutorials</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/vim-2/">Vim Editor</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/sed/">Sed Scripting</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/awk/">Awk Scripting</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/bash-2/">Bash Shell Scripting</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/nagios-2/">Nagios Monitoring</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/openssh-2/">OpenSSH</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/iptables/">IPTables Firewall</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/apache/">Apache Web Server</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/mysql/">MySQL Database</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/perl/">Perl Programming</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/google/">Google Tutorials</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/ubuntu/">Ubuntu Tutorials</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/postgresql/">PostgreSQL DB</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/hello-world/">Hello World Examples</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/c-programming/">C Programming</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/c-plus-plus/">C++ Programming</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/dell-2/">DELL Server Tutorials</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/oracle/">Oracle Database</a></li>
+<li><a rel="nofollow" href="https://www.thegeekstuff.com/category/vmware/">VMware Tutorials</a></li>
+</ul></div>
+		</div><div class="widget widget_text" id="text-20">			<div class="textwidget"><div style="position: absolute; width: 450px; left: -10000px;" id="___person_0"><iframe ng-non-bindable="" hspace="0" marginheight="0" marginwidth="0" scrolling="no" style="position:absolute;top:-10000px;width:450px;margin:0px;border-style:none" tabindex="0" vspace="0" id="I2_1559478736933" name="I2_1559478736933" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/person.html" data-gapiattached="true" width="100%" frameborder="0"></iframe></div><g:person href="https://plus.google.com/112493711428194838421" data-rel="author" layout="landscape" data-gapiscan="true" data-onload="true" data-gapistub="true"></g:person></div>
+		</div>		</div>
+	</div>
+	<div class="footer">
+<div id="footer_widgets" class="columns_3">
+	<div class="one-third sidebar first">
+<div class="widget widget_text" id="text-7"><h4 class="widget_title">About The Geek Stuff</h4>			<div class="textwidget"><br>
+<img class="float" title="Ramesh Natarajan" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/ramesh-small.gif" alt="Linux 101 Hacks Book">
+My name is <strong>Ramesh Natarajan</strong>. I will be posting 
+instruction guides, how-to, troubleshooting tips and tricks on Linux, 
+database, hardware, security and web. My focus is to write articles that
+ will either teach you or help you resolve a problem. Read more about <a href="https://www.thegeekstuff.com/about/">Ramesh Natarajan</a> and the blog.</div>
+		</div>	</div>
+	<div class="one-third sidebar">
+<div class="widget widget_text" id="text-9"><h4 class="widget_title">Contact Us</h4>			<div class="textwidget"><br>
+<strong>Email Me :</strong>
+Use this <a href="https://www.thegeekstuff.com/contact" rel="nofollow">Contact Form</a>
+ to get in touch me with your comments, questions or suggestions about 
+this site. You can also simply drop me a line to say hello!.
+<br><br>
+<a title="Follow us on Google+" href="https://plus.google.com/112493711428194838421/posts">Follow us on Google+</a>
+<br><br>
+<a title="Follow us on Twitter" href="https://twitter.com/thegeekstuff" rel="nofollow">Follow us on Twitter</a>
+<br><br>
+<a href="https://www.facebook.com/thegeekstuff" rel="nofollow">Become a fan on Facebook</a>&nbsp;&nbsp;</div>
+		</div>	</div>
+	<div class="one-third sidebar last">
+<div class="widget widget_text" id="text-8"><h4 class="widget_title">Support Us</h4>			<div class="textwidget"><br>
+Support this blog by purchasing one of my ebooks.
+<br><br>
+<a rel="nofollow" href="https://www.thegeekstuff.com/bash-101-hacks-ebook/">Bash 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="https://www.thegeekstuff.com/sed-awk-101-hacks-ebook/">Sed and Awk 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="https://www.thegeekstuff.com/vim-101-hacks-ebook/">Vim 101 Hacks eBook</a>
+<br><br>
+<a rel="nofollow" href="https://www.thegeekstuff.com/nagios-core-ebook/">Nagios Core 3 eBook</a></div>
+		</div>	</div>
+	<div style="clear:both;"></div>
+</div>
+		<p class="attribution">Copyright © 2008–2018 Ramesh Natarajan. All rights reserved  | <a href="https://www.thegeekstuff.com/copyright">Terms of Service</a></p>
+	</div>
+</div>
+<script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/comment-reply.js"></script>
+<script async="async" type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/form.js"></script>
+<script type="text/javascript">
+(function(){
+	var classes = document.getElementsByClassName('menu_control');
+	for (i = 0; i < classes.length; i++) {
+		classes[i].onclick = function() {
+			var menu = this.nextElementSibling;
+			if (/show_menu/.test(menu.className))
+				menu.className = menu.className.replace('show_menu', '').trim();
+			else
+				menu.className += ' show_menu';
+		};
+	}
+})();
+</script>
+<noscript><style type="text/css" scoped>.menu { display: block; }</style></noscript>
+<script type="text/javascript" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/plusone.js" gapi_processed="true"></script>
+
+
+
+<iframe scrolling="no" allowtransparency="true" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/widget_iframe.html" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe><iframe name="oauth2relay611421314" id="oauth2relay611421314" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/postmessageRelay.html" style="width: 1px; height: 1px; position: absolute; top: -100px;" tabindex="-1" aria-hidden="true"></iframe><iframe id="google_osd_static_frame_9154113324987" name="google_osd_static_frame" style="display: none; width: 0px; height: 0px;"></iframe><iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe></body><iframe id="google_esf" name="google_esf" src="Unix%20Sed%20Tutorial:%20Advanced%20Sed%20Substitution%20Examples_files/zrt_lookup.html" style="display: none;" data-ad-client="ca-pub-8090601437064582"></iframe></html>
+<!-- Performance optimized by W3 Total Cache. Learn more: http://www.w3-edge.com/wordpress-plugins/
+
+Page Caching using disk: enhanced
+Content Delivery Network via Amazon Web Services: CloudFront: static.thegeekstuff.com
+
+ Served from: www.thegeekstuff.com @ 2019-06-02 05:15:42 by W3 Total Cache -->

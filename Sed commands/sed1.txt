@@ -1,0 +1,49 @@
+echo "Welcome To The Geek Stuff" | sed 's/\(\b[A-Z]\)/\(\1\)/g'
+Output:
+(W)elcome (T)o (T)he (G)eek (S)tuff
+
+
+Replace a pattern with other except in the nth line.
+Syntax: sed ‘n!s/old_pattern/new_pattern/’ filename
+Example :
+[root@rhel7 ~]# sed -i '5!s/life/love/' a.txt
+
+
+8 – Print lines which matches the pattern i.e from input to xth line.
+Syntax: sed -n ‘/pattern/,xp’ filename
+Example :
+[root@rhel7 ~]# sed -n '/everyone/,5p' a.txt
+Following prints lines which matches the pattern, 3rd line matches the pattern “everyone”, so it prints from 3rd line to 5th line. Use $ in place of 5, if want to print the file till end.
+
+
+9 – Prints lines from the xth line of the input, up-to the line which matches the pattern. If the pattern doesn’t found then it prints up-to end of the file.
+Syntax: sed -n ‘x,/pattern/p’ filename
+Example :
+sed -n '1,/everyone/p' a.txt
+
+
+10 – Print the lines which matches the pattern up-to the next xth lines –
+Syntax: sed -n ‘/pattern/,+xp’ filename
+Example :
+sed -n '/learn/,+2p' a.txt
+
+
+For instance, we can delete lines starting at a line that only contains the word "START" until a line reading "END" by issuing the following command:
+sed '/^START$/,/^END$/d' inputfile
+One thing to note though, is that this will delete everything from the first "START" to the first "END", and then restart the deletion if it comes across another "START" marker.
+
+
+For example, we can delete any line that is NOT blank (not terribly useful, but just an example), with the following command:
+sed '/^$/!d' GPL-3
+
+
+Instead of typing each set of sed calls, you can put the commands in a script and supply it as an argument to sed. A sed script is simply a list of raw sed commands (the part normally between the single-quote characters).
+For example:
+s/this/that/g
+s/snow/rain/g
+1,5s/pinecone/apricot/g
+
+We could then call the file by using the following syntax:
+sed -f sedScriptName fileToEdit
+
+HOLD BUFFER IS REMAINING FROM SLIDE

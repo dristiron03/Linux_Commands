@@ -1,0 +1,222 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Regular Expressions in grep</title></head><body background="Regular%20Expressions%20in%20grep_files/background.gif">
+<a href="http://www.robelle.com/"><img alt="[Robelle]" src="Regular%20Expressions%20in%20grep_files/robelle.gif"></a>
+<a href="http://www.robelle.com/smugbook/welcome.html"><img alt="[SmugBook]" src="Regular%20Expressions%20in%20grep_files/smug.gif"></a>
+<a href="http://www.robelle.com/smugbook/index.html"><img alt="[Index]" src="Regular%20Expressions%20in%20grep_files/index.gif"></a>
+<a href="http://www.robelle.com/smugbook/manpages.html"><img alt="[Prev]" src="Regular%20Expressions%20in%20grep_files/up.gif"></a>
+<a href="http://www.robelle.com/smugbook/whence.html"><img alt="[Next]" src="Regular%20Expressions%20in%20grep_files/down.gif"></a>
+
+<h3>Searching Files on UNIX</h3>
+
+On <a href="http://www.robelle.com/smugbook/mpe.html">MPE</a> you can display files
+using the :Print command, Fcopy, <a href="http://www.robelle.com/smugbook/nuggets.html#magnet">Magnet</a>,
+or <a href="http://www.robelle.com/smugbook/qedit.html">Qedit</a> (with pattern
+match searches). On <a href="http://www.robelle.com/smugbook/hp-ux.html">HP-UX</a>
+you can display files using <b>cat</b> and even better using
+<b>more</b> (and string search using the slash "/" command), and
+<a href="http://www.robelle.com/smugbook/qedit.html">Qedit</a> (including searches of $Include files, and so on),
+but if you really want to search for patterns of text
+like a UNIX guru, <a href="#grep">grep</a> is the tool for you.
+<p>
+<a href="http://www.robelle.com/smugbook/regexpr1.txt">Text version.</a>
+</p><p>
+<table border="">
+<tbody><tr>
+<td>cat report.c</td><td>{prints file on stdout, no pauses}
+</td></tr><tr>
+<td>cat -v -e -t dump</td><td>{show non-printing characters too}
+</td></tr><tr>
+<td>cat &gt;newfile</td><td>{reads from stdin, writes to 'newfile'}
+</td></tr><tr>
+<td>cat rpt1.c inp.c test.s &gt;newfile</td><td>{combine 3 files into 1}
+</td></tr><tr>
+<td>more report.c</td><td>{space for next page, q to quit}
+</td></tr><tr>
+<td>ps -a | more</td><td>{page through the full output of ps}
+</td></tr><tr>
+<td>grep smug *.txt</td><td>{search *.txt files for 'smug'}</td></tr>
+</tbody></table>
+</p><p>
+MPE users will take a while to remember that
+<b>more</b>, like most UNIX tools,
+responds to a Return by printing the next line,
+not the next screen. Use the Spacebar to print the next
+page.  Type "q" to quit.
+To scan ahead to find a string pattern, type "/" and enter
+a <a href="#expression">regular expression</a> to match.
+For further help, type "h".
+
+<a name="grep"></a></p><h4><a name="grep">Searching Files Using UNIX grep</a></h4>
+
+The <b>grep</b> program is a standard
+<a href="http://www.robelle.com/smugbook/unix.html">UNIX</a>
+utility that searches through a set of files for an arbitrary text
+pattern, specified through a
+<a href="#expression">regular expression.</a>
+Also check the <a href="http://www.robelle.com/smugbook/manpages.html">man pages as well</a>
+for <strong>egrep</strong> and <strong>fgrep</strong>. The
+<a href="http://www.robelle.com/smugbook/mpe.html">MPE</a>
+equivalents are
+<b>MPEX</b>
+and
+<a href="http://www.robelle.com/smugbook/nuggets.html#magnet">Magnet</a>, both third-party products.
+By default, grep is case-sensitive (use -i to ignore case).
+By default, grep ignores the context of a string (use -w to
+match <i>words</i> only).
+By default, grep shows the lines that match (use -v to show
+those that <b>don't</b> match).
+<p>
+<a href="http://www.robelle.com/smugbook/regexpr2.txt">Text version.</a>
+</p><p>
+<table border="">
+<tbody><tr>
+<td> % grep BOB tmpfile</td><td>{search 'tmpfile' for 'BOB' anywhere in a line}
+</td></tr><tr>
+<td> % grep -i -w blkptr * </td><td>{search files in <a href="http://www.robelle.com/smugbook/cwd.html">CWD</a> for word <i>blkptr</i>, any case}
+</td></tr><tr>
+<td> % grep run[- ]time *.txt</td><td>{find 'run time' or 'run-time' in all txt files}
+</td></tr><tr>
+<td> % who | grep root </td><td>{pipe <b>who</b> to <b>grep</b>, look for <i>root</i>}</td></tr>
+</tbody></table>
+</p><p>
+<a name="expression"></a></p><h4><a name="expression">Understanding Regular Expressions</a></h4>
+
+<b>Regular Expressions</b> are a feature of <a href="http://www.robelle.com/smugbook/unix.html">UNIX</a>.
+They describe a pattern to match, a sequence of characters,
+not words, within a line of text.
+Here is a quick summary of the special characters used
+in the <a href="#grep">grep</a> tool and their meaning:
+<p>
+<a href="http://www.robelle.com/smugbook/regexpr3.txt">Text version.</a>
+</p><p>
+<table border="">
+<tbody><tr>
+<td>^ (Caret)</td><td>=</td><td>match expression at the start of a line, as in ^A.
+</td></tr><tr>
+<td>$ (Question)</td><td>=</td><td>match expression at the end of a line, as in A$.
+</td></tr><tr>
+<td>\ (Back Slash)</td><td>=</td><td>turn off the special meaning of the next character, as in \^.
+</td></tr><tr>
+<td>[ ] (Brackets)</td><td>=</td><td>match any <b>one</b> of the enclosed characters, as in [aeiou].
+Use Hyphen "-" for a range, as in <code>[0-9]</code>.
+</td></tr><tr>
+<td>[^ ]</td><td>=</td><td>match any one character <b>except</b> those enclosed in [ ], as in [^0-9].
+</td></tr><tr>
+<td>. (Period)</td><td>=</td><td>match a single character of any value, except end of line.
+</td></tr><tr>
+<td>* (Asterisk)</td><td>=</td><td>match zero or more of the preceding character or expression.
+</td></tr><tr>
+<td>\{x,y\}</td><td>=</td><td>match <b>x</b> to <b>y</b> occurrences of the preceding.
+</td></tr><tr>
+<td>\{x\}</td><td>=</td><td>match exactly <b>x</b> occurrences of the preceding.
+</td></tr><tr>
+<td>\{x,\}</td><td>=</td><td>match <b>x</b> or more occurrences of the preceding.</td></tr>
+</tbody></table>
+</p><p>
+As an <a href="http://www.robelle.com/smugbook/mpe.html">MPE</a> user, you may
+find regular expressions difficult to use at first.
+Please persevere, because they are used in many
+UNIX tools, from <b>more</b> to <b>perl</b>.
+Unfortunately, some tools use simple regular expressions and others use extended
+regular expressions and some extended features have been merged
+into simple tools, so that it looks as if every tool has its own
+syntax. Not only that, regular expressions use the
+same characters as shell <a href="http://www.robelle.com/smugbook/wildcard.html">wildcarding</a>,
+but they are <b>not</b> used in exactly the same way.
+What do you expect of an operating system built by graduate students?
+</p><p>
+Since you usually type regular expressions within
+shell commands, it is good practice to enclose the regular
+expression in single quotes (') to stop the shell from expanding
+it before passing the argument to your search tool.
+Here are some examples using <b>grep</b>:
+</p><p>
+<a href="http://www.robelle.com/smugbook/regexpr4.txt">Text version.</a>
+</p><p>
+<table border="">
+<tbody><tr>
+<td>grep smug files</td><td>{search <i>files</i> for lines with 'smug'}
+</td></tr><tr>
+<td>grep '^smug' files</td><td>{'smug' at the start of a line}
+</td></tr><tr>
+<td>grep 'smug$' files</td><td>{'smug' at the end of a line}
+</td></tr><tr>
+<td>grep '^smug$' files</td><td>{lines containing only 'smug'}
+</td></tr><tr>
+<td>grep '^\^s' files</td><td>{lines starting with '^s', "\" escapes the ^}
+</td></tr><tr>
+<td>grep '[Ss]mug' files</td><td>{search for 'Smug' or 'smug'}
+</td></tr><tr>
+<td>grep 'B[oO][bB]' files</td><td>{search for BOB, Bob, BOb or BoB }
+</td></tr><tr>
+<td>grep '^$' files</td><td>{search for blank lines}
+</td></tr><tr>
+<td>grep '[0-9][0-9]' file</td><td>{search for pairs of numeric digits}</td></tr>
+</tbody></table>
+</p><p>
+<b>Back Slash</b> "\" is used to <i>escape</i> the next
+symbol, for example, turn off the special meaning that it has.
+To look for a Caret "^" at the start of a line, the
+expression is <code>^\^</code>.
+<b>Period</b> "." matches any single character. So <code>b.b</code> will
+match "bob", "bib", "b-b", etc.
+<b>Asterisk</b> "*" does not mean the same thing in regular expressions
+as in wildcarding; it is a modifier that applies to the
+preceding single character, or expression such as <code>[0-9]</code>.
+An asterisk matches <b>zero</b> or more of what precedes it.
+Thus <code>[A-Z]*</code> matches any number of upper-case letters,
+including none, while <code>[A-Z][A-Z]*</code> matches <b>one</b>
+or more upper-case letters.
+</p><p>
+The <b>vi</b> editor uses <code>\&lt; \&gt;</code> to match characters
+at the beginning and/or end of a <b>word boundary</b>.
+A word boundary is either the edge of the line or any character
+except a letter, digit or underscore "_".
+To look for <code>if</code>, but skip <code>stiff</code>, the
+expression is <code>\&lt;if\&gt;</code>.
+For the
+same logic in <b>grep</b>, invoke it with the <b>-w</b> option.
+And remember that
+regular expressions are <b>case-sensitive</b>.  If you don't
+care about the case, the expression to match "if" would be
+<code>[Ii][Ff]</code>,
+where the characters in <b>square brackets</b> define a character
+set from which the pattern must match one character. Alternatively, you
+could also invoke <b>grep</b> with the <b>-i</b> option to ignore case.
+</p><p>
+Here are a few more examples of <b>grep</b> to show you what
+can be done:
+</p><p>
+<a href="http://www.robelle.com/smugbook/regexpr5.txt">Text version.</a>
+</p><p>
+<table border="">
+<tbody><tr>
+<td>grep '^From: ' /usr/mail/$USER</td><td>{list your mail}
+</td></tr><tr>
+<td>grep '[a-zA-Z]'</td><td>{any line with at least one letter}
+</td></tr><tr>
+<td>grep '[^a-zA-Z0-9]</td><td>{anything not a letter or number}
+</td></tr><tr>
+<td>grep '[0-9]\{3\}-[0-9]\{4\}'</td><td>{999-9999, like phone numbers}
+</td></tr><tr>
+<td>grep '^.$'</td><td>{lines with exactly one character}
+</td></tr><tr>
+<td>grep '"smug"'</td><td>{'smug' within double quotes}
+</td></tr><tr>
+<td>grep '"*smug"*'</td><td>{'smug', with or without quotes}
+</td></tr><tr>
+<td>grep '^\.'</td><td>{any line that starts with a Period "."}
+</td></tr><tr>
+<td>grep '^\.[a-z][a-z]'</td><td>{line start with "." and 2 lc letters}</td></tr>
+</tbody></table>
+</p><p>
+</p><hr>
+<a href="http://www.robelle.com/"><img alt="[Robelle]" src="Regular%20Expressions%20in%20grep_files/robelle.gif" align="bottom"></a>
+<a href="http://www.robelle.com/smugbook/welcome.html"><img alt="[SmugBook]" src="Regular%20Expressions%20in%20grep_files/smug.gif"></a>
+<a href="http://www.robelle.com/smugbook/index.html"><img alt="[Index]" src="Regular%20Expressions%20in%20grep_files/index.gif"></a>
+<a href="http://www.robelle.com/smugbook/unix.html"><img alt="[Unix]" src="Regular%20Expressions%20in%20grep_files/chapter.gif"></a>
+<a href="http://www.robelle.com/smugbook/manpages.html"><img alt="[Prev]" src="Regular%20Expressions%20in%20grep_files/up.gif"></a>
+<a href="http://www.robelle.com/smugbook/whence.html"><img alt="[Next]" src="Regular%20Expressions%20in%20grep_files/down.gif"></a>
+
+
+</body></html>

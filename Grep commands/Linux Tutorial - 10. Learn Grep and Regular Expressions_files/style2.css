@@ -1,0 +1,268 @@
+body {
+	/*padding-top: 60px;*/
+	padding-bottom: 0px;
+}
+
+h1:after {
+	content: ' of 13';
+	color: #666;
+	font-size: 20px;
+	font-weight: 100;
+}
+
+h1.introduction:after {
+	content: '';
+}
+
+.jumbotron {
+	background-color: #49A0AE;
+	background: url('../../img/round/tux_128.png') no-repeat #49A0AE;
+	background-position: 103% 119%;
+}
+
+#sidebox.affix {
+	top: 70px;
+}
+
+@media (max-width: 980px) {
+	/* Enable use of floated navbar text */
+	.navbar-text.pull-right {
+		float: none;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+}
+
+@media (max-width: 979px) {
+	.navbar-fixed-top, .navbar-fixed-bottom {
+		position: fixed;
+	}
+}
+
+
+
+.terminal {
+	/*background-color: #dfdfdf;*/
+	background-color: #f9eac5;
+	-webkit-box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8), 40px 0 0 #FBFBFC inset, 41px 0 0 #ECECF0 inset;;
+	box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8), 40px 0 0 #FBFBFC inset, 41px 0 0 #ECECF0 inset;;
+	position: relative;
+	min-height: 60px;
+	border: 1px solid #000;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding-bottom: 30px;
+	font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+	margin: 20px 0px 20px 0px;
+}
+
+.terminal:before {
+	content: 'Terminal';
+	text-align: center;
+	/*background-color: #888;*/
+	background-color: #b3a15e;
+	display: block;
+}
+
+.terminal:after {
+	content: '';
+	text-align: right;
+	background-color: #888;
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 4px;
+}
+
+.prompt {
+	font-weight: bold;
+}
+
+.terminal .prompt:before {
+	content: 'user@bash: ';
+}
+
+.terminal ol {
+	margin: 0 0 0 33px;
+	padding: 0px;
+	padding-left: 7px;
+}
+
+.terminal li {
+	line-height: 20px;
+	padding-left: 8px;
+}
+
+
+
+table.fancy {
+	border-bottom: 1px solid #444;
+	border-top: 1px solid #444;
+	margin-left: auto;
+	margin-right: auto;
+	width: 130px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+table.fancy td {
+	padding-right: 8px;
+	padding-left: 19px;
+}
+
+table .header {
+	border-bottom: 1px solid #666;
+	padding: 3px 0px 3px 0px;
+}
+
+table .octal {
+	text-align: right;
+}
+
+.btn-toolbar {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+
+/* so that long headings don't break titlebar into two lines on small screens */
+
+/*@media (max-width: 768px) {
+	.container-fluid {
+		padding-right: 3px;
+		padding-left: 3px;
+	}
+}
+*/
+
+/* Footer Styles */
+
+/*.footer-background {
+	background-color: #181818;
+	color: #efefef;
+	padding-top: 36px;
+	padding-bottom: 30px;
+	z-index: 2;
+	position: relative;
+}
+
+#footerbar {
+height: 0px;
+border-top: 1px solid #000;
+border-bottom: 1px solid #333;
+margin: 39px 0px 39px 0px;
+}
+
+.tutorials-background a:hover img, .footer-background a:hover img {
+	-moz-transform: rotate3d(0, 0, 1, 15deg);
+	-webkit-transform: rotate3d(0, 0, 1, 15deg);
+	transform: rotate3d(0, 0, 1, 15deg);
+}
+
+.tutorial-outline {
+	text-align: center;
+}
+
+.tutorials-background a img, .footer-background a img {
+	transition: all 0.4s;
+}
+
+.margin-top {
+	margin-top: 32px;
+}
+*/
+
+/* cheat sheet styles */
+
+
+.sectioncontainer {
+	float: left;
+	width: 10%;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin: 5px;
+	position: relative;
+	
+}
+
+.sectioncontainer > h4 {
+	margin: 0px;
+	border-radius: 3px 0px 3px 0px;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	display: inline-block;
+	padding: 5px 15px;
+	background-color: #f6f6f6;
+}
+
+.sectioncontainer > dl {
+	margin: 15px;
+	margin-top: 0px;
+}
+
+.sectioncontainer > dl > dt {
+	margin-top: 15px;
+}
+
+.toggle-section {
+	position: absolute;
+	top: 6px;
+	right: 10px;
+}
+
+.cheatsheetcolumns {
+	float: left;
+	position: relative;
+	margin-right: 10px;
+	width: 0px;
+}
+
+.toggle-section:hover {
+	cursor: pointer;
+}
+
+@media (min-width: 1400px) {
+	.sectioncontainer {
+		width: 24%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 24%;
+	}
+}
+
+@media (min-width: 1100px) and (max-width: 1399px) {
+	.sectioncontainer {
+		width: 30%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 30%;
+	}
+	
+	#cheatsheetcolumn3 {
+	display: none;
+	}
+}
+
+@media (max-width: 1100px) {
+	.sectioncontainer {
+		width: 48%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 48%;
+	}
+}
+
+@media (max-width: 767px) {
+	.sectioncontainer {
+		width: 97%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 97%;
+	}
+} 

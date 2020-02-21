@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252"><title>Examples using grep</title><meta name="GENERATOR" content="Modular DocBook HTML Stylesheet Version 1.7"><link rel="HOME" title="Bash Guide for Beginners" href="http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html"><link rel="UP" title="Regular expressions" href="http://tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html"><link rel="PREVIOUS" title="Regular expressions" href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html"><link rel="NEXT" title="Pattern matching using Bash features" href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_03.html"></head><body class="sect1" vlink="#840084" text="#000000" link="#0000FF" bgcolor="#FFFFFF" alink="#0000FF"><div class="NAVHEADER"><table summary="Header navigation table" width="100%" cellspacing="0" cellpadding="0" border="0"><tbody><tr><th colspan="3" align="center">Bash Guide for Beginners</th></tr><tr><td width="10%" valign="bottom" align="left"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html" accesskey="P">Prev</a></td><td width="80%" valign="bottom" align="center">Chapter 4. Regular expressions</td><td width="10%" valign="bottom" align="right"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_03.html" accesskey="N">Next</a></td></tr></tbody></table><hr width="100%" align="LEFT"></div><div class="sect1"><h1 class="sect1"><a name="sect_04_02"></a>4.2. Examples using grep</h1><div class="sect2"><h2 class="sect2"><a name="sect_04_02_01"></a>4.2.1. What is grep?</h2><p><b class="command">grep</b>
+ searches the input files for lines containing a match to a given 
+pattern list.  When it finds a match in a line, it copies the line to 
+standard output (by default), or whatever other sort of output you have 
+requested with options.</p><p>Though <b class="command">grep</b> expects
+ to do the matching on text, it has no limits on input line length other
+ than available memory, and it can match arbitrary characters within a 
+line.  If the final byte of an input file is not a <em>newline</em>, <b class="command">grep</b>
+ silently supplies one.  Since newline is also a separator for the list 
+of patterns, there is no way to match newline characters in a text.</p><p>Some examples:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>root</i></tt> <tt class="filename">/etc/passwd</tt></b>
+root:x:0:0:root:/root:/bin/bash
+operator:x:11:0:operator:/root:/sbin/nologin
+
+<tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="option">-n</tt> <tt class="parameter"><i>root</i></tt> <tt class="filename">/etc/passwd</tt></b>
+1:root:x:0:0:root:/root:/bin/bash
+12:operator:x:11:0:operator:/root:/sbin/nologin
+
+<tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="option">-v</tt> <tt class="parameter"><i>bash</i></tt> <tt class="filename">/etc/passwd </tt></b>| <b class="command">grep <tt class="option">-v</tt> <tt class="parameter"><i>nologin</i></tt></b>
+sync:x:5:0:sync:/sbin:/bin/sync
+shutdown:x:6:0:shutdown:/sbin:/sbin/shutdown
+halt:x:7:0:halt:/sbin:/sbin/halt
+news:x:9:13:news:/var/spool/news:
+mailnull:x:47:47::/var/spool/mqueue:/dev/null
+xfs:x:43:43:X Font Server:/etc/X11/fs:/bin/false
+rpc:x:32:32:Portmapper RPC user:/:/bin/false
+nscd:x:28:28:NSCD Daemon:/:/bin/false
+named:x:25:25:Named:/var/named:/bin/false
+squid:x:23:23::/var/spool/squid:/dev/null
+ldap:x:55:55:LDAP User:/var/lib/ldap:/bin/false
+apache:x:48:48:Apache:/var/www:/bin/false
+
+<tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="option">-c</tt> <tt class="parameter"><i>false</i></tt> <tt class="filename">/etc/passwd</tt></b>
+7
+
+<tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="option">-i</tt> <tt class="parameter"><i>ps</i></tt> <tt class="filename">~/.bash*</tt></b> | <b class="command">grep <tt class="option">-v</tt> <tt class="parameter"><i>history</i></tt></b>
+/home/cathy/.bashrc:PS1="\[\033[1;44m\]$USER is in \w\[\033[0m\] "
+
+</pre></font></td></tr></tbody></table><p>With the first command, user <em>cathy</em> displays the lines from <tt class="filename">/etc/passwd</tt> containing the string <em>root</em>.</p><p>Then she displays the line numbers containing this search string.</p><p>With the third command she checks which users are not using <b class="command">bash</b>, but accounts with the <b class="command">nologin</b> shell are not displayed.</p><p>Then she counts the number of accounts that have <tt class="filename">/bin/false</tt> as the shell.</p><p>The last command displays the lines from all the files in her home directory starting with <tt class="filename">~/.bash</tt>, excluding matches containing the string <em>history</em>, so as to exclude matches from <tt class="filename">~/.bash_history</tt> which might contain the same string, in upper or lower cases.  Note that the search is for the <em>string</em> <span class="QUOTE">"ps"</span>, and not for the <em>command</em> <b class="command">ps</b>.</p><p>Now let's see what else we can do with grep, using regular expressions.</p></div><div class="sect2"><h2 class="sect2"><a name="sect_04_02_02"></a>4.2.2. Grep and regular expressions</h2><div class="note"><p></p><table class="note" width="100%" border="0"><tbody><tr><td width="25" valign="TOP" align="CENTER"><img src="Examples%20using%20grep_files/note.gif" alt="Note" hspace="5"></td><th valign="CENTER" align="LEFT"><b>If you are not on Linux</b></th></tr><tr><td>&nbsp;</td><td valign="TOP" align="LEFT"><p>We use GNU <b class="command">grep</b> in these examples, which supports extended regular expressions.  GNU <b class="command">grep</b> is the default on Linux systems.  If you are working on proprietary systems, check with the <tt class="option">-V</tt> option which version you are using.  GNU <b class="command">grep</b> can be downloaded from <a href="http://gnu.org/directory/" target="_top">http://gnu.org/directory/</a>.</p></td></tr></tbody></table></div><div class="sect3"><h3 class="sect3"><a name="sect_04_02_02_01"></a>4.2.2.1. Line and word anchors</h3><p>From the previous example, we now exclusively want to display lines starting with the string <span class="QUOTE">"root"</span>:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>^root</i></tt> <tt class="filename">/etc/passwd</tt></b>
+root:x:0:0:root:/root:/bin/bash
+</pre></font></td></tr></tbody></table><p>If we want to see which accounts have no shell assigned whatsoever, we search for lines ending in <span class="QUOTE">":"</span>:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>:$</i></tt> <tt class="filename">/etc/passwd</tt></b>
+news:x:9:13:news:/var/spool/news:
+</pre></font></td></tr></tbody></table><p>To check that <tt class="varname">PATH</tt> is exported in <tt class="filename">~/.bashrc</tt>, first select <span class="QUOTE">"export"</span> lines and then search for lines starting with the string <span class="QUOTE">"PATH"</span>, so as not to display <tt class="varname">MANPATH</tt> and other possible paths:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>export</i></tt> <tt class="filename">~/.bashrc</tt></b> | <b class="command">grep <tt class="parameter"><i>'\&lt;PATH'</i></tt></b>
+  export PATH="/bin:/usr/lib/mh:/lib:/usr/bin:/usr/local/bin:/usr/ucb:/usr/dbin:$PATH"
+</pre></font></td></tr></tbody></table><p>Similarly, <em>\&gt;</em> matches the end of a word.</p><p>If you want to find a string that is a separate word (enclosed by spaces), it is better use the <tt class="option">-w</tt>, as in this example where we are displaying information for the root partition:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="option">-w</tt> <tt class="parameter"><i>/</i></tt> <tt class="filename">/etc/fstab</tt></b>
+LABEL=/                 /                       ext3    defaults        1 1
+</pre></font></td></tr></tbody></table><p>If this option is not used, all the lines from the file system table will be displayed.</p></div><div class="sect3"><h3 class="sect3"><a name="sect_04_02_02_02"></a>4.2.2.2. Character classes</h3><p>A <em>bracket expression</em> is a list of characters enclosed by <span class="QUOTE">"["</span> and <span class="QUOTE">"]"</span>.  It matches any single character in that list; if the first character of the list is the caret, <span class="QUOTE">"^"</span>, then it matches any character NOT in the list.  For example, the regular expression <span class="QUOTE">"[0123456789]"</span> matches any single digit.</p><p>Within a bracket expression, a <em>range expression</em>
+ consists of two characters separated by a hyphen.  It matches any 
+single character that sorts between the two characters, inclusive, using
+ the locale's collating sequence and character set.  For example, in the
+ default C locale, <span class="QUOTE">"[a-d]"</span> is equivalent to <span class="QUOTE">"[abcd]"</span>.  Many locales sort characters in dictionary order, and in these locales <span class="QUOTE">"[a-d]"</span> is typically not equivalent to <span class="QUOTE">"[abcd]"</span>; it might be equivalent to <span class="QUOTE">"[aBbCcDd]"</span>, for example.  To obtain the traditional interpretation of bracket expressions, you can use the C locale by setting the <tt class="varname">LC_ALL</tt> environment variable to the value <span class="QUOTE">"C"</span>.</p><p>Finally, certain named classes of characters are predefined within bracket expressions.  See the <b class="command">grep</b> man or info pages for more information about these predefined expressions.</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>[yf]</i></tt> <tt class="filename">/etc/group</tt></b>
+sys:x:3:root,bin,adm
+tty:x:5:
+mail:x:12:mail,postfix
+ftp:x:50:
+nobody:x:99:
+floppy:x:19:
+xfs:x:43:
+nfsnobody:x:65534:
+postfix:x:89:
+</pre></font></td></tr></tbody></table><p>In the example, all the lines containing either a <span class="QUOTE">"y"</span> or <span class="QUOTE">"f"</span> character are displayed.</p></div><div class="sect3"><h3 class="sect3"><a name="sect_04_02_02_04"></a>4.2.2.3. Wildcards</h3><p>Use the <span class="QUOTE">"."</span> for a single character match.  If you want to get a list of all five-character English dictionary words starting with <span class="QUOTE">"c"</span> and ending in <span class="QUOTE">"h"</span> (handy for solving crosswords):</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>'\&lt;c...h\&gt;'</i></tt> <tt class="filename">/usr/share/dict/words</tt></b>
+catch
+clash
+cloth
+coach
+couch
+cough
+crash
+crush
+</pre></font></td></tr></tbody></table><p>If you want to display lines containing the literal dot character, use the <tt class="option">-F</tt> option to <b class="command">grep</b>.</p><p>For matching multiple characters, use the asterisk.  This example selects all words starting with <span class="QUOTE">"c"</span> and ending in <span class="QUOTE">"h"</span> from the system's dictionary:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>'\&lt;c.*h\&gt;'</i></tt> <tt class="filename">/usr/share/dict/words</tt></b>
+caliph
+cash
+catch
+cheesecloth
+cheetah
+--output omitted--
+</pre></font></td></tr></tbody></table><p>If you want to find the 
+literal asterisk character in a file or output, use single quotes.  
+Cathy in the example below first tries finding the asterisk character in
+ <tt class="filename">/etc/profile</tt> without using quotes, which does not return any lines.  Using quotes, output is generated:</p><table width="100%" border="0" bgcolor="#E0E0E0"><tbody><tr><td><font color="#000000"><pre class="screen"><tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>*</i></tt> <tt class="filename">/etc/profile</tt></b>
+
+<tt class="prompt">cathy ~&gt;</tt> <b class="command">grep <tt class="parameter"><i>'*'</i></tt> <tt class="filename">/etc/profile</tt></b>
+for i in /etc/profile.d/*.sh ; do
+</pre></font></td></tr></tbody></table></div></div></div><div class="NAVFOOTER"><hr width="100%" align="LEFT"><table summary="Footer navigation table" width="100%" cellspacing="0" cellpadding="0" border="0"><tbody><tr><td width="33%" valign="top" align="left"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_01.html" accesskey="P">Prev</a></td><td width="34%" valign="top" align="center"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html" accesskey="H">Home</a></td><td width="33%" valign="top" align="right"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_04_03.html" accesskey="N">Next</a></td></tr><tr><td width="33%" valign="top" align="left">Regular expressions</td><td width="34%" valign="top" align="center"><a href="http://tldp.org/LDP/Bash-Beginners-Guide/html/chap_04.html" accesskey="U">Up</a></td><td width="33%" valign="top" align="right">Pattern matching using Bash features</td></tr></tbody></table></div></body></html>

@@ -1,0 +1,106 @@
+grep -iw 'the\|that\|then\|those' samay.txt
+grep -iw -e "the" -e "that" -e "then" -e "those"
+egrep -iwe 'the|that|then|those'
+
+Highlight all the occurrences of 'editor' by wrapping them up in brace brackets:
+
+`$:~/hackerrank/bash/grep/grep1$` echo "My favorite programming editor is Emacs. Another editor I like is Vim." | sed -e s/editor/{\&}/g
+My favorite programming {editor} is Emacs. Another {editor} I like is Vim.
+
+sed 's/\bthe\b/this/'
+sed -e 's/\<the\>/this/'
+
+sed -e 's/\bthy\b/your/gi'
+
+
+Sample Input
+1234 5678 9101 1234  
+2999 5178 9101 2234  
+9999 5628 9201 1232  
+8888 3678 9101 1232  
+Sample Output
+**** **** **** 1234
+**** **** **** 2234
+**** **** **** 1232
+**** **** **** 1232
+sed -r 's/[0-9]{4} /**** /g'
+
+
+
+Sample Input
+1234 5678 9101 1234  
+2999 5178 9101 2234  
+9999 5628 9201 1232  
+8888 3678 9101 1232
+Sample Output
+1234 9101 5678 1234  
+2234 9101 5178 2999  
+1232 9201 5628 9999  
+1232 9101 3678 8888 
+sed -e 's_\([0-9]\{4\}\) \([0-9]\{4\}\) \([0-9]\{4\}\) \([0-9]\{4\}\)_\4 \3 \2 \1_g'
+
+
+read name
+echo "Welcome $name"
+
+
+
+x=1
+while [$x -lt 50]
+   do echo $x
+    x = $((x+1))
+done
+
+
+for i in {1..50}
+do
+    echo $i
+done
+
+
+for number in {1..99..2}
+do
+    echo $number
+done
+1 is the low end.
+99 is the high end.
+2 is the step after each iteration.
+
+
+read x
+read y
+echo `expr $x + $y`
+echo `expr $x - $y`
+echo `expr $x \* $y`
+echo `expr $x / $y`
+
+
+read x
+read y
+if [ $x -lt $y ]
+then 
+  echo "X is less than Y"
+fi
+if [ $x -eq $y ]
+then 
+  echo "X is equal to Y"
+fi
+if [ $x -gt $y ]
+then 
+  echo "X is greater than Y"
+fi
+
+
+read x
+if [ $x = "y" -o $x = "Y" ]
+then 
+  echo "YES"
+fi
+
+if [ $x = "n" -o $x = "N" ]
+then 
+  echo "NO"
+fi
+
+
+

@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html class="wf-proximanova-n6-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-active" style="" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Intermediate Sed: Manipulating Streams of Text in a Linux Environment | DigitalOcean</title>
+
+<meta name="description" content="The sed stream editor can be used to perform complex editing operations with a minimal amount of instruction. The automated nature of sed makes it perfect for use in scripts and background processing. This article will continue where the Basics of Usi">
+<meta name="keywords" content="Linux Basics">
+
+<meta name="og:title" content="Intermediate Sed: Manipulating Streams of Text in a Linux Environment | DigitalOcean">
+<meta name="og:description" content="The sed stream editor can be used to perform complex editing operations with a minimal amount of instruction. The automated nature of sed makes it perfect for use in scripts and background processing. This article will continue where the Basics of Usi">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+<meta name="og:image" content="https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-02cc36407e7a978ed4fc9ed98f3ed87c.jpg">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="Intermediate Sed: Manipulating Streams of Text in a Linux Environment | DigitalOcean">
+<meta name="twitter:description" content="The sed stream editor can be used to perform complex editing operations with a minimal amount of instruction. The automated nature of sed makes it perfect for use in scripts and background processing. This article will continue where the Basics of Usi">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment">
+<meta name="twitter:image" content="https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-02cc36407e7a978ed4fc9ed98f3ed87c.jpg">
+
+  <link rel="canonical" href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment">
+
+<link rel="preconnect" href="https://digitalocean.cdn.prismic.io/">
+<link rel="preconnect" href="https://hello.myfonts.net/">
+
+
+    <link rel="stylesheet" media="all" href="Intermediate%20Sed:%20Manipulating%20Streams%20_files/application-8d2a883151c79566d6eec8de852ff4bf.css">
+
+    
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Qu84X5eNKFwCFGBGCBqw6+z/MHVBWgq61KzIxxTIda+flJakOGehMseRaYYEo8EoKTDrrGUk1duWZD4XnWND5g==">
+    <script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/insight.js"></script><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/inferredEvents.js" async=""></script><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/836120723106227" async=""></script><script async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/fbevents.js"></script><script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/linkid.js"></script><script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/conversion_async.js"></script><script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/roundtrip.js"></script><script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/analytics.js"></script><script async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/gtm.js"></script><script type="text/javascript" async="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/analytics_002.js"></script><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/prerequisites-9a51dfaadf0d3629cc636286133a958d.js"></script>
+    <script>
+//<![CDATA[
+
+  window.cookieDomain = '.digitalocean.com';
+
+//]]>
+</script><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/cookieConsent.js"></script>
+<link rel="stylesheet" href="Intermediate%20Sed:%20Manipulating%20Streams%20_files/cookieConsent.css">
+
+    <script type="text/javascript">
+  if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+    window.analytics.load("puo3uv968t")}
+  window.analytics.page();
+</script>
+
+
+<!-- Google Tag Manager -->
+<script>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KHWBBT');
+</script>
+<!-- End Google Tag Manager -->
+
+<script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/internalCookies-d2a3579f6b37d00c8045b16853b90462.js"></script>
+
+      <script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/izu1uqu.js"></script>
+      <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-proxima-nova-n6;src:url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/l?subset_id=2&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/d?subset_id=2&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/a?subset_id=2&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:tk-proxima-nova-n4;src:url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:tk-proxima-nova-i4;src:url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:tk-proxima-nova-n3;src:url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}</style><script>try{Typekit.load({ async: true });}catch(e){}</script>
+      <script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/polyfill.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.digitalocean.com/community/tutorials/feed">
+    <script>
+      window.comApp = {
+        prefix: '/community',
+        svgIconPath: 'https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg',
+        railsEnv: 'production',
+        rootUrl: 'https://www.digitalocean.com/community',
+        algolia_application_id: '6ZHEUVKJ88',
+        algolia_api_key: 'c5470567eae7fa1177d43222e18ba086'
+      };
+    </script>
+      <script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/forms2.js"></script>
+
+    <script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/application-2a2f671eae13d58f106829b95c179214.js"></script><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/l?subset_id=2&fvd=n6&v=3) format("woff2"),url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/d?subset_id=2&fvd=n6&v=3) format("woff"),url(https://use.typekit.net/af/27776b/00000000000000003b9b0939/27/a?subset_id=2&fvd=n6&v=3) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/l?subset_id=2&fvd=n4&v=3) format("woff2"),url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/d?subset_id=2&fvd=n4&v=3) format("woff"),url(https://use.typekit.net/af/4838bd/00000000000000003b9b0934/27/a?subset_id=2&fvd=n4&v=3) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/l?subset_id=2&fvd=i4&v=3) format("woff2"),url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/d?subset_id=2&fvd=i4&v=3) format("woff"),url(https://use.typekit.net/af/6aec08/00000000000000003b9b0935/27/a?subset_id=2&fvd=i4&v=3) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/437c3d/00000000000000003b9b0932/27/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}</style>
+  <style>.fluidvids {width: 100%; max-width: 100%; position: relative;}.fluidvids-item {position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;}</style><script type="text/javascript" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/S4BPDI4QWNB57PEKEZSLIP.js"></script><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/a"></script><script async="true" type="text/javascript" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/4IDGVTPEAFC4TM2QKYNQ53"></script><script type="text/javascript" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/sendrolling.js"></script><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_003.asc" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_003.gif" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_004.gif" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out.asc" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out.html" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_002.asc" width="1" height="1"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_005.gif" width="1" height="1"></div><div style="width: 1px; height: 1px; display: inline; position: absolute;"><img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_002.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out.png" width="1" height="1">
+<img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out_006.gif" width="1" height="1">
+<img style="border-style:none;" alt="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/out.gif" width="1" height="1">
+</div></head>
+  <body class="feature-filter-bar feature-upvotes tutorials-controller tutorial-single has-affixed" data-env="production" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011" data-completed-tutorial-id="" data-tutorial-id="405" data-js="tutorial">
+    
+
+    <div class="outside_viewport">
+        <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <button class="close-button icon icon-close-light" data-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-of-contents-modal tocify"><ul id="tocify-header0" class="tocify-header"><li class="tocify-item tocify-focus" data-unique="supplying-multiple-editing-sequences"><a>Supplying Multiple Editing Sequences</a></li></ul><ul id="tocify-header1" class="tocify-header"><li class="tocify-item" data-unique="advanced-addressing"><a>Advanced Addressing</a></li></ul><ul id="tocify-header2" class="tocify-header"><li class="tocify-item" data-unique="using-the-hold-buffer"><a>Using the Hold Buffer</a></li></ul><ul id="tocify-header3" class="tocify-header"><li class="tocify-item" data-unique="using-sed-scripts"><a>Using Sed Scripts</a></li></ul><ul id="tocify-header4" class="tocify-header"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="top ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;url=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" target="_blank">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;url=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" target="_blank">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="table-of-contents has-init sticky" style="top: 72px;">
+    <div data-js="tableOfContentsDesktop" class="tocify"><ul id="tocify-header0" class="tocify-header"><li class="tocify-item tocify-focus" data-unique="supplying-multiple-editing-sequences"><a>Supplying Multiple Editing Sequences</a></li></ul><ul id="tocify-header1" class="tocify-header"><li class="tocify-item" data-unique="advanced-addressing"><a>Advanced Addressing</a></li></ul><ul id="tocify-header2" class="tocify-header"><li class="tocify-item" data-unique="using-the-hold-buffer"><a>Using the Hold Buffer</a></li></ul><ul id="tocify-header3" class="tocify-header"><li class="tocify-item" data-unique="using-sed-scripts"><a>Using Sed Scripts</a></li></ul><ul id="tocify-header4" class="tocify-header"><li class="tocify-item" data-unique="conclusion"><a>Conclusion</a></li></ul></div>
+  </div>
+  
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="bottom ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;url=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter" target="_blank">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;url=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter" target="_blank">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link share-popup" href="https://www.facebook.com/sharer/sharer.php?u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=fbshare" title="Share on Facebook" target="_blank">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=Intermediate%20Sed:%20Manipulating%20Streams%20of%20Text%20in%20a%20Linux%20Environment&amp;u=https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div id="newsletter-signup-dialog" class="newsletter-signups-dialog" data-newsletter-signup-dialog="" data-article-target=".content-body">
+  <div class="form-message">
+  <div class="pull-right">
+    <a href="javascript:;" class="newsletter-signups-dialog-dismiss" data-newsletter-signup-dismiss="">×</a>
+
+  </div>
+  <h4 class="newsletter-signups-dialog-title">
+    Sign up for our newsletter.
+  </h4>
+  <p class="newsletter-signups-dialog-description">
+    Get the latest tutorials on SysAdmin and open source topics.
+  </p>
+  <form class="newsletter-signup" id="new_newsletter_signup" data-newsletter-signup="true" action="/community/newsletter" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+
+  <input data-newsletter-signup-field="url" type="hidden" name="newsletter_signup[url]" id="newsletter_signup_url">
+  <input data-newsletter-signup-field="title" type="hidden" name="newsletter_signup[title]" id="newsletter_signup_title">
+
+  <div class="newsletter-signup-ajax-error" data-newsletter-signup-ajax-error=""></div>
+
+
+  <div class="form-group">
+    <input placeholder="Enter your email address" required="required" class="field" type="email" name="newsletter_signup[email]" id="newsletter_signup_email">
+  </div>
+
+  <button data-disable-with="Sign Up" class="button blue-button">
+    Sign Up
+  </button>
+
+</form>
+
+</div>
+
+<div class="thanks-message hidden" data-newsletter-signup-successful=""> 
+  <div class="pull-right"> 
+    <a href="javascript:;" class="newsletter-signups-dialog-dismiss icon icon-close-light" data-newsletter-signup-dismiss=""></a> 
+  </div> 
+
+  <span class="newsletter-signups-dialog-success"> 
+    Thanks for signing up! 
+  </span> 
+</div>
+
+</div>
+
+
+      
+    </div>
+
+      
+      
+<div style="display: none;">
+  <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
+    <symbol id="do_nav-logo" xmlns="http://www.w3.org/2000/svg"> <title>DigitalOcean home</title> <g fill="currentColor" fill-rule="evenodd"> <path d="M14.4942 29v-5.5674c5.9572 0 10.5633-5.8478 8.2892-12.059-.8425-2.3006-2.693-4.1355-5.0126-4.9706-6.262-2.2534-12.1564 2.3135-12.1573 8.2207 0 0-.0006.0014-.0014.0014H0C0 5.2123 9.1687-2.1167 19.1138.9624c4.3459 1.3457 7.7993 4.7708 9.1561 9.081C31.3742 19.9068 23.985 29 14.4942 29"></path> <path d="M14.507 23.4468H8.9103v-5.549s.0005-.0011.0011-.0011h5.5949c.0006 0 .0009.0006.0009.0006v5.5495M8.9093 27.7118H4.6105l-.0012-.0012v-4.2638h4.3009v4.2638l-.0009.0012M4.6125 23.4468H1.0088c-.0015 0-.0026-.0012-.0026-.0012v-3.5724s.0011-.0025.0026-.0025h3.601c.0015 0 .0027.0011.0027.0011v3.575M43.2806 9.6357h1.649c1.8346 0 3.345.358 4.49 1.0647 1.2714.7603 1.9164 2.2069 1.9164 4.2991 0 2.1554-.6465 3.6671-1.9207 4.4942h-.0008c-1.0971.7196-2.5981 1.0846-4.462 1.0846h-1.6719V9.6357zm8.324-1.0736c-1.6598-1.142-3.7252-1.721-6.1387-1.721h-5.2537V23.373h5.2537c2.4074 0 4.4737-.6113 6.1407-1.8157.907-.6382 1.6197-1.5304 2.1185-2.651.4962-1.1144.7479-2.4288.7479-3.9067 0-1.4605-.2517-2.758-.7482-3.857-.4988-1.104-1.212-1.972-2.1202-2.5804zM58.1303 6.6376c-.5051 0-.9403.1777-1.2906.5254-.3546.335-.5346.7597-.5346 1.2618 0 .501.1791.9322.532 1.2825.3529.35.788.528 1.2932.528.5042 0 .9394-.178 1.2928-.528.3535-.3508.5324-.7821.5324-1.2825 0-.5015-.18-.926-.5324-1.2592-.3534-.3503-.7886-.528-1.2928-.528M56.6247 23.3729h2.9538V11.7294h-2.9538zM69.5321 19.5787c-.5162.5814-1.1793.8635-2.0264.8635-.8471 0-1.5064-.282-2.015-.863-.5065-.5777-.7637-1.3439-.7637-2.2773 0-.9479.2572-1.7238.764-2.3058.502-.576 1.1796-.8683 2.0147-.8683.8465 0 1.5096.284 2.0262.8695.5142.582.7751 1.3573.7751 2.3046 0 .9328-.2609 1.6988-.7749 2.2768zm.775-6.8767c-.8908-.7858-1.8858-1.2444-2.9614-1.2444-1.6305 0-2.9859.5598-4.0276 1.662-1.0555 1.0932-1.5907 2.5006-1.5907 4.1823 0 1.644.5269 3.0464 1.568 4.1709 1.0498 1.088 2.4123 1.6396 4.0503 1.6396 1.139 0 2.1182-.3144 2.9157-.9356v.268c0 .9662-.2608 1.7176-.7751 2.234-.5137.5154-1.226.7764-2.1173.7764-1.3637 0-2.2183-.5314-3.2589-1.9262l-2.0115 1.917.0542.0754c.4346.605 1.1 1.197 1.9785 1.7594.8787.5603 1.9832.8447 3.2832.8447 1.7536 0 3.1726-.5363 4.2172-1.5933 1.0506-1.0628 1.5835-2.486 1.5835-4.2286V11.7294H70.307v.9726zM75.7434 23.3729h2.9541V11.7294h-2.9541zM77.249 6.6376c-.5052 0-.94.1777-1.2906.5254-.3547.335-.5344.7597-.5344 1.2618 0 .501.1789.9322.532 1.2825.353.35.7878.528 1.293.528.5045 0 .9396-.178 1.2928-.528.3535-.3508.5323-.7821.5323-1.2825 0-.5015-.1797-.926-.5323-1.2592-.3532-.3503-.7883-.528-1.2929-.528M85.1724 8.5831h-2.9082v3.1463h-1.6888v2.6702h1.6888v4.8365c0 1.5134.3047 2.5964.9064 3.2181.6031.6247 1.6741.9414 3.1831.9414.48 0 .963-.0156 1.4354-.0463l.133-.0088v-2.6683l-1.013.0526c-.7033 0-1.1728-.1226-1.3961-.3637-.226-.245-.3406-.7636-.3406-1.5404v-4.421h2.7497v-2.6703h-2.7497V8.583M101.7735 23.3729h2.9544V6.8412h-2.9544zM134.5728 19.2094c-.5286.5874-1.0693 1.0966-1.4855 1.3613v.0005c-.4085.2599-.924.3918-1.532.3918-.8703 0-1.5703-.3144-2.1405-.9621-.567-.644-.8545-1.4716-.8545-2.4613s.2838-1.8162.8436-2.4556c.5625-.6434 1.2588-.9562 2.1285-.9562.9515 0 1.9548.5869 2.8145 1.5947l1.9525-1.8568c-1.273-1.6433-2.897-2.4081-4.8352-2.4081-1.622 0-3.028.5862-4.1788 1.7411-1.1446 1.147-1.7251 2.6074-1.7251 4.3409 0 1.7335.58 3.1977 1.7234 4.352 1.1447 1.1557 2.5514 1.7417 4.1805 1.7417 2.139 0 3.8651-.9158 5.029-2.5935l-1.9204-1.8304M140.2405 16.0973c.1422-.5567.401-1.0207.7714-1.381.4005-.3906.9214-.5885 1.5489-.5885.716 0 1.2702.2019 1.6474.6014.3495.3696.5467.8296.588 1.368h-4.5557zm6.4569-2.7414c-.4191-.5788-.9896-1.0448-1.6965-1.3854-.7047-.3404-1.526-.513-2.441-.513-1.6489 0-2.9982.6037-4.0113 1.7946-.9836 1.182-1.4818 2.651-1.4818 4.3665 0 1.7648.547 3.2253 1.6254 4.341 1.0727 1.1105 2.5083 1.6737 4.267 1.6737 1.992 0 3.627-.799 4.8587-2.3752l.0666-.0847-1.9273-1.837c-.1789.2139-.4317.4561-.6628.6722-.2918.273-.5659.4842-.8588.6289-.4415.218-.9369.3255-1.4907.3255-.8187 0-1.4964-.2388-2.0147-.71-.4847-.4403-.768-1.0345-.843-1.7683h7.8265l.0264-1.0693c0-.7569-.1038-1.4862-.3088-2.1677a6.312 6.312 0 0 0-.934-1.8918zM152.797 18.9234c.3352-.2318.8085-.3483 1.4073-.3483.7112 0 1.4654.1413 2.2426.421v1.1421c-.6421.592-1.4996.8922-2.5499.8922-.5114 0-.909-.1126-1.1822-.3355-.2683-.218-.3985-.4955-.3985-.847 0-.3994.1571-.7022.4808-.9245zm5.2452-6.3229h-.0003c-.8952-.758-2.1328-1.143-3.678-1.143-.9829 0-1.902.2144-2.7336.6324-.7691.387-1.5245 1.0275-2.0043 1.8662l.0298.0358 1.8917 1.796c.7791-1.2322 1.6454-1.66 2.7941-1.66.6172 0 1.1298.1643 1.5234.4881.3916.3216.5819.7304.5819 1.249v.5652c-.7324-.221-1.4629-.333-2.1738-.333-1.47 0-2.6663.3432-3.555 1.0193-.9.6852-1.3562 1.665-1.3562 2.9125 0 1.094.3847 1.9829 1.1461 2.6433.7677.6372 1.7275.961 2.8524.961 1.1246 0 2.177-.4495 3.132-1.2191v.9587h2.9089v-7.4852c0-1.4173-.4572-2.523-1.3591-3.2872zM170.7656 12.8285c-.8227-.9092-1.9791-1.371-3.4371-1.371-1.172 0-2.1236.3338-2.8357.9926v-.7207h-2.897v11.6435h2.954v-6.4215c0-.8823.2119-1.5828.6293-2.0826.4162-.4987.989-.741 1.75-.741.6691 0 1.1765.2167 1.5506.662.3759.4474.5662 1.0638.5662 1.8335v6.7496H172v-6.7496c0-1.6127-.415-2.889-1.2344-3.7948M92.8158 18.9234c.3351-.2318.8087-.3483 1.4075-.3483.7112 0 1.4652.1413 2.2426.421v1.1421c-.6421.592-1.4998.8922-2.5502.8922-.5114 0-.9087-.1126-1.1819-.3355-.2683-.218-.3988-.4955-.3988-.847 0-.3994.1574-.7022.4808-.9245zm5.2451-6.3229h-.0003c-.8952-.758-2.1328-1.143-3.6776-1.143-.983 0-1.902.2144-2.7337.6324-.7694.387-1.5247 1.0275-2.0043 1.8662l.0295.0358 1.8917 1.796c.7792-1.2322 1.6458-1.66 2.7941-1.66.6172 0 1.1298.1643 1.5234.4881.3916.3216.5822.7304.5822 1.249v.5652c-.7327-.221-1.4631-.333-2.174-.333-1.47 0-2.6664.3432-3.555 1.0193-.8999.6852-1.3562 1.665-1.3562 2.9125 0 1.094.3847 1.9829 1.1463 2.6433.7677.6372 1.7272.961 2.8524.961 1.1246 0 2.1766-.4495 3.1318-1.2191v.9587H99.42v-7.4852c0-1.4173-.457-2.523-1.359-3.2872zM115.4464 9.5808c-3.0682 0-5.5645 2.4755-5.5645 5.5188s2.4963 5.5188 5.5645 5.5188c3.0682 0 5.5645-2.4755 5.5645-5.5188s-2.4963-5.5188-5.5645-5.5188zm0 14.0408c-4.7383 0-8.5928-3.8228-8.5928-8.522 0-4.6994 3.8545-8.5223 8.5928-8.5223 4.738 0 8.5925 3.8229 8.5925 8.5223 0 4.6992-3.8545 8.522-8.5925 8.522z"></path> </g> </symbol>
+    <symbol id="do_nav-community_logo" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 532.2 99.8" fill="currentColor"> <path class="st0" d="M98.5,23c15.5,0,27.7,12.1,27.7,28.2c0,16.1-12.3,28.1-27.7,28.1c-15.6,0-27.7-11.9-27.7-28.1 C70.8,35.1,82.9,23,98.5,23z M98.5,67.9c8.7,0,14.9-7,14.9-16.8c0-9.8-6.2-16.8-14.9-16.8c-8.8,0-15,7-15,16.8 C83.5,60.9,89.7,67.9,98.5,67.9z"></path> <path class="st0" d="M166.8,45.9c0-7-3.5-11.6-9.9-11.6c-7.2,0-11.1,5.3-11.1,13.1V78h-12.5V24.3h12.3V29c2.4-2.8,7-6,13.9-6 c7.3,0,12.2,3.1,15,7c4.4-4.9,10-7,16.8-7c14.4,0,21.4,8.5,21.4,23.8V78h-12.5V45.9c0-7-3.5-11.6-9.9-11.6 c-7.2,0-11.2,5.3-11.2,13.1V78h-12.4V45.9z"></path> <path class="st0" d="M255.5,45.9c0-7-3.5-11.6-9.9-11.6c-7.2,0-11.1,5.3-11.1,13.1V78h-12.5V24.3h12.3V29c2.4-2.8,7-6,13.9-6 c7.3,0,12.2,3.1,15,7c4.4-4.9,10-7,16.8-7c14.4,0,21.4,8.5,21.4,23.8V78h-12.5V45.9c0-7-3.5-11.6-9.9-11.6 c-7.2,0-11.2,5.3-11.2,13.1V78h-12.4V45.9z"></path> <path class="st0" d="M322.5,56.4c0,7,3.6,11.6,10.1,11.6c7.2,0,11.2-5.6,11.2-13.5V24.3h12.5V78h-12.3v-4.4 c-3.4,3.7-8.1,5.6-13.9,5.6c-11.9,0-20.1-8.4-20.1-23.7V24.3h12.5V56.4z"></path> <path class="st0" d="M378.2,78h-12.5V24.3h12.3v4.4c2.7-3.1,7.7-5.7,13.9-5.7c13.1,0,21.3,8.5,21.3,23.8V78h-12.5V46.8 c0-7.5-3.7-12.5-10.6-12.5c-7.8,0-11.8,5.6-11.8,14V78z"></path> <path class="st0" d="M427.8,0.2c4.4,0,7.9,3.4,7.9,7.8s-3.5,7.9-7.9,7.9c-4.4,0-7.9-3.5-7.9-7.9S423.4,0.2,427.8,0.2z M421.4,24.3 h12.5V78h-12.5V24.3z"></path> <path class="st0" d="M446.7,59.1V35.5h-6.5V24.3h6.5v-15H459v15h12.2v11.2H459v21.7c0,7.8,1.8,9.8,8.8,9.8c1.2,0,4.1-0.2,4.1-0.2 v11.2c0,0-2.4,0.2-6.7,0.2C451.2,78.1,446.7,72.7,446.7,59.1z"></path> <path class="st0" d="M497.3,78.7l-21.3-54.4h14.2l14,38.8l14.2-38.8h13.6l-24.1,60.2c-3.7,9.4-7.2,15.3-21.3,15.3 c-2.5,0-4.8-0.1-4.8-0.1V88c0,0,1.5,0.1,2.8,0.1c7.6,0,9.8-2.3,11.8-7.8L497.3,78.7z"></path> <path class="st0" d="M62.4,55.9c-5.3,7-12.2,11.4-22.1,11.4c-15.6,0-27-11.7-27-27.5c0-16.1,11.4-27.8,26.5-27.8 c10,0,16.8,4.8,21.3,11.3l8.4-8.8C63.1,5.7,53.3,0,39.7,0C17.1,0,0,15.9,0,39.8c0,23.4,17.1,39.4,40.1,39.4c13.1,0,22-4.9,28.6-12.2 L62.4,55.9z"></path> </symbol>
+    <symbol id="do_nav-control_panel_icon" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M19.6875 23.4862C19.6885 23.9722 19.4965 24.4388 19.1537 24.7833C18.8109 25.1279 18.3454 25.3222 17.8594 25.3237H3.23438C2.99366 25.3232 2.75539 25.2753 2.53321 25.1827C2.31102 25.09 2.10927 24.9545 1.93949 24.7839C1.7697 24.6132 1.63522 24.4108 1.54373 24.1881C1.45223 23.9655 1.40552 23.727 1.40626 23.4862V3.25498C1.40577 3.01417 1.45271 2.77562 1.54441 2.55295C1.63611 2.33028 1.77077 2.12785 1.9407 1.95722C2.11063 1.7866 2.31251 1.65111 2.5348 1.5585C2.75709 1.46589 2.99545 1.41797 3.23626 1.41748L17.8613 1.44186C18.347 1.44384 18.812 1.63843 19.1544 1.98292C19.4968 2.32741 19.6885 2.79366 19.6875 3.27936V23.4862Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M43.5863 12.27C43.5828 12.7516 43.3883 13.212 43.0456 13.5503C42.7028 13.8885 42.2397 14.0768 41.7582 14.0738H27.1332C26.8947 14.0755 26.6582 14.0302 26.4372 13.9405C26.2162 13.8507 26.015 13.7183 25.8453 13.5508C25.6755 13.3833 25.5404 13.1839 25.4477 12.9642C25.355 12.7444 25.3065 12.5085 25.3051 12.27V3.24565C25.308 2.76461 25.5019 2.30442 25.8439 1.96621C26.186 1.62799 26.6484 1.43941 27.1294 1.4419L41.7544 1.41753C42.2365 1.41403 42.7002 1.60205 43.0437 1.94027C43.3872 2.27849 43.5823 2.73924 43.5863 3.22128V12.27Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M19.6875 41.7956C19.686 42.0347 19.6375 42.2712 19.5446 42.4915C19.4518 42.7118 19.3164 42.9117 19.1463 43.0797C18.9762 43.2477 18.7747 43.3806 18.5532 43.4707C18.3318 43.5609 18.0947 43.6065 17.8556 43.605L3.23063 43.5806C2.74908 43.5826 2.28644 43.3934 1.94436 43.0545C1.60228 42.7155 1.40873 42.2547 1.40625 41.7731V32.7563C1.40748 32.5175 1.45575 32.2813 1.54831 32.0612C1.64087 31.8412 1.7759 31.6415 1.94569 31.4736C2.11547 31.3057 2.31667 31.173 2.53779 31.0829C2.75892 30.9929 2.99562 30.9473 3.23438 30.9488H17.8594C18.3414 30.9463 18.8047 31.1352 19.1475 31.4742C19.4903 31.8131 19.6845 32.2742 19.6875 32.7563V41.7956Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M27.1349 43.605C26.894 43.6045 26.6555 43.5565 26.433 43.4638C26.2106 43.3711 26.0087 43.2354 25.8387 43.0646C25.6688 42.8937 25.5341 42.6911 25.4426 42.4682C25.351 42.2453 25.3042 42.0066 25.3049 41.7656V21.5381C25.3042 21.2973 25.3509 21.0587 25.4424 20.8359C25.5338 20.6132 25.6683 20.4106 25.8381 20.2398C26.0078 20.069 26.2095 19.9333 26.4317 19.8405C26.6539 19.7476 26.8923 19.6995 27.1331 19.6987H41.7581C41.9989 19.6995 42.2372 19.7476 42.4594 19.8405C42.6816 19.9333 42.8833 20.069 43.0531 20.2398C43.2228 20.4106 43.3573 20.6132 43.4488 20.8359C43.5402 21.0587 43.5869 21.2973 43.5862 21.5381V41.7412C43.5872 42.2271 43.3955 42.6935 43.0532 43.0383C42.7109 43.3831 42.2458 43.5781 41.7599 43.5806L27.1349 43.605Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </symbol>
+    <symbol id="do_nav-community_icon" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg"> <g clip-path="url(#clip0)"> <path d="M12.6562 10.5469C12.6562 9.85155 12.8624 9.17184 13.2487 8.5937C13.635 8.01556 14.1841 7.56495 14.8265 7.29886C15.4689 7.03277 16.1758 6.96315 16.8577 7.0988C17.5397 7.23445 18.1661 7.56929 18.6578 8.06095C19.1495 8.55262 19.4843 9.17905 19.6199 9.86101C19.7556 10.543 19.686 11.2499 19.4199 11.8922C19.1538 12.5346 18.7032 13.0837 18.1251 13.47C17.5469 13.8563 16.8672 14.0625 16.1719 14.0625" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M16.1719 18.2812C16.0328 18.2812 15.8969 18.3225 15.7812 18.3997C15.6656 18.477 15.5755 18.5868 15.5223 18.7153C15.4691 18.8438 15.4551 18.9852 15.4823 19.1215C15.5094 19.2579 15.5764 19.3832 15.6747 19.4816C15.773 19.5799 15.8983 19.6469 16.0347 19.674C16.1711 19.7011 16.3125 19.6872 16.4409 19.634C16.5694 19.5808 16.6792 19.4906 16.7565 19.375C16.8338 19.2594 16.875 19.1234 16.875 18.9844C16.875 18.7979 16.8009 18.6191 16.6691 18.4872C16.5372 18.3553 16.3584 18.2812 16.1719 18.2812Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M32.3438 4.21875V12.6562" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M29.5312 1.40625C30.2772 1.40625 30.9925 1.70257 31.52 2.23001C32.0474 2.75746 32.3438 3.47283 32.3438 4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4.21875 1.40625H29.5312" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M1.40625 4.21875C1.40625 3.47283 1.70257 2.75746 2.23001 2.23001C2.75746 1.70257 3.47283 1.40625 4.21875 1.40625" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M1.40625 23.9062V4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M4.21875 26.7188C3.47283 26.7187 2.75746 26.4224 2.23001 25.895C1.70257 25.3675 1.40625 24.6522 1.40625 23.9062" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.84375 26.7188H4.21875" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.84375 35.1562V26.7188" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.4688 30.9375L9.84375 35.1562" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M43.5938 35.1562H37.9688V43.5938L29.5312 35.1562H21.0938V18.2812H43.5938V35.1562Z" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M32.3438 23.9062V29.5312" stroke="#0069FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0"> <rect width="45" height="45" fill="white"></rect> </clipPath> </defs> </symbol>
+    <symbol id="do_nav-search" viewBox="0 0 16 16" fill="currentColor"><path fill-rule="evenodd" d="M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z"></path></symbol>
+    <symbol id="do_nav-logomark" x="0px" y="0px" viewBox="65.2 173.5 180 180" fill="currentColor"><path d="M155.2,351.7v-34.2c36.2,0,64.3-35.9,50.4-74c-5.1-14.1-16.4-25.4-30.5-30.5c-38.1-13.8-74,14.2-74,50.4l0,0H67c0-57.7,55.8-102.7,116.3-83.8c26.4,8.3,47.5,29.3,55.7,55.7C257.9,295.9,213,351.7,155.2,351.7z"></path> <polygon points="155.3,317.6 121.3,317.6 121.3,283.6 121.3,283.6 155.3,283.6 155.3,283.6"></polygon> <polygon points="121.3,343.8 95.1,343.8 95.1,343.8 95.1,317.6 121.3,317.6"></polygon> <path d="M95.1,317.6H73.2l0,0v-21.9l0,0h21.9l0,0V317.6z"></path></symbol>
+    <symbol id="do_nav-write4do" viewBox="0 0 30 30" fill="none" stroke="currentColor"> <path d="M16.3063 17.67L11.6663 18.3338L12.3288 13.6925L24.2613 1.76002C24.7887 1.23257 25.5041 0.936249 26.25 0.936249C26.6194 0.936249 26.9851 1.009 27.3263 1.15034C27.6675 1.29168 27.9776 1.49885 28.2388 1.76002C28.4999 2.02118 28.7071 2.33123 28.8484 2.67246C28.9898 3.01369 29.0625 3.37942 29.0625 3.74877C29.0625 4.11811 28.9898 4.48384 28.8484 4.82507C28.7071 5.1663 28.4999 5.47635 28.2388 5.73752L16.3063 17.67Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M22.935 3.08624L26.9125 7.06374" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M23.4375 17.8125V27.1875C23.4375 27.6848 23.24 28.1617 22.8883 28.5133C22.5367 28.865 22.0598 29.0625 21.5625 29.0625H2.8125C2.31522 29.0625 1.83831 28.865 1.48667 28.5133C1.13504 28.1617 0.9375 27.6848 0.9375 27.1875V8.4375C0.9375 7.94022 1.13504 7.46331 1.48667 7.11167C1.83831 6.76004 2.31522 6.5625 2.8125 6.5625H12.1875" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </symbol>
+    <symbol id="do_nav-meetups" viewBox="0 0 30 30" fill="none" stroke="currentColor"> <path d="M27.1901 4.6875H2.81506C1.77953 4.6875 0.940063 5.52697 0.940063 6.5625V27.1875C0.940063 28.223 1.77953 29.0625 2.81506 29.0625H27.1901C28.2256 29.0625 29.0651 28.223 29.0651 27.1875V6.5625C29.0651 5.52697 28.2256 4.6875 27.1901 4.6875Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M0.940063 12.1875H29.0651" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M8.44006 7.5V0.9375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M21.5651 7.5V0.9375" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </symbol>
+    <symbol id="do_nav-hacktoberfest" viewBox="0 0 30 30" fill="none" stroke="currentColor"> <path d="M19.2063 24.9918L16.5714 22.3569V14.4854L13.986 17.0708V23.5755L12.5615 25L11.1371 23.5591V8.44175L10.7419 8.04652L8.93042 9.8662L8 8.94401L11.9358 5.00823L11.944 5.01647L12.1005 5.16468L13.9778 7.04199V13.8431L16.5632 11.2577V8.42528L15.2705 7.12433L17.3948 5L19.4286 7.03376V20.9572L20.4249 21.9535L21.6352 20.7431L22.5492 21.6571L19.2063 24.9918Z" fill="currentcolor"></path> <rect x="0.75" y="0.75" width="28.5" height="28.5" rx="2.25" stroke-width="1.5" stroke="currentColor"></rect> </symbol>
+    <symbol id="do_nav-build" viewBox="0 0 16 16" fill="none" stroke="currentColor"> <path d="M1.5 14.5C1.23478 14.5 0.98043 14.3946 0.792893 14.2071C0.605357 14.0196 0.5 13.7652 0.5 13.5V2.57667C0.500879 2.29139 0.614596 2.01804 0.81632 1.81632C1.01804 1.6146 1.29139 1.50088 1.57667 1.5H14.4287C14.7125 1.50088 14.9845 1.61403 15.1852 1.81476C15.386 2.01548 15.4991 2.28747 15.5 2.57133V13.4233C15.4991 13.7086 15.3854 13.982 15.1837 14.1837C14.982 14.3854 14.7086 14.4991 14.4233 14.5H1.5Z" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M15.5 4.5H0.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M11 7.5L13 9.5L11 11.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M5 7.5L3 9.5L5 11.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9 7.5L7 11.5" stroke-linecap="round" stroke-linejoin="round"></path> </symbol>
+  </svg>
+</div>
+
+<nav class="do_nav" role="navigation" aria-label="Navigation">
+  <ul role="menubar" class="utility">
+    <li role="banner" data-flex="grow" data-show="always"><a href="https://blog.digitalocean.com/doks-in-ga/" data-pill="new" title="DigitalOcean Kubernetes is now Generally Available." target="_blank" rel="noopener">DigitalOcean Kubernetes is now Generally Available. Learn more ❯ </a></li>
+    <li role="menuitem">
+      <a href="https://www.digitalocean.com/products/">Products</a>
+    </li>
+    <li role="menuitem">
+      <a href="https://www.digitalocean.com/pricing/">Pricing</a>
+    </li>
+    <li role="menuitem" aria-haspopup="true" tabindex="0">
+      <span class="expander">Docs</span>
+      <div class="mini" aria-expanded="false">
+        <ul role="menu">
+          <li role="menuitem">
+            <a href="https://www.digitalocean.com/docs/">Product Docs</a>
+          </li>
+          <li role="menuitem">
+            <a href="https://developers.digitalocean.com/documentation/">API Docs</a>
+          </li>
+        </ul>
+      </div>
+    </li>
+      <li role="menuitem" aria-haspopup="true" tabindex="0">
+      <span class="expander">Log in</span>
+        <div class="mini" aria-expanded="false">
+          <header>Log in to</header>
+          <ul role="menu">
+            <li role="menuitem">
+              <svg><use xlink:href="#do_nav-community_icon"></use></svg>
+              <a id="log-in" href="https://www.digitalocean.com/community/auth/digitalocean">Community</a>
+            </li>
+            <li role="menuitem">
+              <svg><use xlink:href="#do_nav-control_panel_icon"></use></svg>
+              <a href="https://cloud.digitalocean.com/registrations/new">Control Panel</a>
+            </li>
+          </ul>
+        </div>
+      </li>
+  </ul>
+  
+  <ul role="menubar" class="primary">
+    <li role="menuitem" data-show="always">
+      <a href="https://www.digitalocean.com/">
+        <svg shape-rendering="auto"><use xlink:href="#do_nav-logomark"></use></svg>
+      </a>
+    </li>
+    <li role="menuitem" data-show="always">
+      <a role="home" title="DigitalOcean Community Home" href="https://www.digitalocean.com/community">
+        <svg width="120px" height="24px" shape-rendering="auto"><use xlink:href="#do_nav-community_logo"></use></svg>
+</a>    </li>
+    <li role="menuitem">
+      <a data-activatable="true" href="https://www.digitalocean.com/community/tutorials" class="active">Tutorials</a>
+    </li>
+    <li role="menuitem">
+      <a data-activatable="true" href="https://www.digitalocean.com/community/questions">Questions</a>
+    </li>
+    <li role="menuitem" aria-haspopup="true" class="mega_parent" tabindex="0">
+      <span class="expander">Get Involved</span>
+      <div class="mega" aria-expanded="false">
+        <div class="section column">
+          <header>Participate</header>
+          <ul role="menu">
+            <li role="menuitem">
+              <a href="https://www.digitalocean.com/write-for-donations/" class="with_image">
+                <svg>
+                  <use xlink:href="#do_nav-write4do"></use>
+                </svg>
+                <p>
+                  <strong>Write for DigitalOcean</strong>
+                  You get paid, we donate to tech non-profits.
+                </p>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://www.meetup.com/pro/digitalocean" class="with_image">
+                <svg>
+                  <use xlink:href="#do_nav-meetups"></use>
+                </svg>
+                <p>
+                  <strong>DigitalOcean Meetups</strong>
+                  Find and meet other developers in your city.
+                </p>
+              </a>
+            </li>
+            <li role="menuitem">
+              <a href="https://hacktoberfest.digitalocean.com/" class="with_image">
+                <svg>
+                  <use xlink:href="#do_nav-hacktoberfest"></use>
+                </svg>
+                <p>
+                  <strong>Hacktoberfest</strong>
+                  Contribute to Open Source
+                </p>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="section column">
+          <header>
+            <svg>
+              <use xlink:href="#do_nav-build"></use>
+            </svg>
+            Build with DigitalOcean
+          </header>
+          <ul role="menu" class="indent">
+            <li role="menuitem">
+              <a title="Community-built tools and integrations that use the DigitalOcean API" href="https://www.digitalocean.com/community/projects">Community Tools and Integrations</a>
+            </li>
+            <li role="menuitem"><a href="https://www.digitalocean.com/hatch/" title="Build your startup on DigitalOcean.">Hatch Startup Program</a></li>
+            <li role="menuitem"><a href="https://marketplace.digitalocean.com/vendors/" title="List your open source One-Click Application in the DigitalOcean Marketplace">Marketplace Partner Program</a></li>
+            <li role="menuitem"><a href="https://www.digitalocean.com/droplets-for-demos/" title="DigitalOcean credits to fund research for conference and meetup presentations">Presentation Grants</a></li>
+            <li role="menuitem"><a href="https://github.com/digitalocean">DigitalOcean on GitHub</a></li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li role="menuitem" data-show="mobile" data-flex="grow" class="right">
+      <a href="javascript:void(0);" data-js="modal_toggle">
+        <span class="icon-menu-thin"></span>
+      </a>
+    </li>
+    <li role="menuitem" aria-haspopup="true" data-flex="grow">
+      <form name="do_nav-search" method="GET" action="https://www.digitalocean.com/community/search">
+        <label for="q">
+          <svg shape-rendering="auto" width="14px" height="14px"><use xlink:href="#do_nav-search"></use></svg>
+        </label>
+        <input type="text" name="q" id="q" title="Search" placeholder="Search DigitalOcean" autocomplete="off" spellcheck="false" class="search">
+        </form>
+        <div class="mini search-results-dropdown" aria-expanded="false">
+            <div class="header-search-results-list"></div>
+            <div id="btn-wrap">
+              <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+                View All Results
+              </a>
+            </div>
+        </div>
+    </li>
+    <li role="menuitem">
+      <a class="button primary" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+    </li>
+  </ul>
+
+  <div class="mobile_nav_bg" data-js="modal_toggle"></div>
+  <div class="mobile_nav">
+    <a data-dismiss="modal" aria-label="close" href="javascript:void(0);" data-js="modal_toggle"><span class="icon-close"></span></a>
+    <header>Community</header>
+    <ul role="menu">
+      <li role="menuitem">
+        <a data-activatable="true" href="https://www.digitalocean.com/community/tutorials" class="active">Tutorials</a>
+      </li>
+      <li role="menuitem">
+        <a data-activatable="true" href="https://www.digitalocean.com/community/questions">Questions</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.meetup.com/pro/digitalocean">Meetups</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/write-for-donations/">Write for us</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://hacktoberfest.digitalocean.com/">Hacktoberfest</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/community/projects">Community Projects</a>
+      </li>
+    </ul>
+    <header>Products</header>
+    <ul role="menu">
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/">Homepage</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/pricing">Pricing</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/products">Product Overview</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://marketplace.digitalocean.com/">Marketplace</a>
+      </li>
+    </ul>
+    <header>Customers</header>
+    <ul role="menu">
+      <li role="menuitem">
+        <a href="https://cloud.digitalocean.com/login">Control panel</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/docs/">Documentation</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/company/contact/#support">Contact Support</a>
+      </li>
+      <li role="menuitem">
+        <a href="https://www.digitalocean.com/company/contact/sales/">Contact Sales</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="legacy-header ">
+    <div class="flash-container">
+      
+    </div>
+
+    <div class="wrapper">
+      
+    </div>
+  </div>
+</header>
+
+
+      
+
+      <div class="wrapper layout-wrapper">
+
+        
+
+
+
+
+
+
+
+  <div class="TutorialBar affix" data-js="tutorialBar">
+    <div class="TutorialBar-container">
+      <div class="TutorialBar-series">
+          <a class="TutorialBar-seriesSingle" href="https://www.digitalocean.com/community/tutorial_series/using-sed">Using Sed</a>
+        <div class="TutorialBar-separator">
+          <svg class="svg-icon svg-icon-arrow-right"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-arrow-right"></use></svg>
+        </div>
+      </div>
+      <div class="TutorialBar-tutorial">
+        <div class="TutorialBar-dropdown">
+          <button class="Button--reset TutorialBar-dropdownTrigger" type="button" data-js="tutorialDropdown">
+            <span class="TutorialBar-dropdownText">Intermediate Sed: Manipulating Streams of Text in a Linux Environment</span> <span class="TutorialBar-dropdownArrow"><svg class="svg-icon svg-icon-caret-down"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-caret-down"></use></svg></span>
+          </button>
+          <div class="TutorialBar-dropdownContent TutorialBar-dropdownContent--article">
+            <ul class="TutorialBar-tutorialList" data-js="tutorialList">
+                <li data-completed-tutorial-id="" data-tutorial-id="402" data-js="tutorial" class="">
+                  <a href="https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux" class="TutorialBar-tutorialListContainer" data-tutorialinteraction="">
+                    <div class="TutorialBar-tutorialListIcon">
+                      <svg class="svg-icon svg-icon-completed"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed"></use></svg>
+                    </div>
+                    <div class="TutorialBar-tutorialListContent">
+                      The Basics of Using the Sed Stream Editor to Manipulate Text in Linux
+                    </div>
+                  </a>
+                </li>
+                <li data-completed-tutorial-id="" data-tutorial-id="405" data-js="tutorial" class="is-current">
+                  <a href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment" class="TutorialBar-tutorialListContainer" data-tutorialinteraction="">
+                    <div class="TutorialBar-tutorialListIcon">
+                      <svg class="svg-icon svg-icon-completed"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed"></use></svg>
+                    </div>
+                    <div class="TutorialBar-tutorialListContent">
+                      Intermediate Sed: Manipulating Streams of Text in a Linux Environment
+                    </div>
+                  </a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<div class="section-content section-content-growable content Tutorial-content">
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="author-byline">
+      
+    </div>
+
+    <div class="right-section">
+      
+
+
+        <div class="section-item table-of-contents-triggers"><div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="icon icon-contents"></span>
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="container tutorial-header">
+    
+
+      <div class="featured-items-right-bar">
+        <h3>Related</h3>
+          <a href="https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04">
+            <div class="featured-item-regular">
+                  How to Add and Delete Users on Ubuntu 16.04
+                  <span class="featured-item-category">
+                    <img alt="Tutorial" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/featured-item-tutorial-icon-2150ccbef202144a53cea261312af267.png" width="14" height="14">
+                    Tutorial
+                  </span>
+                </div>
+</a>          <a href="https://www.digitalocean.com/community/tutorials/how-to-download-software-and-content-onto-your-linux-vps">
+            <div class="featured-item-regular">
+                  How To Download Software and Content onto your Linux VPS
+                  <span class="featured-item-category">
+                    <img alt="Tutorial" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/featured-item-tutorial-icon-2150ccbef202144a53cea261312af267.png" width="14" height="14">
+                    Tutorial
+                  </span>
+                </div>
+</a>      </div>
+
+
+
+      <div class="info-cta">
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like 
+this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=intermediate-sed-manipulating-streams-of-text-in-a-linux-environment">
+        Learn more →
+</a>  </div>
+
+
+    <h1 class="content-title Tutorial-header">Intermediate Sed: Manipulating Streams of Text in a Linux Environment</h1>
+
+    <span class="meta-section timestamp"><span class="tutorial-date-text">Posted</span><span class="tutorial-date">July 25, 2013</span></span>
+
+    <span class="meta-section pageviews"><span class="icon icon-eye v-mid"></span><span class="views-count v-mid">49.1k</span><span class="sr-only"> views</span></span>
+
+    <span class="meta-section tags">
+      <a class="tag" href="https://www.digitalocean.com/community/tags/linux-basics?type=tutorials">Linux Basics</a>
+      
+    </span>
+  </div>
+
+  <div class="tutorial-authors">
+    <div class="component-collaborators-container">
+  <ul class="component-collaborators-content">
+        <li class="collaborator-byline-avatar">
+          <a href="https://www.digitalocean.com/community/users/jellingwood">
+            <img alt="jellingwood" class="avatar avatar-small" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/60d901f61a6146e14a3e989bc1f4ef11.png" width="80" height="80">
+</a>        </li>
+
+    <li class="collaborators-byline-data">
+        <p class="names">By <a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a></p>
+
+      <p>
+          <a class="advice" href="https://www.digitalocean.com/community/write-for-digitalocean">Become an author</a>
+      </p>
+    </li>
+  </ul>
+</div>
+
+  </div>
+
+
+    <div class="content-body tutorial-content tutorial-content-legacy" data-growable-markdown="">
+      
+      <h3>Introduction</h3>
+
+<p>The sed stream editor is a powerful editing tool that can make 
+sweeping changes with very little input.	In our previous article on sed,
+ we discussed <a href="https://www.digitalocean.com/community/articles/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux">the basics of using sed to edit text</a>.</p>
+	
+<p>This article will continue our introduction by examining some more advanced topics.</p>
+
+
+<div name="supplying-multiple-editing-sequences" data-unique="supplying-multiple-editing-sequences"></div><h2>Supplying Multiple Editing Sequences</h2>
+
+<p>There are quite a few instances where you might wish to pass multiple
+ commands to sed simultaneously.  There are a few ways that this can be 
+accomplished.</p>
+	
+<p>If you don't already have the files at hand, let's recreate our 
+environment from last time so that we have some files to manipulate:</p>
+	
+<pre>cd
+cp /usr/share/common-licenses/BSD .
+cp /usr/share/common-licenses/GPL-3 .
+echo "this is the song that never ends
+yes, it goes on and on, my friend
+some people started singing it
+not knowing what it was
+and they'll continue singing it forever
+just because..." &gt; annoying.txt</pre>
+	
+<p>Since sed operates through standard input and output, we can, of 
+course, just string different calls to sed together through a pipeline 
+(remember to escape the "&amp;" since it means "the complete matched 
+pattern" to sed):</p>
+	
+<pre>sed 's/and/\&amp;/' annoying.txt | sed 's/people/horses/'</pre>
+
+<pre>this is the song that never ends
+yes, it goes on &amp; on, my friend
+some horses started singing it
+not knowing what it was
+&amp; they'll continue singing it forever
+just because...</pre>
+
+<p>This works, but it creates unnecessary overhead with multiple calls 
+to sed, takes up more space, and does not take advantage of sed's 
+built-in capabilities.</p>
+	
+<p>We can string various commands to sed by using the "-e" option before
+ each command.  This is how the above command would be re-written:</p>
+	
+<pre>sed -e 's/and/\&amp;/' -e 's/people/horses/' annoying.txt</pre>
+
+<p>Another approach to stringing commands together is using a semi-colon
+ character (;) to separate distinct commands.  This works the same as 
+above, but the "-e" is not required.</p>
+	
+<pre>sed 's/and/\&amp;/;s/people/horses/' annoying.txt</pre>
+
+<p>Note how when using the "-e" construct, you need separate 
+single-quotation groups for the different commands.  However, when 
+separating commands with a semi-colon, all commands are placed within 
+just one single-quoted command string.</p>
+	
+<p>Although these two ways of expressing multiple commands is useful, 
+there are times when the previous piping technique is still required.</p>
+	
+<p>Consider the "=" operator.  This operator inserts a line-number on a 
+new line between each existing line.  The output looks like this:</p>
+	
+<pre>sed '=' annoying.txt</pre>
+
+<pre>1
+this is the song that never ends
+2
+yes, it goes on and on, my friend
+3
+some people started singing it
+4
+not knowing what it was
+5
+and they'll continue singing it forever
+6
+just because...</pre>
+
+<p>If we would like to change the formatting of the numbering by 
+modifying the text, however, we see that things do not work as expected.</p>
+	
+<p>To demonstrate, we will introduce the "G" command, which by default, 
+enters a blank line between each line (this actually is more complex, 
+but we'll learn about that later).</p>
+	
+<pre>sed 'G' annoying.txt</pre>
+
+<pre>this is the song that never ends
+
+yes, it goes on and on, my friend
+
+some people started singing it
+
+not knowing what it was
+
+and they'll continue singing it forever
+
+just because...
+</pre>
+
+<p>If we combine these two commands, we might expect a space between 
+each regular line and line-number line.  However, we get something 
+different:</p>
+	
+<pre>sed '=;G' annoying.txt</pre>
+
+<pre>1
+this is the song that never ends
+
+2
+yes, it goes on and on, my friend
+
+3
+some people started singing it
+
+4
+not knowing what it was
+
+. . .
+. . .</pre>
+
+<p>This happens because the "=" operator modifies the actual output 
+stream directly.  This means that you cannot use the results for more 
+editing.</p>
+	
+<p>We can get around this by using two sed calls, treating the first sed modification as a simple stream of text for the second:</p>
+	
+<pre>sed '=' annoying.txt | sed 'G'</pre>
+
+<pre>1
+
+this is the song that never ends
+
+2
+
+yes, it goes on and on, my friend
+
+3
+
+some people started singing it
+. . .
+. . .</pre>
+
+<p>We now see the results we were expecting.  Keep in mind that some of 
+the commands operate like this, especially if you are stringing multiple
+ commands together and the output differs from what you were expecting.</p>
+
+
+<div name="advanced-addressing" data-unique="advanced-addressing"></div><h2>Advanced Addressing</h2>
+
+<p>One of the advantages of sed's addressable commands is that regular 
+expressions can be used as selection criteria.  This means that we are 
+not limited to operating on known line values, like we learned 
+previously:</p>
+	
+<pre>sed '1,3s/.*/Hello/' annoying.txt</pre>
+
+<pre>Hello
+Hello
+Hello
+not knowing what it was
+and they'll continue singing it forever
+just because...</pre>
+
+<p>We can, instead, use regular expressions to match only lines that 
+contain a certain pattern.  We do this by placing our match pattern 
+between two forward slashes (/) prior to giving the command strings:</p>
+	
+<pre>sed '/singing/s/it/&amp; loudly/' annoying.txt</pre>
+
+<pre>this is the song that never ends
+yes, it goes on and on, my friend
+some people started singing it loudly
+not knowing what it was
+and they'll continue singing it loudly forever
+just because...</pre>
+
+<p>In this example, we've placed "loudly" after the first "it" in every 
+line that contains the string "singing".  Notice that the second and 
+fourth line are unaltered because they do not match the pattern.</p>
+	
+<p>The expressions for addressing can be arbitrarily complex.  This provides a great deal of flexibility in executing commands.</p>
+	
+<p>This is not a complex example, but it demonstrates using regular 
+expressions to generate addresses for other commands.  This matches any 
+blank lines (the start of a line followed immediately by the end of the 
+line) and passes them to the delete command:</p>
+	
+<pre>sed '/^$/d' GPL-3</pre>
+
+<pre>                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+ Copyright (C) 2007 Free Software Foundation, Inc. <http: fsf.org="">
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+                            Preamble
+  The GNU General Public License is a free, copyleft license for
+. . .
+. . .</http:></pre>
+
+<p>Keep in mind that regular expressions can be used on either side of a range as well.</p>
+	
+<p>For instance, we can delete lines starting at a line that only 
+contains the word "START" until a line reading "END" by issuing the 
+following command:</p>
+	
+<pre>sed '/^START$/,/^END$/d' inputfile</pre>
+
+<p>One thing to note though, is that this will delete everything from 
+the first "START" to the first "END", and then restart the deletion if 
+it comes across another "START" marker.</p>
+	
+<p>If we want to invert an address (operate on any line that does NOT 
+match a pattern), we can follow the pattern with an exclamation point or
+ bang (!).</p>
+	
+<p>For example, we can delete any line that is NOT blank (not terribly useful, but just an example), with the following command:</p>
+	
+<pre>sed '/^$/!d' GPL-3</pre>
+
+<pre>
+
+
+
+</pre>
+
+<p>The address does not need to be a complex expression to be inverted.  Inversion works the same on regular numbered address too.</p>
+
+
+<div name="using-the-hold-buffer" data-unique="using-the-hold-buffer"></div><h2>Using the Hold Buffer</h2>
+
+<p>One piece of functionality that increases sed's ability perform 
+multi-line aware edits is what is called the "hold buffer".  The hold 
+buffer is an area of temporary storage that can be modified by certain 
+commands.</p>
+	
+<p>The presence of this extra buffer means that we can store lines while
+ working on other lines, and then operate on each buffer as necessary.</p>
+	
+<p>The following are the commands that affect the holding buffer:</p>
+	
+	<ul>	
+	<li><strong>h</strong>: Copies the current pattern buffer (the line 
+we're currently matched and working on) into the the holding buffer 
+(this erases the previous contents of the hold buffer).</li>
+	
+	<li><strong>H</strong>: Appends the current pattern buffer to the end of the current holding pattern, separated by a new-line (\n) character.</li>
+	
+	<li><strong>g</strong>: Copies the current holding buffer into the current pattern buffer.  The previous pattern buffer is erased.</li>
+	
+	<li><strong>G</strong>: Appends the current holding pattern to the end of the current pattern buffer, separated by a new-line (\n) character.</li>
+	
+	<li><strong>x</strong>: Swap the current pattern and holding buffers.</li>
+	</ul>
+	
+<p>The contents of the holding buffer cannot be operated on until it is moved to the pattern buffer in one way or another.</p>
+	
+<p>Let's explore this idea with a complex example.</p>
+	
+<p>This is a procedural example of how to join adjacent lines (sed 
+actually has a built-in command that would take care of a lot of this 
+for us.  The "N" command appends the next line to the current line. We 
+are going to do things the hard way though for the sake of practice):</p>
+	
+<pre>sed -n '1~2h;2~2{H;g;s/\n/ /;p}' annoying.txt</pre>
+
+<pre>this is the song that never ends yes, it goes on and on, my friend
+some people started singing it not knowing what it was
+and they'll continue singing it forever just because...</pre>
+
+<p>This is a lot to digest, so let's break it down.</p>
+	
+<p>The first thing to note is that the "-n" option is used to suppress 
+automatic printing.  Sed will only print when we specifically tell it 
+too.</p>
+	
+<p>The first part of the script is "1~2h".  The beginning is an address 
+specification meaning to perform the subsequent operation on the first 
+line, and then on every other line afterwards (each odd numbered line). 
+ The "h" part is the command to copy the matched line into the holding 
+buffer.</p>
+	
+<p>The second half of the command is more complex.  Again, it begins 
+with an address specification.  This time, it is referring to the even 
+numbered lines (the opposite of the first command).</p>
+	
+<p>The rest of the command is enclosed in braces.  This means that the 
+rest of the commands will inherit the address that was just specified. 
+Without the braces, only the "H" command would inherit the address, and 
+the rest of the commands would be executed on every line.</p>
+	
+<p>The "H" command copies a new-line character, followed by the current 
+pattern buffer, onto the end of the current holding pattern.</p>
+	
+<p>This holding pattern (an odd numbered line, followed by a new-line 
+character, followed by an even numbered line) is then copied back into 
+the pattern buffer (replacing the previous pattern buffer) with the "g" 
+command.</p>
+	
+<p>Next, the new-line character is replaced with a space and the line is printed with the "p" command.</p>
+	
+<p>If you are curious, using the "N" command, as we described above, 
+would shorten this considerably.  This command will produce the same 
+results that we've just seen:</p>
+	
+<pre>sed -n 'N;s/\n/ /p' annoying.txt</pre>
+
+<pre>this is the song that never ends yes, it goes on and on, my friend
+some people started singing it not knowing what it was
+and they'll continue singing it forever just because...</pre>
+
+
+<div name="using-sed-scripts" data-unique="using-sed-scripts"></div><h2>Using Sed Scripts</h2>
+
+<p>As you begin to use more complex commands, it may be helpful to 
+compose them in a text editor.  This is also helpful if you have a large
+ number of commands that you'd like to apply to a single target.</p>
+	
+<p>For example, if you like to compose messages in plain text, but you 
+need to perform a set of standardized formatting before using the text, a
+ sed script would be useful.</p>
+	
+<p>Instead of typing each set of sed calls, you can put the commands in a
+ script and supply it as an argument to sed.  A sed script is simply a 
+list of raw sed commands (the part normally between the single-quote 
+characters).</p>
+	
+<p>For example:</p>
+	
+<pre>s/this/that/g
+s/snow/rain/g
+1,5s/pinecone/apricot/g</pre>
+
+<p>We could then call the file by using the following syntax:</p>
+	
+<pre>sed -f sedScriptName fileToEdit</pre>
+
+<p>This allows you to put all of your edits in one file and execute it 
+on arbitrary text files that need to conform to the format you've 
+created.</p>
+
+
+<div name="conclusion" data-unique="conclusion"></div><h2>Conclusion</h2>
+
+<p>In this article, we've added some depth to our understanding of sed.</p>
+	
+<p>Sed's commands are not always easy to understand at first, and it 
+often takes some actual experimentation to get an idea of their utility.
+  For this reason, it's recommended that you practice manipulating text 
+before you actually need to.  Have an end goal in mind and try to 
+implement it only using sed.</p>
+	
+<p>Hopefully, by this point, you are beginning to understand the power 
+that a proper mastery of sed can give you.  The more intelligent your 
+usage becomes, the less work you will have to do in the long run.</p>
+
+
+
+<div class="author"><p><a href="https://www.digitalocean.com/community/articles/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux">Editing with Sed - Article #1</a></p><p>Editing with Sed - Article #2</p> By Justin Ellingwood</div> 
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  
+<div class="tutorial-footer-details">
+
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+
+    <div class="author-byline">
+      <div class="component-collaborators-container">
+  <ul class="component-collaborators-content">
+        <li class="collaborator-byline-avatar">
+          <a href="https://www.digitalocean.com/community/users/jellingwood">
+            <img alt="jellingwood" class="avatar avatar-small" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/60d901f61a6146e14a3e989bc1f4ef11.png" width="80" height="80">
+</a>        </li>
+
+    <li class="collaborators-byline-data">
+        <p class="names">By <a href="https://www.digitalocean.com/community/users/jellingwood">Justin Ellingwood</a></p>
+
+      <p>
+      </p>
+    </li>
+  </ul>
+</div>
+
+    </div>
+
+    <div class="right-section">
+      <div class="upvote-container">
+        <button name="button" type="button" class="new-upvote-button" data-include-caret="false" data-upvotable-id="405" data-upvotable-type="Tutorial"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-heart"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-heart"></use></svg></span><span class="new-upvote-text">Upvote</span><span class="new-upvote-count">9</span></button>
+      </div>
+      <div class="section-item section-item-subscribe">
+  <span class="opt-in-switch off signed-out-subscribe">
+    <span class="subscribe-label">
+      <span class="icon icon-subscribe"></span>
+      <span class="subscription-label subscribe">Subscribe</span>
+      <span class="icon icon-subscribed"></span>
+      <span class="subscription-label subscribed">Subscribed</span>
+    </span>
+    <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+  </span>
+</div>
+
+<div class="section-item social-sharing-item">
+  <div class="sharing">
+  <a class="share-button" href="#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class="section-content tutorial-contributors one">
+    <div class="component-collaborators-container">
+      <ul class="component-collaborators-content">
+
+
+
+        <li class="collaborators-byline-data">
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+    <div class="tutorial-series-container">
+    <div class="section-content">
+      <h2 class="tutorial-series-heading">Tutorial Series</h2>
+          <div id="tutorial_series_41" class="tutorial-series">
+            <h3 class="series-title"><a href="https://www.digitalocean.com/community/tutorial_series/using-sed">Using Sed</a></h3>
+                <div class="description">
+                  This series covers some basic and advanced operations 
+of sed and introduces you to the syntax required to operate this editor.
+ You will almost certainly never replace your regular text editor with 
+sed, but it will probably become a welcomed addition to your text 
+editing toolbox.
+                </div>
+              <div data-tutorial-series-list="41">
+  <button type="button" class="button toggle-tutorials-list" data-toggle-visibility-trigger="" data-toggle-visibility="false" data-toggle-visibility-target="[data-tutorial-series-list='41'] .TutorialSeries-list" data-trigger-label-for-visible-state="Hide Tutorials" data-trigger-label-for-hidden-state="Show Tutorials">Show Tutorials</button>
+  <ul class="TutorialSeries-list" style="display: none;">
+      <li data-completed-tutorial-id="" data-tutorial-id="402" data-js="tutorial">
+        <div class="TutorialSeries-listContainer">
+          <div class="TutorialSeries-listLeft">
+            <button type="button" class="Button--reset TutorialSeries-button " data-toggle="tooltip" title="" data-js="markAsComplete" data-tutorialinteraction="" data-original-title="Mark as Complete">
+              <svg class="svg-icon svg-icon-completed"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed"></use></svg>
+            </button>
+          </div>
+          <div class="TutorialSeries-listRight">
+            <div class="TutorialSeries-headerContainer">
+              <div class="TutorialSeries-headerTitle">
+                <h2><a href="https://www.digitalocean.com/community/tutorials/the-basics-of-using-the-sed-stream-editor-to-manipulate-text-in-linux">The Basics of Using the Sed Stream Editor to Manipulate Text in Linux</a></h2>
+              </div>
+              <div class="TutorialSeries-headerDate">
+                July 24, 2013
+              </div>
+            </div>
+            <div class="TutorialSeries-description">
+              The sed stream editor is a non-interactive line editor 
+that can be used to perform powerful editing operations on text streams 
+or files.  Learning to use sed well will allow you to transform text 
+with great speed and flexibility.
+            </div>
+          </div>
+        </div>
+      </li>
+      <li data-completed-tutorial-id="" data-tutorial-id="405" data-js="tutorial">
+        <div class="TutorialSeries-listContainer">
+          <div class="TutorialSeries-listLeft">
+            <button type="button" class="Button--reset TutorialSeries-button " data-toggle="tooltip" title="" data-js="markAsComplete" data-tutorialinteraction="" data-original-title="Mark as Complete">
+              <svg class="svg-icon svg-icon-completed"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-completed"></use></svg>
+            </button>
+          </div>
+          <div class="TutorialSeries-listRight">
+            <div class="TutorialSeries-headerContainer">
+              <div class="TutorialSeries-headerTitle">
+                <h2><a href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment">Intermediate Sed: Manipulating Streams of Text in a Linux Environment</a></h2>
+              </div>
+              <div class="TutorialSeries-headerDate">
+                July 25, 2013
+              </div>
+            </div>
+            <div class="TutorialSeries-description">
+              The sed stream editor can be used to perform complex 
+editing operations with a minimal amount of instruction.  The automated 
+nature of sed makes it perfect for use in scripts and background 
+processing.  This article will continue where the Basics of Using the 
+Sed Stream Editor article left off.
+            </div>
+          </div>
+        </div>
+      </li>
+  </ul>
+</div>
+
+          </div>
+    </div>
+  </div>
+
+    <div class="related-tutorials">
+    <div class="section-content">
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-add-and-delete-users-on-ubuntu-16-04">How to Add and Delete Users on Ubuntu 16.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-download-software-and-content-onto-your-linux-vps">How To Download Software and Content onto your Linux VPS</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions">An Introduction to Useful Bash Aliases and Functions</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/an-introduction-to-regular-expressions">An Introduction To Regular Expressions</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-use-bash-history-commands-and-expansions-on-a-linux-vps">How To Use Bash History Commands and Expansions on a Linux VPS</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_405">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>2 Comments</span></h4>
+  </div>
+
+  <div class="response response-form no-avatar">
+  <div class="js-display-on-error flash error hidden"></div>
+
+
+  <form class="content-form disabled-form" id="new_comment" action="/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓" disabled="disabled">
+
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" disabled="disabled" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="log-in-notice "><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class="clearfix"></div>
+</form>
+</div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" rel="nofollow" data-remote="true" href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment/comments">Load</a>
+    <li id="comment_16691" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-include-caret="true" data-upvotable-id="16691" data-upvotable-type="Comment"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">1</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/dgoldman">dgoldman</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?comment=16691">August 23, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>This is a well written tutorial. Just one comment. </p>
+
+<p>The tutorial does not specify being targeted to GNU sed. But 
+addresses like 1~2 are a GNU sed extension. With most other versions of 
+sed, addresses like 1~2 do not work, so maybe users should be 
+forewarned.</p>
+
+<p>Daniel Goldman - <a href="http://www.sed-book.com/" rel="nofollow">http://www.sed-book.com/</a></p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_16691">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+      <li id="comment_24935" data-level="1" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container comment-reply-container">
+        <button name="button" type="button" class="new-upvote-button" data-include-caret="true" data-upvotable-id="24935" data-upvotable-type="Comment"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-d76eb75d70ccf8ffb4c0b47b7dbc88ca.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/pejvan">pejvan</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment?comment=24935">December 26, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>Agreed with Daniel Goldman (see my comments on the part 1 of the tutorial)</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_24935">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_24935"></div>
+</div>
+    </div>
+
+  </li>
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_16691"></div>
+</div>
+    </div>
+
+  </li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class="load-more-container"></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/creativecommons-08b32a9279fcd47fcd78ac6a26331389.png"></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+      </div>
+
+
+            <footer>
+        <section>
+            <a href="https://www.digitalocean.com/write-for-donations/" class="panel">
+            <div class="photo_wrap">
+              <img class="photo" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/70910e9fdeb57be46aaa209ce8d9b4dc8e117fab_w4do2.jpg" alt="">
+            </div>
+            <span class="heading">Become a contributor</span>
+            <p>
+                You get paid; we donate to tech nonprofits.
+            </p>
+          </a>
+            <a href="https://www.meetup.com/pro/digitalocean" class="panel">
+            <div class="photo_wrap">
+              <img class="photo" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/2491485f96735e5982e330914d8a617f85395fab_meetups.jpg" alt="">
+            </div>
+            <span class="heading">Connect with other developers</span>
+            <p>
+                Find a DigitalOcean Meetup near you.
+            </p>
+          </a>
+            <a href="https://www.digitalocean.com/community/newsletter" class="panel">
+            <div class="photo_wrap">
+              <img class="photo" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/ca12c951cc76f33037f3384bba9942545d160d82_iaan_illo.jpg" alt="">
+            </div>
+            <span class="heading">Get our biweekly newsletter</span>
+            <p>
+                Sign up for Infrastructure as a Newsletter.
+            </p>
+          </a>
+      </section>
+      <section class="slim ">
+        <span class="heading">Featured on Community</span>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/community/tutorials/an-introduction-to-kubernetes">Intro to Kubernetes</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/community/tutorial_series/how-to-code-in-python-3">Learn Python 3</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/community/tutorials/machine-learning-projects-python-a-digitalocean-ebook">Machine Learning in Python</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/community/tutorials/how-to-write-your-first-program-in-go">Getting started with Go</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/community/tutorial_series/from-containers-to-kubernetes-with-node-js">Migrate Node.js to Kubernetes</a>
+        <hr>
+        <span class="heading">DigitalOcean Products</span>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/products/droplets/">Droplets</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/products/managed-databases/">Managed Databases</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/products/kubernetes/">Managed Kubernetes</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://www.digitalocean.com/products/spaces/">Spaces Object Storage</a>
+            <a href="https://www.digitalocean.com/community/tutorials/how-to-write-comments-in-go"></a><a href="https://marketplace.digitalocean.com/">Marketplace</a>
+      </section>
+        <section class="product">
+          <a class="copy" href="https://www.digitalocean.com/products">
+            <h3>Welcome to the developer cloud</h3>
+            <p>DigitalOcean makes it simple to launch in the cloud and 
+scale up as you grow – whether you’re running one virtual machine or ten
+ thousand.</p>
+            <span class="link_text">Learn More</span></a>
+          
+          <div class="feature">
+            <a class="img_wrap" href="https://www.digitalocean.com/products">
+              <img class="photo" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/95c1215227aa7f39f2bd23076de28feb969741c7_cloud.png" alt="DigitalOcean Cloud Control Panel">
+            </a>
+          </div>
+        </section>
+        <section class="dark">
+          <div class="vlist grow">
+            <a href="https://www.digitalocean.com/">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                <title>DigitalOcean Homepage</title>
+                <g fill="#0080FF" fill-rule="evenodd">
+                  <path d="M24.9153 50v-9.661c10.226 0 18.1638-10.1413 14.2372-20.904-1.4406-3.983-4.6327-7.1751-8.6158-8.6158C19.774 6.921 9.6327 14.8305 9.6327 25.0565H0C0 8.7571 15.7627-3.9548 32.8531 1.3842c7.4576 2.3446 13.418 8.2768 15.7345 15.7344C53.9266 34.2373 41.2429 50 24.9153 50">
+                  </path>
+                  <path d="M15.339 40.3672h9.6045v-9.6045H15.339zM7.9379 47.7684h7.401v-7.4012H7.938zM1.7514 40.3672H7.938v-6.1864H1.7514z">
+                  </path>
+                </g>
+              </svg>
+            </a>
+            <br><br>
+            © <script type="text/javascript">
+              document.write(new Date().getFullYear());
+
+            </script>2019 DigitalOcean, LLC. All rights reserved.
+          </div>
+
+              <div class="vlist">
+                <span class="heading">Company</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/about/">About</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/about/leadership/">Leadership</a>
+                    </li>
+                    <li>
+                      <a href="https://blog.digitalocean.com/">Blog</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/careers/">Careers</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/partners/">Partners</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/referral-program/">Referral Program</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/press/">Press</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/legal/">Legal &amp; Security</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Products</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/">Products Overview</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/pricing/">Pricing</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/droplets/">Droplets</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/kubernetes/">Kubernetes</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/managed-databases/">Managed Databases</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/spaces/">Spaces</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/marketplace/">Marketplace</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/load-balancer/">Load Balancers</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/block-storage/">Block Storage</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/products/tools-and-integrations/">Tools &amp; Integrations</a>
+                    </li>
+                    <li>
+                      <a href="https://developers.digitalocean.com/documentation/">API</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/docs">Documentation</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/docs/release-notes/">Release Notes</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Community</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/tutorials">Tutorials</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/questions">Q&amp;A</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/projects">Projects and Integrations</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/community/tags">Tags</a>
+                    </li>
+                    <li>
+                      <a href="https://ideas.digitalocean.com/">Product Ideas</a>
+                    </li>
+                    <li>
+                      <a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_www">Meetups</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/write-for-donations/">Write for DOnations</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/droplets-for-demos/">Droplets for Demos</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/hatch/">Hatch Startup Program</a>
+                    </li>
+                    <li>
+                      <a href="http://store.digitalocean.com/">Shop Swag</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/research/">Research Program</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/currents/">Currents Research</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/open-source/">Open Source</a>
+                    </li>
+                </ul>
+              </div>
+              <div class="vlist">
+                <span class="heading">Contact</span>
+                <ul>
+                    <li>
+                      <a href="https://www.digitalocean.com/support/">Support</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/company/contact/sales/">Sales</a>
+                    </li>
+                    <li>
+                      <a href="https://www.digitalocean.com/company/contact/#abuse">Report Abuse</a>
+                    </li>
+                    <li>
+                      <a href="https://status.digitalocean.com/">System Status</a>
+                    </li>
+                </ul>
+              </div>
+        </section>
+      </footer>
+
+
+      <div id="sign-in-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Almost there!</h1>
+        <a class="close-button" data-dismiss="modal" aria-label="close" href=""><span class="icon icon-close-light"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Sign into your account, or create a new one, to start interacting.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  <script>
+    $(function() {
+      if (!!window.init_sharing) {
+        window.init_sharing();
+      }
+      new window.NewsletterSignup();
+      new window.GrowableMarkdown({ target: '[data-growable-markdown]' });
+    });
+  </script>
+  <script type="application/ld+json">
+    {"@context":"http://schema.org","@type":"Article","name":"Intermediate Sed: Manipulating Streams of Text in a Linux Environment","headline":"Intermediate Sed: Manipulating Streams of Text in a Linux Environment","alternativeHeadline":"Intermediate Sed: Manipulating Streams of Text in a Linux Environment","description":"The sed stream editor can be used to perform complex editing operations with a minimal amount of instruction.  The automated nature of sed makes it perfect for use in scripts and background processing.  This article will continue where the Basics of Using the Sed Stream Editor article left off.","keywords":"Linux Basics","url":"https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.digitalocean.com/community/tutorials/intermediate-sed-manipulating-streams-of-text-in-a-linux-environment"},"dateModified":"2016-10-13T17:15:18Z","inLanguage":"en","accessMode":"textual","accessModeSufficient":"textual","isAccessibleForFree":true,"license":"https://creativecommons.org/licenses/by-nc-sa/4.0/","publishingPrinciples":"https://www.digitalocean.com/community/tutorials/technical-recommendations-and-best-practices-for-digitalocean-s-tutorials","author":[{"@type":"Person","name":"Justin Ellingwood","@id":"https://www.digitalocean.com/community/users/jellingwood"}],"datePublished":"2013-07-25T19:17:15Z","image":{"@type":"ImageObject","url":"https://www.digitalocean.com/assets/community/illustrations/DigitalOcean_Community-02cc36407e7a978ed4fc9ed98f3ed87c.jpg","height":375,"width":750},"interactionStatistic":[{"@type":"InteractionCounter","interactionType":"http://schema.org/LikeAction","userInteractionCount":"9"},{"@type":"InteractionCounter","interactionType":"http://schema.org/CommentAction","userInteractionCount":"1"}],"sourceOrganization":{"@type":"Organization","name":"DigitalOcean Community","url":"https://www.digitalocean.com/community"},"publisher":{"@type":"Organization","name":"DigitalOcean","url":"https://www.digitalocean.com","logo":{"@type":"ImageObject","url":"https://assets.digitalocean.com/logos/DO_Logo_horizontal_blue.png","width":351,"height":60}}}
+  </script>
+
+
+    
+  
+
+<textarea tabindex="-1" aria-hidden="true" ,="" style="position: absolute; inset: -999px auto auto 0px; border: 0px none; padding: 0px; box-sizing: content-box; overflow-wrap: break-word; height: 0px !important; min-height: 0px !important; overflow: hidden; transition: none 0s ease 0s; font-family: monospace; font-size: 16px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 19px; width: 713px;" class="autosizejs" id="autosizejs">Leave a comment...
+</textarea><a id="scrollUp" href="#top" style="position: fixed; z-index: 1000;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top: 1px dotted rgb(0, 255, 255); z-index: 1000;"></div><script type="text/javascript" id="">window.addEventListener("cookieconsent_statuschange",function(){window.dataLayer.push({event:"cc_dismiss"})});function getCookie(a){var b="; "+document.cookie;a=b.split("; "+a+"\x3d");if(2==a.length)return a.pop().split(";").shift()}getCookie("cookieconsent_status")&&window.dataLayer.push({event:"cc_dismiss"});</script><script type="text/javascript" id="">document.querySelector('li[role\x3d"banner"]').innerHTML='\x3ca href\x3d"https://blog.digitalocean.com/doks-in-ga/" data-pill\x3d"new" title\x3d"DigitalOcean Kubernetes is now Generally Available." target\x3d"_blank" rel\x3d"noopener"\x3eDigitalOcean Kubernetes is now Generally Available. Learn more \u276f \x3c/a\x3e';</script>
+
+<script type="text/javascript" id="" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/js.js"></script>
+<script type="text/javascript" id="">window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date);gtag("config","AW-836091520");</script>
+
+<iframe style="display: none;" src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/pixel.html"></iframe><script src="Intermediate%20Sed:%20Manipulating%20Streams%20_files/a.js" type="text/javascript"></script></body></html>

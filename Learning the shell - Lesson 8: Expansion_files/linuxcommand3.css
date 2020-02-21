@@ -1,0 +1,465 @@
+@media screen {
+
+	a:link {
+		color:			#005580;
+	}
+	
+	a:visited {
+		color:			#002740;
+	}
+	
+	a:hover {
+		background-color:	red;
+		color:			white;
+	}
+	
+	body	{
+		background:		white;
+		color:			black;
+		font-family:		verdana, arial, helvetica, sans-serif;
+		font-style:		normal;
+		font-weight:		normal;
+		font-size:		14pt;
+	}
+
+	.boxed	{
+		border:			1px solid black;
+		padding:		25px;
+	}
+	
+	caption {			/* Captions for regular tables */
+		font-size:		75%;
+		text-align:		center;
+	}
+	
+	div.colorblock {
+		background-color:	red;
+		height:			9em;
+	}
+	
+	div.body {
+		padding-left:		2em;
+		padding-right:		2em;
+		padding-top:		1em;
+	}
+	
+	div.navbar {			/* Main navigation bar */
+		padding:		1em 0em 1em 0em;
+		line-height:		150%;
+	}
+	
+	div.pagenav {
+		padding:		1em;
+	}
+	
+	div.codeexample {		/* Coding example */
+		background-color:	#E0E0E0;
+		padding:		0.5em;
+	}
+	
+	div.display {			/* Terminal display */
+		background-color:	#000000;
+		color:			#00FF00;
+		padding:		0.5em;
+	}
+	
+	div.sidebar {			/* Regular sidebar */
+		background-color:	#E0E0E0;
+		padding:		1em;
+	}
+	
+	div.warning {			/* Warning sidebar */
+		border:			1px solid black;
+		color:			#FF0000;
+		padding:			1em;
+	}
+	
+	dl	{
+		font-style:		normal;
+		font-weight:		normal;
+		text-align:		left;
+	}
+	
+	em 	{
+		font-style:		italic;
+		font-weight:		normal;
+	
+	}
+	
+	h1	{
+		font-size:		200%;
+		font-style:		normal;
+		font-weight:		normal;
+		text-align:		left;
+	}
+	
+	h2	{
+		font-size:		150%;
+		font-style:		normal;
+		font-weight:		normal;
+		text-align:		left;
+	}
+	
+	h3	{
+		font-size:		120%;
+		font-style:		normal;
+		font-weight:		bold;
+		text-align:		left;
+	}
+	
+	
+	h4	{
+		font-size:		110%;
+		font-style:		normal;
+		font-weight:		bold;
+		text-align:		left;
+	}
+	
+	h5	{
+		font-size:		100%;
+		font-style:		normal;
+		font-weight:		bold;
+		text-align:		left;
+	}
+	
+	ol	{
+		font-style:		normal;
+		font-weight:		normal;
+	}
+	
+	p	{
+		text-align:		left;
+	}
+	
+	p.centered-bold {
+		font-style:		normal;
+		font-weight:		bold;
+		text-align:		center;
+	}
+	
+	p.fineprint {
+		font-size:		80%;
+		text-align:		left;
+	}
+	
+	p.fineprint-centered {
+		font-size:		80%;
+		text-align:		center;
+	}
+	
+	p.right {
+		text-align:		right;
+	}
+	
+	pre {
+		font-family:		courier, lucidatypewriter, monospace;
+		/*font-size:		100%; */
+	}
+	
+	pre.bold {
+		font-size:		100%;
+		font-weight:	bold;
+	}
+	
+	strong 	{
+		font-style:		normal;
+		font-weight:		bold;
+	
+	}
+	
+	table.page {
+		border-style:		solid;
+		border-width:		1em;
+		border-color:		#005580;
+		background-color:	transparent;
+		padding:		1em;
+	/*	margin-bottom:		1em;
+		margin-left:		1em;
+		margin-right:		1em;
+		margin-top:		1em;*/
+	}
+	
+	tt {				/* Variables that appear in the text */
+		font-family:		courier, lucidatypewriter, monospace;
+		font-size:		100%;
+		font-style:		normal;
+		font-weight:		normal;
+	}
+	
+	tt.cmd {			/* Commands typed at the prompt by the user */
+		background:		transparent;
+		color:			white;
+		font-size:		100%;
+		font-weight:		bold;
+	}
+	
+	tt.narrow {
+		font-size:		80%;
+	}
+	
+	tt.user {			/* User commands that appear in the text */
+		font-size:		100%;
+		font-weight:		bold;
+	
+	}
+	
+	/* Styles taken from pandoc for source code highlighting */
+
+	table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+		margin:			0;
+		padding:		0;
+		vertical-align:		baseline;
+		border:			none;
+	}
+
+	table.sourceCode {
+		width:			100%;
+	}
+
+	td.lineNumbers {
+		text-align:		right;
+		padding-right:		4px;
+		padding-left:		4px;
+		color:			#aaaaaa;
+		border-right:		1px solid #aaaaaa;
+	}
+
+	td.sourceCode {
+		padding-left:		5px;
+	}
+
+	code > span.kw {
+		color:			#007020;
+		font-weight:		bold;
+	}
+
+	code > span.dt {
+		color:			#902000;
+	}
+
+	code > span.dv {
+		color:			#40a070;
+	}
+
+	code > span.bn {
+		color:			#40a070;
+	}
+
+	code > span.fl {
+		color:			#40a070;
+	}
+
+	code > span.ch {
+		color:			#4070a0;
+	}
+
+	code > span.st {
+		color:			#4070a0;
+	}
+
+	code > span.co {
+		color:			#60a0b0;
+		font-style:		italic;
+	}
+
+	code > span.ot {
+		color:			#007020;
+	}
+
+	code > span.al {
+		color:			#ff0000;
+		font-weight:		bold;
+	}
+
+	code > span.fu {
+		color:			#06287e;
+	}
+
+	code > span.er {
+		color:			#ff0000;
+		font-weight:		bold;
+	}
+}
+
+@media print {
+
+	body	{
+		background:		white;
+		color:			black;
+		font-family:		sans-serif;
+		font-style:		normal;
+		font-weight:		normal;
+	}
+	
+	div.colorblock {
+		display:		none;
+	}
+	
+	div.navbar {			/* Main navigation bar */
+		display:		none;
+	}
+	
+	div.pagenav {
+		display:		none;
+	}
+	
+	div.codeexample {		/* Coding example */
+		background-color:	#E0E0E0;
+		padding:		1em;
+	}
+	
+	div.display {			/* Terminal display */
+		padding:		1em;
+	}
+	
+	div.sidebar {			/* Regular sidebar */
+		padding:		1em;
+		border-style:		solid;
+	}
+	
+	div.warning {			/* Warning sidebar */
+		color:			#FF0000;
+		padding:		1em;
+		border-style:		solid;
+	}
+	
+	p	{
+		text-align:		left;
+	}
+	
+	p.centered-bold {
+		font-style:		normal;
+		font-weight:		bold;
+		text-align:		center;
+	}
+	
+	p.fineprint {
+		font-size:		80%;
+		text-align:		left;
+	}
+	
+	p.fineprint-centered {
+		font-size:		80%;
+		text-align:		center;
+	}
+	
+	p.right {
+		text-align:		right;
+	}
+	
+	pre {
+		font-family:		courier, lucidatypewriter, monospace;
+		font-size:		100%;
+		font-style:		normal;
+		font-weight:		normal;
+	}
+	
+	pre.bold {
+		font-size:		100%;
+		font-weight:	bold;
+	}
+	
+	table.page {
+		border-style:		none;
+	}
+
+	tt {				/* Variables that appear in the text */
+		font-family:		courier, lucidatypewriter, monospace;
+		font-size:		100%;
+		font-style:		normal;
+		font-weight:		normal;
+	}
+	
+	tt.cmd {			/* Commands typed at the prompt by the user */
+		font-size:		100%;
+		font-weight:		bold;
+	}
+	
+	tt.narrow {
+		font-size:		80%;
+	}
+	
+	tt.user {			/* User commands that appear in the text */
+		font-size:		100%;
+		font-weight:		bold;	
+	}
+
+	/* Styles taken from pandoc for source code highlighting */
+
+	table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+		margin:			0;
+		padding:		0;
+		vertical-align:		baseline;
+		border:			none;
+	}
+
+	table.sourceCode {
+		width:			100%;
+	}
+
+	td.lineNumbers {
+		text-align:		right;
+		padding-right:		4px;
+		padding-left:		4px;
+		color:			#aaaaaa;
+		border-right:		1px solid #aaaaaa;
+	}
+
+	td.sourceCode {
+		padding-left:		5px;
+	}
+
+	code > span.kw {
+		color:			#007020;
+		font-weight:		bold;
+	}
+
+	code > span.dt {
+		color:			#902000;
+	}
+
+	code > span.dv {
+		color:			#40a070;
+	}
+
+	code > span.bn {
+		color:			#40a070;
+	}
+
+	code > span.fl {
+		color:			#40a070;
+	}
+
+	code > span.ch {
+		color:			#4070a0;
+	}
+
+	code > span.st {
+		color:			#4070a0;
+	}
+
+	code > span.co {
+		color:			#60a0b0;
+		font-style:		italic;
+	}
+
+	code > span.ot {
+		color:			#007020;
+	}
+
+	code > span.al {
+		color:			#ff0000;
+		font-weight:		bold;
+	}
+
+	code > span.fu {
+		color:			#06287e;
+	}
+
+	code > span.er {
+		color:			#ff0000;
+		font-weight:		bold;
+	}
+}
+
+

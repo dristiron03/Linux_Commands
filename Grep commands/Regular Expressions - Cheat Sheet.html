@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Regular Expressions cheat sheet. Contains links to relevant sections in the tutorial.">
+    <meta name="keywords" content="regular expressions, regex, tutorial, cheat sheet">
+    <meta name="author" content="Ryan Chadwick">
+
+    <title>Regular Expressions - Cheat Sheet</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="Regular%20Expressions%20-%20Cheat%20Sheet_files/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="Regular%20Expressions%20-%20Cheat%20Sheet_files/bootstrap-theme.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="Regular%20Expressions%20-%20Cheat%20Sheet_files/style.css" rel="stylesheet">
+    <link href="Regular%20Expressions%20-%20Cheat%20Sheet_files/style_002.css" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="https://ryanstutorials.net/favicons/favicon_regular_expressions.png">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<script charset="utf-8" src="Regular%20Expressions%20-%20Cheat%20Sheet_files/button.js"></script></head>
+
+<body role="document" data-spy="scroll" data-target="#sidebox" data-offset="90"> 
+	<header id="ryansheader">
+	<div class="container">
+		<div class="col-sm-12">
+			<a id="ryantitle" href="https://ryanstutorials.net/" title="A collection of Technology Tutorials">Ryans Tutorials</a>
+			
+			<div class="btn-toolbar pull-right">
+				<div class="btn-group mega-dropdown">
+					<button class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">More Tutorials <span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right mega-dropdown-menu row">
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">Linux</li>
+								<li><a href="https://ryanstutorials.net/linuxtutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/tux_48.png" alt="Tux"><p>Linux Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/bash-scripting-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/hammer_48.png" alt="Hammer"><p>Bash Scripting Tutorial</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">Web</li>
+								<li><a href="https://ryanstutorials.net/html-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/html_48.png" alt="HTML"><p>HTML Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/css-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/css_48.png" alt="CSS"><p>CSS Tutorial</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">General</li>
+								<li><a href="https://ryanstutorials.net/binary-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/abacus_48.png" alt="Abacus"><p>Binary Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/search_48.png" alt="Search"><p>Regular Expressions Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/boolean-algebra-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/config_48.png" alt="Switches"><p>Boolean Algebra Tutorial</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/rubiks-cube-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/cube_48.png" alt="Rubiks Cube"><p>Solve the Cube</p></span></a></li>
+							</ul>
+						</li>
+						<li class="col-sm-3">
+							<ul>
+								<li class="dropdown-header">&nbsp;</li>
+								<li><a href="https://ryanstutorials.net/problem-solving-skills/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/map_48.png" alt="Map"><p>Problem Solving Skills</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/graphic-design-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/brush_48.png" alt="Brush"><p>Basic Graphic Design</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/programming-challenges/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/rocket_48.png" alt="Rocket"><p>Programming Challenges</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/software-design-and-development/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/browser_48.png" alt="Software"><p>Software Design and Development</p></span></a></li>
+								<li><a href="https://ryanstutorials.net/microbit-tutorial/"><span><img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/microbit_48.png" alt="micro:bit"><p>micro:bit tutorial</p></span></a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</header> 
+	
+	<!-- Fixed navbar -->
+	<div id="tutorialheader" class="navbar navbar-inverse navbar-static affix-top" role="navigation" data-spy="affix" data-offset-top="40">
+		<div class="container">
+			<h1 class="introduction">Regular Expressions - Cheat Sheet</h1>
+			
+			<div class="btn-toolbar pull-right">
+								<div class="btn-group">
+					<button class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">Tutorial Sections <span class="caret"></span></button>
+					<ul class="dropdown-menu pull-right">
+					<li><a href="https://ryanstutorials.net/regular-expressions-tutorial/">Introduction</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php">1. Basics</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php">2. Intermediate</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php">3. Advanced</a></li><li><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-examples.php">4. Examples</a></li><li class="active"><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-cheat-sheet.php">Cheat Sheet</a></li>					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<p>This cheat sheet is intended to be a quick reminder for the main 
+concepts involved in using regular expressions and assumes you already 
+understand their usage. If you are new to regular expressions we 
+strongly suggest you work through the <a href="https://ryanstutorials.net/regular-expressions-tutorial/">Regular Expressions tutorial</a> from the beginning.</p>
+		
+				<p>Click the title of a section to be taken to the relevant tutorial page to learn more about those concepts.</p>
+				
+				
+				<div id="cheatsheetcolumn0" class="cheatsheetcolumns"><div id="sectionholder0"><div id="basics" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php#dot">Basic Metacharacters</a></h4>
+					
+					<dl style="display: block;">
+						<dt>. (dot or fullstop)</dt>
+						<dd>Any character.</dd>
+						
+						<dt>[ ]</dt>
+						<dd>Range. Match any of these characters.</dd>
+						
+						<dt>[^ ]</dt>
+						<dd>Range. Match any character which is not one of these.</dd>
+						
+						<dt>\ (backslash)</dt>
+						<dd>Escape. Remove or add special meaning to a character.</dd>
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div><div id="nonprintable" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php#nonprintable">Non printable characters</a></h4>
+					
+					<dl style="display: block;">
+						<dt>\t</dt>
+						<dd>Tab</dd>
+						
+						<dt>\r</dt>
+						<dd>Carriage return</dd>
+						
+						<dt>\n</dt>
+						<dd>Newline (or line feed)</dd>
+						
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div><div id="alternation" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php#alternation">Alternation</a></h4>
+					
+					<dl>
+						<dt>|</dt>
+						<dd>Match what is on the left, or, what is on the right of the pipe symbol.</dd>
+						
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div></div><div class="clearfix"></div></div>
+				<div id="cheatsheetcolumn1" class="cheatsheetcolumns"><div id="sectionholder1"><div id="multipliers" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-basics.php#multipliers">Multipliers</a></h4>
+					
+					<dl>
+						<dt>*</dt>
+						<dd>Match zero or more times.</dd>
+						
+						<dt>+</dt>
+						<dd>Match one or more times.</dd>
+						
+						<dt>?</dt>
+						<dd>Match zero or one times.</dd>
+						
+						<dt>{x}</dt>
+						<dd>Match exactly x times.</dd>
+						
+						<dt>{x,y}</dt>
+						<dd>Match between x and y times.</dd>
+						
+						<dt>{x,}</dt>
+						<dd>Match at least x times.</dd>
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div><div id="anchors" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php#anchors">Anchors and Word Boundaries</a></h4>
+					
+					<dl>
+						<dt>^
+						</dt><dd>The beginning of the line.</dd>
+						
+						<dt>$</dt>
+						<dd>The end of the line.</dd>
+						
+						<dt>\&lt;</dt>
+						<dd>The beginning of a word.</dd>
+						
+						<dt>\&gt;</dt>
+						<dd>The end of a word.</dd>
+						
+						<dt>\b</dt>
+						<dd>The beginning or end of a word.</dd>
+						
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div></div><div class="clearfix"></div></div>
+				<div id="cheatsheetcolumn2" class="cheatsheetcolumns"><div id="sectionholder2"><div id="shorthand" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-intermediate.php#shorthand">Shorthand Character Classes</a></h4>
+					
+					<dl>
+						<dt>\s</dt>
+						<dd>Anything which is considered whitespace.</dd>
+						
+						<dt>\S</dt>
+						<dd>Anything which is not considered whitespace.</dd>
+						
+						<dt>\d</dt>
+						<dd>A digit (ie. 0 - 9)</dd>
+						
+						<dt>\D</dt>
+						<dd>Anything which is not a digit.</dd>
+						
+						<dt>\w</dt>
+						<dd>Anything which is considered a word character.</dd>
+						
+						<dt>\W</dt>
+						<dd>Anything which is not considered a word character.</dd>
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div><div id="grouping" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php#grouping">Grouping and backreferences</a></h4>
+					
+					<dl>
+						<dt>May be used anywhere in any path.</dt>
+						
+						<dt>( )</dt>
+						<dd>Create a grouping.</dd>
+						
+						<dt title="eg. \1 or \2">\x (x = digit)</dt>
+						<dd>Match what was matched in the corresponding grouping.</dd>
+						
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div><div id="lookahead" class="sectioncontainer" style="width: 100%;">
+					<h4><a href="https://ryanstutorials.net/regular-expressions-tutorial/regular-expressions-advanced.php#lookahead">Lookahead and Lookbehind</a></h4>
+					
+					<dl>
+						<dt>(?=x)
+						</dt><dd>A positive lookahead.</dd>
+						
+						<dt>(?!x)
+						</dt><dd>A negative lookahead.</dd>
+						
+						<dt>(?&lt;=x)</dt>
+						<dd>A positive lookbehind.</dd>
+						
+						<dt>(?&lt;!x)</dt>
+						<dd>A negative lookbehind.</dd>
+						
+					</dl>
+					
+					<div class="toggle-section"><span class="glyphicon glyphicon-chevron-up"></span></div>
+				</div></div><div class="clearfix"></div></div>
+				<div id="cheatsheetcolumn3" class="cheatsheetcolumns"><div id="sectionholder3"></div><div class="clearfix"></div></div>
+				
+				<div class="clearfix"></div>
+				<div id="sectionsmain">
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<div class="container-fluid footer-background margin-top">
+	<div class="row-fluid">
+		<div class="col-md-12">
+			<div class="container">
+				<footer>
+					<p>By <a href="https://plus.google.com/105636787773904848687" rel="author">Ryan Chadwick</a> © 2019 <span style="margin-left:30px;"><iframe id="twitter-widget-0" scrolling="no" allowtransparency="true" class="twitter-follow-button twitter-follow-button-rendered" style="position: static; visibility: visible; width: 135px; height: 20px;" title="Twitter Follow Button" src="Regular%20Expressions%20-%20Cheat%20Sheet_files/follow_button.html" data-screen-name="funcreativity" frameborder="0"></iframe></span><script async="" src="Regular%20Expressions%20-%20Cheat%20Sheet_files/analytics.js"></script><script async="" src="Regular%20Expressions%20-%20Cheat%20Sheet_files/widgets.js" charset="utf-8"></script></p>
+				</footer>
+					
+				<div id="footerbar"></div> 
+
+				<div class="row">
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/" title="Kindle the flame">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/fire_64.png" alt="Flame">
+							<h4>Home</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/linuxtutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/tux_64.png" alt="Tux">
+							<h4>Linux Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/html-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/html_64.png" alt="HTML">
+							<h4>HTML Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/binary-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/abacus_64.png" alt="Abacus">
+							<h4>Binary Tutorial</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-3">
+						<p>Education is the kindling of a flame, <br>not the filling of a vessel.<br>
+						<i>- Socrates</i></p>
+						
+						<p><a href="https://ryanstutorials.net/contact.php">Contact</a> | <a href="https://ryanstutorials.net/disclaimer.php" title="Privacy Policy, Terms of Use and Disclaimer">Disclaimer</a></p>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/bash-scripting-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/hammer_64.png" alt="Hammer">
+							<h4>Bash Scripting Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/css-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/css_64.png" alt="CSS">
+							<h4>CSS Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/regular-expressions-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/search_64.png" alt="Search">
+							<h4>Regular Expressions</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/programming-challenges/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/rocket_64.png" alt="Rocket">
+							<h4>Programming Challenges</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/problem-solving-skills/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/map_64.png" alt="Map">
+							<h4>Problem Solving</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/boolean-algebra-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/config_64.png" alt="Switches">
+							<h4>Boolean Algebra Tutorial</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-3 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/graphic-design-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/brush_64.png" alt="Paint Brush">
+							<h4>Basic Design Tutorial</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/rubiks-cube-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/cube_64.png" alt="Rubiks Cube">
+							<h4>Solve the Cube</h4>
+						</a>
+					</div>
+					<div class="col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/software-design-and-development/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/browser_64.png" alt="Software">
+							<h4>Software Design and Development</h4>
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-offset-9 col-sm-3 tutorial-outline">
+						<a href="https://ryanstutorials.net/microbit-tutorial/">
+							<img src="Regular%20Expressions%20-%20Cheat%20Sheet_files/microbit_64.png" alt="micro:bit">
+							<h4>micro:bit Tutorial</h4>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> 
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-20188827-12', 'ryanstutorials.net');
+	ga('send', 'pageview');
+
+</script>
+	
+	<script src="Regular%20Expressions%20-%20Cheat%20Sheet_files/jquery.js"></script>
+	<script src="Regular%20Expressions%20-%20Cheat%20Sheet_files/bootstrap.js"></script>
+	<script src="Regular%20Expressions%20-%20Cheat%20Sheet_files/base.js"></script>
+	
+	<script src="Regular%20Expressions%20-%20Cheat%20Sheet_files/javascript.js"></script>
+	
+	<script>
+		var columns = 1;
+		var sections = ['basics', 'multipliers', 'shorthand', 'nonprintable', 'anchors', 'grouping', 'alternation', 'lookahead'];
+		$(document).ready( function() {organise_sections(); activate_sections(); setTimeout(organise_sections, 1500)} );
+		$(window).resize(organise_sections);
+	</script>
+
+
+
+<iframe scrolling="no" allowtransparency="true" src="Regular%20Expressions%20-%20Cheat%20Sheet_files/widget_iframe.html" title="Twitter settings iframe" style="display: none;" frameborder="0"></iframe></body></html>

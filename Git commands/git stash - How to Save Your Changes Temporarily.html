@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html class=" wf-museosans-n3-active wf-museosans-i3-active wf-museosans-n7-active wf-museoslab-n3-active wf-museoslab-i3-active wf-museoslab-n5-active wf-museoslab-n7-active wf-active" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>git stash - How to Save Your Changes Temporarily</title>
+
+    <!-- Google Optimize - Page hiding snippet (recommended)  -->
+    <style>.async-hide { opacity: 0 !important} </style>
+    <script type="text/javascript" async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/js.js"></script><script type="text/javascript" async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/linkid.js"></script><script src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/inferredEvents.js" async=""></script><script src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/545953992196333" async=""></script><script async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/fbevents.js"></script><script type="text/javascript" async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/conversion_async.js"></script><script type="text/javascript" async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/analytics.js"></script><script async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/gtm.js"></script><script async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/analytics.js"></script><script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+    })(window,document.documentElement,'async-hide','dataLayer',4000,
+    {'GTM-PCW7SXL':true});</script>
+    <!-- Modified Analytics tracking code with Optimize plugin -->
+        <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-9752864-4', 'auto');  // Update tracker settings
+      ga('require', 'GTM-PCW7SXL');         // Optimize Container
+      // Remove pageview call!
+    </script>
+
+    <!-- Search Engines + Open Graph -->
+    <link rel="canonical" href="https://www.git-tower.com/learn/git/faq/save-changes-with-git-stash">
+    <meta name="description" content="Our learn section helps you get started with various web and software skills. Free online books, videos, and ebooks get you off the ground as quickly as possible.">
+<meta name="keywords" content="git, version control, vcs, tutorial, help, learn, ebook, video, subversion">
+
+<meta property="og:title" content="git stash - How to Save Your Changes Temporarily">
+<meta property="og:image" content="https://assets.git-tower.com/learn/assets/img/social/learn_og_image@2x.1558339345.png">
+<meta property="og:description" content="Our learn section helps you get started with various web and software skills. Free online books, videos, and ebooks get you off the ground as quickly as possible.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@fournova">
+<meta name="twitter:title" content="git stash - How to Save Your Changes Temporarily">
+<meta name="twitter:description" content="Our learn section helps you get started with various web and software skills. Free online books, videos, and ebooks get you off the ground as quickly as possible.">
+<meta name="twitter:image:src" content="https://assets.git-tower.com/learn/assets/img/social/learn_og_image@2x.1558339345.png">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://www.git-tower.com/learn/assets/img/favicon.ico" type="image/x-icon">
+
+    <!-- CSS inclusions -->
+    <link rel="stylesheet" href="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/content.css">
+    <!-- Javascript inclusions -->
+    <script src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/jquery.js"></script>
+    <script async="" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/content.js"></script>    <script type="text/javascript">
+  (function() {
+    var config = {
+      kitId: 'bbe4dgk'
+    };
+    $.ajax({
+      url: '//use.typekit.net/' + config.kitId + '.js',
+      dataType: 'script',
+      cache: true,
+      success: function() {
+        try { Typekit.load(config); } catch (e) {}
+      }
+    });
+  })();
+</script><style type="text/css">.tk-museo-sans{font-family:"museo-sans",sans-serif;}.tk-museo-slab{font-family:"museo-slab",serif;}</style><style type="text/css">@font-face{font-family:museo-sans;src:url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:museo-sans;src:url(https://use.typekit.net/af/5cca6d/00000000000000000000e802/27/l?subset_id=2&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/5cca6d/00000000000000000000e802/27/d?subset_id=2&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/5cca6d/00000000000000000000e802/27/a?subset_id=2&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}@font-face{font-family:museo-sans;src:url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/e3ca36/00000000000000000000e805/27/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}@font-face{font-family:museo-slab;src:url(https://use.typekit.net/af/53dec0/0000000000000000000100fe/27/l?subset_id=2&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/53dec0/0000000000000000000100fe/27/d?subset_id=2&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/53dec0/0000000000000000000100fe/27/a?subset_id=2&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}@font-face{font-family:museo-slab;src:url(https://use.typekit.net/af/ea0e14/000000000000000000010141/27/l?subset_id=2&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/ea0e14/000000000000000000010141/27/d?subset_id=2&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/ea0e14/000000000000000000010141/27/a?subset_id=2&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}@font-face{font-family:museo-slab;src:url(https://use.typekit.net/af/aa4f4e/000000000000000000012043/27/l?subset_id=2&fvd=n5&v=3) format("woff2"),url(https://use.typekit.net/af/aa4f4e/000000000000000000012043/27/d?subset_id=2&fvd=n5&v=3) format("woff"),url(https://use.typekit.net/af/aa4f4e/000000000000000000012043/27/a?subset_id=2&fvd=n5&v=3) format("opentype");font-weight:500;font-style:normal;}@font-face{font-family:museo-slab;src:url(https://use.typekit.net/af/c225e2/000000000000000000011aff/27/l?subset_id=2&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/c225e2/000000000000000000011aff/27/d?subset_id=2&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/c225e2/000000000000000000011aff/27/a?subset_id=2&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}</style>
+        
+  <script src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/a"></script></head>
+
+  <body class="body--default body--git__faq__save-changes-with-git-stash">
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PQTPB9"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-PQTPB9');</script>
+    <!-- End Google Tag Manager -->
+<nav id="navigation" class="section light">
+	<div class="frame">
+		<div class="tower-branding hide--small">
+		  <a class="analytics--click" href="https://www.git-tower.com/?utm_source=learn-website&amp;utm_medium=navigation" target="_blank">
+        <img class="tower-icon" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/tower-icon.svg"><img class="tower-claim" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/tower-logo-claim.svg">
+      </a>
+		</div>
+		<ul class="main-navigation">
+			<li><a href="https://www.git-tower.com/learn">Home</a></li>
+			<li><a href="https://www.git-tower.com/blog/?utm_source=learn-website&amp;utm_medium=navigation" target="_blank">Blog</a></li>
+
+			<li class="more-content">
+				<a href="#"><span>More Learning Content</span></a>
+
+				<ul>
+  				<li class="dropdown__item--title">Git</li>
+  				<li><a href="https://www.git-tower.com/learn/git/ebook">ebook</a></li>
+  				<li><a href="https://www.git-tower.com/learn/git/videos">videos</a></li>
+          <li><a href="https://www.git-tower.com/learn/git/webinar">webinars</a></li>
+  				<li><a href="https://www.git-tower.com/learn/git/first-aid-kit">First Aid Kit</a></li>
+  				<li><a href="https://www.git-tower.com/learn/git/faq">FAQ</a> | <a href="https://www.git-tower.com/learn/git/glossary">Glossary</a> | <a href="https://www.git-tower.com/learn/git/commands">Commands</a></li>
+  				<li class="dropdown__item--title">Web Development</li>
+  				<li><a href="https://www.git-tower.com/learn/website-optimization">Website Optimization</a></li>
+  				<li><a href="https://www.git-tower.com/learn/bourbon-neat-bitters">Bourbon, Neat, and Bitters</a></li>
+  				<li><a href="https://www.git-tower.com/learn/build-your-own-blog">Design &amp; develop your own blog</a></li>
+  				<li class="dropdown__item--title">Cheat Sheets</li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/git">Git</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/git-for-svn">Git for Subversion Users</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/vcs-workflow">Workflow of Version Control</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/website-optimization">Website Optimization</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/tower">Tower Git Client</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/xcode">Xcode</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/cli">Command Line 101</a></li>
+  				<li><a href="https://www.git-tower.com/learn/cheat-sheets/bourbon-neat-bitters">Bourbon, Bitters, and Neat</a></li>
+				</ul>
+      </li>
+
+		</ul>
+	</div>
+</nav><div id="header" class="section dark">
+	<div class="frame">
+    <h1 class="header__headline">Git Questions &amp; Answers</h1><h2 class="header__subline">Frequently asked questions around Git &amp; Version Control</h2><div class="keyvisual"></div>
+<style type="text/css">
+.keyvisual {
+  background-image:url(https://assets.git-tower.com/learn/assets/img/keyvisual/reader_dark.1558339345.png);
+}
+</style>
+	</div>
+</div>
+
+
+
+<aside id="sharing-sidebar" style="right: -70px;">
+  <a class="button social-button--twitter analytics--click" onclick="FN.socialShare('twitter', false, 'git stash - How to Save Your Changes Temporarily ');" href="javascript:void(0);"></a>
+  <a class="button social-button--facebook analytics--click" onclick="FN.socialShare('facebook', false, 'git stash - How to Save Your Changes Temporarily ');" href="javascript:void(0);"></a>
+  <a class="button social-button--linkedin analytics--click" onclick="FN.socialShare('linkedin', false, 'git stash - How to Save Your Changes Temporarily ');" href="javascript:void(0);"></a>
+</aside>
+
+<div id="read" class="section bright">
+	<div class="frame">    
+		<div id="content">
+			<a name="start"></a>
+      			<div id="chapter">
+        
+        <h1>git stash - How to Save Your Changes Temporarily</h1>
+<p>There are lots of situations where a <em>clean working copy</em> is 
+recommended or even required: when merging branches, when pulling from a
+ remote, or simply when checking out a different branch.</p>
+<p>The "git stash" command can help you to (temporarily but safely) 
+store your uncommitted local changes - and leave you with a clean 
+working copy.</p>
+<h2>git stash: a Clipboard for Your Changes</h2>
+<p>Let's say you currently have a couple of local modifications:</p>
+<pre><code><span class="cli-prompt">$ git status</span>
+  modified:   index.php
+  modified:   css/styles.css
+</code></pre>
+<p>If you have to switch context - e.g. because you need to work on an 
+urgent bug - you need to get these changes out of the way. You shouldn't
+ just commit them, of course, because it's unfinished work.</p>
+<p>This is where "git stash" comes in handy:</p>
+<pre><code><span class="cli-prompt">$ git stash</span>
+Saved working directory and index state WIP on master:
+   2dfe283 Implement the new login box
+HEAD is now at 2dfe283 Implement the new login box
+</code></pre>
+<p>Your working copy is now clean: all uncommitted local changes have 
+been saved on this kind of "clipboard" that Git's Stash represents. 
+You're ready to start your new task (for example by pulling changes from
+ remote or simply switching branches).</p>
+<h2>Continuing Where You Left Off</h2>
+<p>As already mentioned, Git's Stash is meant as a temporary storage. 
+When you're ready to continue where you left off, you can restore the 
+saved state easily:</p>
+<pre><code><span class="cli-prompt">$ git stash pop</span>
+</code></pre>
+<p>The "pop" flag will reapply the <em>last saved</em> state and, at the same time, delete its representation on the Stash (in other words: it does the clean-up for you).</p>
+<p><br></p>
+<div class="box concept">
+<h5>Tip</h5>
+<h4>Using the Stash in Tower</h4>
+<p>In case you are using the <a href="https://www.git-tower.com/?utm_source=learn-website&amp;utm_campaign=git-faq&amp;utm_medium=easy-in-tower&amp;utm_content=git-stash" target="_blank">Tower Git client</a>, saving to and restoring from the Stash can be performed right from the toolbar:
+</p><figure class="visible-on--mac" style="display: none;"><img src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/01-stash_mac.gif" alt=""></figure><figure class="visible-on--windows"><img src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/01-stash_windows.gif" alt=""></figure><p></p>
+</div>
+<p><br></p>
+<h2>Learn More</h2>
+<ul>
+<li>Check out the chapter <a href="https://www.git-tower.com/learn/git/ebook/en/desktop-gui/branching-merging/stashing">Saving Changes Temporarily</a> in our free online book</li>
+<li>More <a href="https://www.git-tower.com/learn/git/faq">frequently asked questions</a> about Git &amp; version control</li>
+</ul>        
+      </div>
+          </div>
+  </div>
+</div>
+
+<div id="signup" class="section dark signup--cheatsheet-package_huge">
+	<div class="frame">
+		<h4>Get our popular <b>Git Cheat Sheet</b> for free!</h4>
+		<div class="signup--image">
+      <img src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/cheat-sheet-illu-huge.png">
+    </div>
+    <div class="signup--text">
+      <p>You'll find the most important commands on the front and 
+helpful best practice tips on the back. Over 100,000 developers have 
+downloaded it to make Git a little bit easier.</p>
+      <form class="newsletter-form analytics--submit" autocomplete="off">
+      <input type="hidden" name="signupForm" value="7">
+        <input type="hidden" name="lists[]" value="tower-newsletter">
+  
+    <div class="newsletter-form__groups">
+        <div class="row" style="display:none">
+      <label><input class="signup-tag__item" name="tags[]" type="checkbox" value="tower_newsletter" checked="checked" id="signup-tag__tower_newsletter">New content and updates</label>
+    </div>
+        <div class="row">
+      <label><input class="signup-tag__item" name="tags[]" type="checkbox" value="incentive_cheatpackage" id="signup-tag__incentive_cheatpackage" data-required="true">Yes,
+ send me the cheat sheet and sign me up for the Tower newsletter. It's 
+free, it's sent infrequently, you can unsubscribe any time.</label>
+    </div>
+      </div>
+  
+    <div class="newsletter-form__consent">
+        <label><input type="checkbox" id="consent--legal" class="consent__item consent__text" data-required="1">I have read and accept the <a href="https://www.git-tower.com/legal/privacy-policy" target="_blank">Privacy Policy</a>. I understand that I can unsubscribe at any time.</label>
+      </div>
+  
+  <div class="newsletter-form__signup">
+    <input type="text" name="email" placeholder="Your email address">
+    <input type="submit" value="" class="newsletter-form__signup-button">
+  </div>
+
+    <input type="hidden" name="signup[medium]" value="learn-website">
+      <input type="hidden" name="signup[URI]" value="git/faq/save-changes-with-git-stash/cheatsheet-package_huge">
+      <input type="hidden" name="signup[OS]" value="other">
+    <div class="request-notice"></div>
+</form>
+		</div>
+  </div>
+</div>
+<div id="about" class="section bright">
+	<div class="frame">
+		<h2>About Us</h2>
+		<a class="icon-wrap analytics--click" href="https://www.git-tower.com/?utm_source=learn-website&amp;utm_medium=about-us&amp;utm_campaign=learn-git" target="_blank"><img class="tower-icon" src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/tower-icon.svg"></a>
+		<div class="sans">
+			<p>As the makers of <a class="analytics--click" href="https://www.git-tower.com/?utm_source=learn-website&amp;utm_medium=about-us&amp;utm_campaign=learn-git" target="_blank">Tower</a>,
+ the best Git client for Mac and Windows, we help over 100,000 users in 
+companies like Apple, Google, Amazon, Twitter, and Ebay get the most out
+ of Git.</p>
+			<p>Just like with Tower, our mission with this platform is to help people become better professionals.</p>
+      <p>That's why we provide our guides, videos, and cheat sheets (about version control with Git and lots of other topics) for free.</p>
+		</div>
+		<div class="footer">
+			<div class="sprite-general logo-fournova bright"></div>
+			<h6 class="sans"><p>Copyright © 2013-2019 fournova Software GmbH | <a href="https://www.git-tower.com/legal/imprint">Imprint</a> | <a href="https://www.git-tower.com/legal/privacy-policy">Privacy Policy</a></p></h6>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript" id="">!function(b,e,f,g,a,c,d){b.fbq||(a=b.fbq=function(){a.callMethod?a.callMethod.apply(a,arguments):a.queue.push(arguments)},b._fbq||(b._fbq=a),a.push=a,a.loaded=!0,a.version="2.0",a.queue=[],c=e.createElement(f),c.async=!0,c.src=g,d=e.getElementsByTagName(f)[0],d.parentNode.insertBefore(c,d))}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");fbq("init","545953992196333");fbq("track","PageView");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=545953992196333&amp;ev=PageView&amp;noscript=1"></noscript>
+<div id="fn-signup-popup_incentive_cheatpackage" class="fn-popup fn-popup--modal fn-popup--hidden"><div class="fn-popup__overlay"></div><div class="fn-popup__content-container">  <div class="fn-popup__close"></div><div class="fn-popup__content fn-popup__content--1"><div class="fn-popup__text"><h2 class="fn-popup__text--headline">Download the Cheat Sheet<span class="fn-popup__text--tag">Free</span></h2><p class="fn-popup__text--subline">Get 8 of our most popuplar Cheat Sheets in one handy ZIP!</p><span class="fn-popup__image"><img src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/cheat-sheet-git2x.png"></span></div><div class="fn-popup__input">  <form class="fn-popup__newsletter-form analytics--submit" autocomplete="off">    <input type="hidden" name="action" value="subscribe">    <input type="hidden" name="format" value="json">    <input type="hidden" name="listName" value="tower">    <input type="hidden" name="signup[medium]" value="learn-website">    <input type="hidden" name="signup[URI]" value="fn-signup-popup_incentive_cheatpackage">    <input type="hidden" name="signup[OS]" value="other">    <input type="hidden" name="signupForm" value="7"><div class="newsletter-form__groups"><div class="row"><label><input class="signup-tag__item consent__text" type="checkbox" name="tags[]" value="tower_newsletter" id="signup-tag__tower_newsletter" data-required="true">Yes,
+ send me the package and sign me up for the Tower newsletter. It's free,
+ it's sent infrequently, you can unsubscribe any time - and it's loved 
+by over <b>100,000 developers &amp; designers</b>!</label></div><div class="row" style="display:none;"><label><input class="signup-tag__item" type="checkbox" name="tags[]" value="incentive_cheatpackage" id="signup-tag__incentive_cheatpackage" checked="checked" data-required=""></label></div></div><div class="newsletter-form__consent"><label><input type="checkbox" id="consent--legal" class="consent__item consent__text" data-required="true">I have read and accept the <a href="https://www.git-tower.com/legal/privacy-policy" target="_blank">Privacy Policy</a>. <br>I understand that I can unsubscribe at any time.</label></div><div class="newsletter-form__submit"><input type="text" name="email" placeholder="Email Address"><input type="submit" value="Get the Package" class="fn-popup__button--signup"></div>    <div class="request-notice"></div>  </form></div></div><div class="fn-popup__content fn-popup__content--2"><div class="fn-popup__text"><h2 class="fn-popup__text--headline">Thanks! Please Check Your Inbox!</h2><p class="fn-popup__text--subline">Want to win one of our awesome Tower shirts?<br><b>Tell your friends about the package!</b></p><span class="fn-popup__image"><img src="git%20stash%20-%20How%20to%20Save%20Your%20Changes%20Temporarily_files/tower-shirts2x.png" width="360"></span></div><a class="fn-popup__button fn-popup__button--tweet analytics--click">Share on Twitter</a><div class="fn-popup__footer">We'll pick 4 winners every month who share this tweet!<br>Follow <a href="http://www.twitter.com/gittower" target="_blank">@gittower</a> to be notified if you win!</div></div></div></div><div id="fn-popup-git-webinar-welcomemat" class="fn-popup fn-popup--welcome-mat fn-popup--hidden"><div class="fn-popup__overlay"></div><div class="fn-popup__close"></div><div class="fn-popup__content-container"><div class="fn-popup__content fn-popup__content--1"><div class="fn-popup__text"><h2 class="fn-popup__text--headline">17 Ways to <b>Undo Mistakes</b> in Git with Tower!</h2><p class="fn-popup__text--subline">Get a spot on our popular, 1-hour <b>live webinar</b> and learn how to roll back, revert, and generally undo almost any mistakes in Git. We'll be using <a href="https://www.git-tower.com/" target="_blank">Tower</a>, the popular Git desktop client, to make undoing things in Git easy as pie!<br><br>The webinar is <b>free</b>, but <b>seats are limited</b>!</p></div><a class="fn-popup__button fn-popup__button--link analytics--click">Learn More</a></div></div></div></body></html>

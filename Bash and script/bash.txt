@@ -1,0 +1,93 @@
+Sample Input
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+Sample Output
+Namibia Nauru Nepal Netherlands NewZealand Nicaragua Niger Nigeria NorthKorea Norway
+
+
+                                                                            declare -a array
+									    array=($(cat))
+									    i=0 
+									    for array[i] in array
+									    do
+										    k=0
+										    while k<${#array[i]} 
+										    do
+										      if [ ${array[i]:k:k+1}!=$a -o ${array[i]:k:k+1}!=$A ]
+										      then ((k+=1))
+										      fi
+										    done
+									    if[ $k -lt ${#array[i]}+1 ]
+									    then
+									      echo ${array[i]:i:i+1}
+									    fi
+									    ((i+=1))
+		                                                            done
+i=0							                      
+while read line
+do
+array[$i]=$line
+((i+=1))
+done
+echo ${array[@]}
+
+
+a=($(cat))
+echo ${a[@]}
+
+
+
+define -a array
+array=($(cat))
+echo ${array[3]}
+
+
+
+From the given list, remove the names that contain 'a' or 'A' in them. If there are no names left after removing these characters, you should display a blank line.
+
+Sample Input
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+Sample Output
+Niger
+
+arr=($(cat))
+echo ${arr[@]/*[aA]*/}
+
+
+
+Sample Input
+Namibia
+Nauru
+Nepal
+Netherlands
+NewZealand
+Nicaragua
+Niger
+Nigeria
+NorthKorea
+Norway
+
+Sample Output
+.amibia .auru .epal .etherlands .ewZealand .icaragua .iger .igeria .orthKorea .orway
+
+readarray ary 
+echo ${array[@]/[A-Za-z]/.}

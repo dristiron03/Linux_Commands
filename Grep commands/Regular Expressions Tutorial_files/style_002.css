@@ -1,0 +1,312 @@
+body {
+	/*padding-top: 71px;*/
+	padding-bottom: 0px;
+}
+
+h1:after {
+	content: ' of 4';
+	color: #666;
+	font-size: 20px;
+	font-weight: 100;
+}
+
+h1.introduction:after {
+	content: '';
+}
+
+.jumbotron {
+	background-color: #eb9682;
+	background: url('../../img/round/search_128.png') no-repeat #eb9682;
+	background-position: right 0px bottom -25px;
+	color: #efefef;
+}
+
+#sidebox.affix {
+	top: 70px;
+}
+
+
+/* Regex stuff */
+
+.regex {
+	font-weight: bold;
+	color: #555;
+	border-top: 2px solid #aaa;
+	border-bottom: 2px solid #aaa;
+	margin: 20px 0px 20px 0px;
+	padding: 20px 3px 20px 48px;
+	background-color: #c5e2ff;
+}
+
+.regtext {
+	background-color: #fff;
+	-webkit-box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8);
+	box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8);
+	position: relative;
+	border: 1px solid #000;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 40px 10px 10px 10px;
+	margin: 20px 0px 20px 0px;
+}
+
+.regtext div {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border-right: 1px solid #444;
+	border-bottom: 1px solid #444;
+	border-bottom-right-radius: 4px;
+	border-top-left-radius: 5px;
+	background-color: #fff;
+	color: #64b0ff;
+	font-weight: bold;
+	padding: 4px 20px 4px 10px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.regtext span {
+	background-color: #c5e2ff;
+}
+
+.regex-trigger {
+	background-color: #d4ffd3;
+}
+
+.regex-section {
+	background-color: #ffffe2;
+}
+
+
+/* Mechanism example */
+
+#mechanism-example {
+	background-color: #fff;
+	-webkit-box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8);
+	box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8);
+	position: relative;
+	border: 1px solid #000;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding: 40px 10px 10px 10px;
+	margin: 20px 0px 20px 0px;
+}
+
+#mechanism-example-looking-for {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	border-right: 1px solid #444;
+	border-bottom: 1px solid #444;
+	border-bottom-right-radius: 4px;
+	border-top-left-radius: 5px;
+	background-color: #fff;
+	color: #64b0ff;
+	font-weight: bold;
+	padding: 4px 20px 4px 10px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+#mechanism-example-comment {
+	margin: 10px 0px 10px 0px;
+	color: #aaa;
+	font-style: italic;
+}
+
+#mechanism-example-buttons {
+	margin: 19px 0px 10px 0px;
+}
+
+#mechanism-example-button-back {
+	margin-right: 10px;
+}
+
+#mechanism-example-looking-for span {
+	background-color: #cfc;
+}
+
+#mechanism-example-looking-for span.nomatch {
+	background-color: #fcc;
+}
+
+#mechanism-example-string {
+	font-size: 24px;
+	padding: 10px 0px 10px 0px;
+}
+
+#mechanism-example-string span.pointer {
+	border-left: 2px solid #f99;
+}
+
+#mechanism-example-string span.match {
+	background-color: #cfc;
+}
+
+#mechanism-example-string span.nomatch {
+	background-color: #fcc;
+}
+
+
+
+
+/* Script File */
+
+.page {
+	background-color: #fff;
+	-webkit-box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8), 40px 0 0 #FBFBFC inset, 41px 0 0 #ECECF0 inset;
+	box-shadow:  3px 3px 15px 2px rgba(150, 150, 150, 0.8), 40px 0 0 #FBFBFC inset, 41px 0 0 #ECECF0 inset;
+	position: relative;
+	min-height: 60px;
+	border: 1px solid #000;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	padding-bottom: 30px;
+	font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+	margin: 20px 0px 20px 0px;
+}
+
+.page:after {
+	content: '';
+	text-align: right;
+	background: #ccc;
+	background: linear-gradient(to bottom, #fff 0%, #ccc 100%);
+	display: block;
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
+	height: 15px;
+	border-radius: 0 0 5px 5px;
+}
+
+.page h4 {
+	text-align: center;
+	background-color: #5ea1b3;
+	display: block;
+	font-weight: normal;
+	font-size: 14px;
+	line-height: 22px;
+	margin-top: 10px;
+}
+
+.page pre, .browser pre {
+	background: none;
+	border: none;
+	font-size: inherit;
+	padding: 0px;
+	margin: 0px;
+}
+
+.page ol {
+	margin: 0 0 0 33px;
+	padding: 0px;
+	padding-left: 7px;
+}
+
+.page li {
+	line-height: 20px;
+	padding-left: 8px;
+	border-bottom: 1px solid #d8f2fb;
+}
+
+.css-page h4 {
+	background-color: #81b23b;
+}
+
+.tab1, .tab2, .tab3, .tab4 {
+	display: inline-block;
+}
+
+
+/* cheat sheet styles */
+
+
+.sectioncontainer {
+	float: left;
+	width: 10%;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	margin: 5px;
+	position: relative;
+	
+}
+
+.sectioncontainer > h4 {
+	margin: 0px;
+	border-radius: 3px 0px 3px 0px;
+	border-right: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	display: inline-block;
+	padding: 5px 15px;
+	background-color: #f6f6f6;
+}
+
+.sectioncontainer > dl {
+	margin: 15px;
+	margin-top: 0px;
+}
+
+.sectioncontainer > dl > dt {
+	margin-top: 15px;
+}
+
+.toggle-section {
+	position: absolute;
+	top: 6px;
+	right: 10px;
+}
+
+.cheatsheetcolumns {
+	float: left;
+	position: relative;
+	margin-right: 10px;
+	width: 0px;
+}
+
+.toggle-section:hover {
+	cursor: pointer;
+}
+
+@media (min-width: 1400px) {
+	.sectioncontainer {
+		width: 24%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 24%;
+	}
+}
+
+@media (min-width: 1100px) and (max-width: 1399px) {
+	.sectioncontainer {
+		width: 30%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 30%;
+	}
+	
+	#cheatsheetcolumn3 {
+	display: none;
+	}
+}
+
+@media (max-width: 1100px) {
+	.sectioncontainer {
+		width: 48%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 48%;
+	}
+}
+
+@media (max-width: 767px) {
+	.sectioncontainer {
+		width: 97%;
+	}
+	
+	.cheatsheetcolumns {
+		width: 97%;
+	}
+} 
+
